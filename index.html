@@ -383,7 +383,85 @@
         .modal-footer {
             padding: 10px 15px;
         }
-        
+        /* Dashboard Styles */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .dashboard-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .dashboard-date-range {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .summary-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .summary-card-title {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+        .summary-card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .line-monitoring-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+        .line-monitoring-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .line-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 600px; /* Ensure horizontal scroll */
+        }
+        .line-table th,
+        .line-table td {
+            padding: 8px 6px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+        .line-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        .line-table td {
+            background-color: var(--card-bg);
+        }
+        .line-table tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
         /* Custom Alert Styles */
         .custom-alert-overlay {
             position: fixed;
@@ -470,6 +548,11 @@
             border: 1px solid #ddd;
             color: #333;
         }
+        /* Shift separation styles */
+        .shift-separator {
+            background-color: #e9ecef !important;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -507,7 +590,7 @@
     <div id="homePage" class="page">
         <!-- App Header -->
         <header class="app-header">
-            <div class="app-header-title">Data Produksi</div>
+            <div class="app-header-title">Dashboard Produksi</div>
             <div class="user-section">
                 <div class="user-avatar" id="homeUserAvatar">U</div>
                 <button class="logout-btn" id="homeLogoutBtn">
@@ -517,6 +600,35 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="dashboard-title">Ringkasan Produksi</div>
+                <div class="dashboard-date-range" id="dashboardDateRange">1 - 31 Januari 2023</div>
+            </div>
+            
+
+
+
+
+
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-card-title">Total Produksi</div>
+                    <div class="summary-card-value" id="totalProduction">0</div>
+                    <div class="summary-card-title">pcs</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-card-title">Total Loading Time</div>
+                    <div class="summary-card-value" id="totalLoadingTime">0</div>
+                    <div class="summary-card-title">menit</div>
+                </div>
+            </div>
+            
+
+
+            
             <!-- Filter Section -->
             <section class="filter-section">
                 <h2 class="section-title">Filter Data</h2>
@@ -530,9 +642,31 @@
                     </button>
                 </div>
             </section>
+
+
+
+            <!-- Line Monitoring Section -->
+            <section class="line-monitoring-section">
+                <h2 class="line-monitoring-title">Monitoring Line Produksi</h2>
+                <div style="overflow-x: auto;">
+                    <table class="line-table">
+                        <thead>
+                            <tr id="tableHeader">
+                                <!-- Header will be generated dynamically -->
+                            </tr>
+                        </thead>
+                        <tbody id="lineTableBody">
+                            <!-- Data rows will be generated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+
+            
             <!-- Data List Section -->
             <section class="data-section">
-                <h2 class="section-title">Data Produksi</h2>
+                <h2 class="section-title">Data Produksi Terbaru</h2>
                 <div id="dataContainer">
                     <div class="no-data" id="noDataMessage">
                         <i class="bi bi-clipboard-data"></i>
@@ -607,7 +741,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="group" class="form-label">Group</label>
-                            <input type="text" class="form-control" id="group" required>
+                            <select class="form-select" id="group" required>
+                                <option value="" selected disabled>Pilih Group</option>
+                                <option value="PG-1">PG-1</option>
+                                <option value="PG-2.1">PG-2.1</option>
+                                <option value="PG-2.2">PG-2.2</option>
+                                <option value="PG-2.3">PG-2.3</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="shift" class="form-label">Shift</label>
@@ -623,11 +763,11 @@
                             <input type="number" class="form-control" id="aktualMontiv" required>
                         </div>
                         <div class="mb-3">
-                            <label for="sigmaProduksi" class="form-label">Total Produksi</label>
+                            <label for="sigmaProduksi" class="form-label">Sigma Produksi</label>
                             <input type="number" step="any" class="form-control" id="sigmaProduksi" required>
                         </div>
                         <div class="mb-3">
-                            <label for="sigmaOP" class="form-label">Total OP</label>
+                            <label for="sigmaOP" class="form-label">Sigma OP</label>
                             <input type="number" step="any" class="form-control" id="sigmaOP" required>
                         </div>
                         <div class="mb-3">
@@ -714,24 +854,6 @@
             </a>
         </nav>
     </div>
-    
-    <!-- Custom Alert -->
-    <div class="custom-alert-overlay" id="customAlert">
-        <div class="custom-alert">
-            <div class="custom-alert-header">
-                <div class="custom-alert-title" id="alertTitle">Konfirmasi</div>
-                <button class="custom-alert-close">&times;</button>
-            </div>
-            <div class="custom-alert-body" id="alertMessage">
-                Apakah Anda yakin ingin melanjutkan?
-            </div>
-            <div class="custom-alert-footer">
-                <button class="custom-alert-btn custom-alert-btn-cancel" id="alertCancelBtn">Batal</button>
-                <button class="custom-alert-btn custom-alert-btn-confirm" id="alertConfirmBtn">OK</button>
-            </div>
-        </div>
-    </div>
-    
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -747,6 +869,22 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Custom Alert -->
+    <div class="custom-alert-overlay" id="customAlert">
+        <div class="custom-alert">
+            <div class="custom-alert-header">
+                <div class="custom-alert-title" id="alertTitle">Konfirmasi</div>
+                <button class="custom-alert-close">&times;</button>
+            </div>
+            <div class="custom-alert-body" id="alertMessage">
+                Apakah Anda yakin ingin melanjutkan?
+            </div>
+            <div class="custom-alert-footer">
+                <button class="custom-alert-btn custom-alert-btn-cancel" id="alertCancelBtn">Batal</button>
+                <button class="custom-alert-btn custom-alert-btn-confirm" id="alertConfirmBtn">OK</button>
             </div>
         </div>
     </div>
@@ -801,6 +939,11 @@
         const currentMonth = document.getElementById('currentMonth');
         const prevMonth = document.getElementById('prevMonth');
         const nextMonth = document.getElementById('nextMonth');
+        const dashboardDateRange = document.getElementById('dashboardDateRange');
+        const totalProduction = document.getElementById('totalProduction');
+        const totalLoadingTime = document.getElementById('totalLoadingTime');
+        const tableHeader = document.getElementById('tableHeader');
+        const lineTableBody = document.getElementById('lineTableBody');
         // Input Page Elements
         const inputPageTitle = document.getElementById('inputPageTitle');
         const inputUserAvatar = document.getElementById('inputUserAvatar');
@@ -901,18 +1044,112 @@
             const options = { year: 'numeric', month: 'long' };
             return date.toLocaleDateString('id-ID', options);
         }
+        // Format date range for dashboard (1st to last day of current month)
+        function formatDateRange() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            
+            const options = { day: 'numeric', month: 'long' };
+            dashboardDateRange.textContent = `${firstDay.getDate()} - ${lastDay.getDate()} ${firstDay.toLocaleDateString('id-ID', options)} ${year}`;
+        }
         // Update month display
         function updateMonthDisplay() {
             currentMonth.textContent = formatMonth(currentDate);
         }
+        // Calculate dashboard statistics
+        function calculateDashboardStats(dataList) {
+            // Total production
+            const totalProd = dataList.reduce((sum, data) => sum + data.aktualMontiv, 0);
+            totalProduction.textContent = totalProd.toLocaleString();
+            
+            // Total loading time
+            const totalLoadTime = dataList.reduce((sum, data) => sum + data.loadingTime, 0);
+            totalLoadingTime.textContent = totalLoadTime.toLocaleString();
+        }
+        // Generate line monitoring table
+        function generateLineMonitoringTable(dataList) {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            
+            // Create date headers
+            let headerHTML = '<th>Line Produksi</th>';
+            for (let day = 1; day <= daysInMonth; day++) {
+                headerHTML += `<th>${day}</th>`;
+            }
+            tableHeader.innerHTML = headerHTML;
+            
+            // Group data by line, date, and shift
+            const lineData = {};
+            dataList.forEach(data => {
+                const line = data.namaLineProduksi;
+                const date = new Date(data.tanggal);
+                const day = date.getDate();
+                const shift = data.shift;
+                
+                if (!lineData[line]) {
+                    lineData[line] = {};
+                }
+                if (!lineData[line][day]) {
+                    lineData[line][day] = { '1': 0, '2': 0 };
+                }
+                lineData[line][day][shift] += data.aktualMontiv;
+            });
+            
+            // Generate table rows
+            const lineNames = [
+                'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+            ];
+            
+            let tableRowsHTML = '';
+            lineNames.forEach(lineName => {
+                // Shift 1 row
+                let shift1RowHTML = `<tr><td>${lineName} (Shift 1)</td>`;
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const data = lineData[lineName] && lineData[lineName][day];
+                    if (data && data['1'] > 0) {
+                        shift1RowHTML += `<td>${data['1']}</td>`;
+                    } else {
+                        shift1RowHTML += '<td>-</td>';
+                    }
+                }
+                shift1RowHTML += '</tr>';
+                tableRowsHTML += shift1RowHTML;
+                
+                // Shift 2 row
+                let shift2RowHTML = `<tr><td>${lineName} (Shift 2)</td>`;
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const data = lineData[lineName] && lineData[lineName][day];
+                    if (data && data['2'] > 0) {
+                        shift2RowHTML += `<td>${data['2']}</td>`;
+                    } else {
+                        shift2RowHTML += '<td>-</td>';
+                    }
+                }
+                shift2RowHTML += '</tr>';
+                tableRowsHTML += shift2RowHTML;
+                
+                // Separator row
+                tableRowsHTML += '<tr class="shift-separator"><td colspan="' + (daysInMonth + 1) + '"></td></tr>';
+            });
+            
+            lineTableBody.innerHTML = tableRowsHTML;
+        }
         // Fetch data from Firestore
         async function fetchData() {
             try {
-                // Calculate start and end of month
+                // Calculate start and end of current month
                 const year = currentDate.getFullYear();
                 const month = currentDate.getMonth();
                 const startDate = new Date(year, month, 1);
                 const endDate = new Date(year, month + 1, 0, 23, 59, 59);
+                
                 // Query data for the current month
                 const q = query(
                     collection(db, "produksiData"),
@@ -925,10 +1162,16 @@
                 querySnapshot.forEach((doc) => {
                     dataList.push({ id: doc.id, ...doc.data() });
                 });
+                
+                // Update dashboard
+                calculateDashboardStats(dataList);
+                generateLineMonitoringTable(dataList);
+                
+                // Render recent data list
                 renderData(dataList);
             } catch (error) {
-                console.error("Error fetching data: ", error);
-                showAlert('Error', 'Gagal memuat data: ' + error.message);
+                console.error("Error fetching  ", error);
+                showAlert('Error', 'Gagal memuat  ' + error.message);
             }
         }
         // Render data to UI
@@ -941,7 +1184,9 @@
             }
             noDataMessage.style.display = 'none';
             dataContainer.innerHTML = '';
-            dataList.forEach(data => {
+            // Show only the 5 most recent entries
+            const recentData = dataList.slice(0, 5);
+            recentData.forEach(data => {
                 const dataCard = document.createElement('div');
                 dataCard.className = 'data-card';
                 dataCard.innerHTML = `
@@ -962,7 +1207,7 @@
                         <span class="data-value">${data.aktualMontiv} pcs</span>
                     </div>
                     <div class="data-item">
-                        <span class="data-label">Total Produksi:</span>
+                        <span class="data-label">Sigma Produksi:</span>
                         <span class="data-value">${data.sigmaProduksi}</span>
                     </div>
                     <div class="data-item">
@@ -1028,7 +1273,7 @@
                 }
             } catch (error) {
                 console.error("Error getting document: ", error);
-                showAlert('Error', 'Gagal mengambil data: ' + error.message);
+                showAlert('Error', 'Gagal mengambil  ' + error.message);
             }
         }
         // Show delete confirmation
@@ -1047,7 +1292,7 @@
                 showAlert('Sukses', 'Data berhasil dihapus!');
             } catch (error) {
                 console.error("Error deleting document: ", error);
-                showAlert('Error', 'Gagal menghapus data: ' + error.message);
+                showAlert('Error', 'Gagal menghapus  ' + error.message);
             }
         }
         // Update part options based on selected line
@@ -1184,6 +1429,7 @@
                 showPage('homePage');
                 fetchData();
                 updateMonthDisplay();
+                formatDateRange();
             } else {
                 currentUser = null;
                 showPage('loginPage');
@@ -1273,11 +1519,13 @@
         prevMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             updateMonthDisplay();
+            formatDateRange();
             fetchData();
         });
         nextMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() + 1);
             updateMonthDisplay();
+            formatDateRange();
             fetchData();
         });
         // Input form event listeners
@@ -1332,6 +1580,7 @@
         confirmDeleteBtn.addEventListener('click', deleteData);
         // Initialize
         updateMonthDisplay();
+        formatDateRange();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
