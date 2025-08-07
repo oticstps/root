@@ -1,14 +1,1425 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="#" type="#" href="#" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MONITORING KANRIBAN PRODUKSI</title>
-    <script type="module" crossorigin src="/root/assets/index-BlSbZL8a.js"></script>
-    <link rel="stylesheet" crossorigin href="/root/assets/index-D1O0p0ki.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monitoring Produksi - PT Otics Indonesia</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --sidebar-bg: #0d47a1; /* Darker blue for sidebar */
+            --sidebar-text: #e3f2fd; /* Light blue text */
+            --sidebar-hover: #1565c0; /* Hover color */
+            --sidebar-active: #0d47a1; /* Active color */
+            --otics-blue-light: #bbdefb; /* Light blue base */
+            --otics-blue-medium: #90caf9;
+            --otics-blue-dark: #64b5f6;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition-speed: 0.3s;
+            --header-height: 60px;
+            --footer-height: 60px;
+        }
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            padding: 0;
+            background-color: #e3f2fd; /* Light blue background */
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: var(--header-height);
+            padding-bottom: var(--footer-height);
+        }
+        /* Header Styles */
+        .header-bar {
+            background: linear-gradient(135deg, #0d47a1, #1976d2); /* Blue gradient */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1040;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+        }
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 70%;
+        }
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0d47a1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .header-bar h4 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #loginSection, #userInfoSection {
+            display: none;
+        }
+        #userInfoSection {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        /* Centered Login Styles */
+        #centeredLoginContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        #centeredLoginForm {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .login-header h3 {
+            color: #0d47a1;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .login-header p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .password-toggle:hover {
+            color: #0d6efd;
+        }
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: #64b5f6;
+            box-shadow: 0 0 0 0.25rem rgba(100, 181, 246, 0.25);
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-login:hover {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .forgot-password a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        /* Enhanced Alert Styles */
+        .custom-alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            0% { transform: translateX(20px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        .custom-alert .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .custom-alert .alert-content {
+            flex-grow: 1;
+        }
+        .custom-alert .alert-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 1rem;
+        }
+        .custom-alert .alert-message {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .alert-success {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #0c5460;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #721c24;
+        }
+        .alert-info {
+            background-color: #cce5ff;
+            color: #004085;
+            border-left: 4px solid #004085;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #856404;
+        }
+        /* Sidebar Styles */
+        #sidebar {
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 80%;
+            max-width: 280px;
+            background: linear-gradient(160deg, var(--sidebar-bg), #1565c0);
+            color: var(--sidebar-text);
+            overflow-y: hidden;
+            padding-top: 15px;
+            z-index: 1000;
+            transition: transform var(--transition-speed) ease-in-out;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        #sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        .sidebar-header {
+            padding: 15px 15px 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+        .sidebar-header h6 {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+        #sidebarSearch {
+            background-color: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        #sidebarSearch::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        #sidebarSearch:focus {
+            background-color: rgba(255,255,255,0.25);
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+            color: white;
+            border-color: rgba(255,255,255,0.4);
+        }
+        .sidebar-content {
+            height: calc(100% - 80px);
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .sidebar-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+        #lineList {
+            padding: 0;
+            margin: 0;
+        }
+        #lineList .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 12px 15px;
+            border-radius: 0;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            margin: 2px 0;
+            display: flex;
+            align-items: center;
+        }
+        #lineList .nav-link i {
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        #lineList .nav-link:hover {
+            color: #fff;
+            background-color: var(--sidebar-hover);
+            border-left: 3px solid var(--otics-blue-dark);
+        }
+        #lineList .nav-link.active {
+            color: #fff;
+            background-color: rgba(13, 71, 161, 0.5);
+            border-left: 3px solid white;
+            font-weight: 500;
+        }
+        /* Main Content Styles */
+        #main-content {
+            margin-left: 0;
+            padding: 15px;
+            width: 100%;
+            transition: margin-left var(--transition-speed) ease-in-out, width var(--transition-speed) ease-in-out;
+            flex: 1;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .form-title {
+            color: #0d47a1;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        .form-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--otics-blue-medium), var(--otics-blue-dark));
+            border-radius: 2px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #cfd8dc;
+            padding: 12px 15px;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #64b5f6;
+            box-shadow: 0 0 0 0.25rem rgba(100, 181, 246, 0.25);
+        }
+        .input-group-text {
+            background-color: #e3f2fd;
+            border: 1px solid #cfd8dc;
+            border-radius: 10px 0 0 10px;
+            padding: 12px 15px;
+        }
+        .input-group .form-control {
+            border-radius: 0 10px 10px 0;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 110, 253, 0.35);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .btn-primary:disabled {
+            background: #90a4ae;
+            opacity: 0.8;
+            box-shadow: none;
+            transform: none;
+        }
+        /* Toggle Button */
+        #sidebarToggle {
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1050;
+            flex-shrink: 0;
+        }
+        #sidebarToggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: calc(var(--header-height) + 10px);
+            right: 15px;
+            z-index: 1100;
+            width: calc(100% - 30px);
+            max-width: 350px;
+        }
+        .toast {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        /* Footer Styles - Fixed at bottom */
+        footer {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+            padding: 0;
+            margin-top: auto;
+            width: 100%;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--footer-height);
+            z-index: 1030;
+        }
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-nav .nav-item {
+            flex: 1;
+            height: 100%;
+        }
+        .footer-nav .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 10px 5px;
+            transition: all 0.2s ease;
+            border-radius: 0;
+            margin: 0;
+            font-weight: 500;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        .footer-nav .nav-link i {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+        .footer-nav .nav-link:hover, .footer-nav .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        /* Section divider */
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--otics-blue-medium), transparent);
+            margin: 20px 0;
+        }
+        /* Section title */
+        .section-title {
+            color: #1565c0;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 15px;
+            font-size: 1.2rem;
+        }
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--otics-blue-medium), var(--otics-blue-dark));
+            border-radius: 2px;
+        }
+        /* Form group spacing */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            bottom: var(--footer-height);
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            display: none;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 350px) {
+            .header-bar h4 {
+                font-size: 1rem;
+            }
+            .footer-nav .nav-link {
+                font-size: 0.7rem;
+            }
+        }
+        @media (min-width: 768px) {
+            body {
+                padding-top: 70px;
+                padding-bottom: 70px;
+            }
+            .header-bar {
+                padding: 12px 20px;
+                height: 70px;
+            }
+            .header-bar h4 {
+                font-size: 1.4rem;
+            }
+            #sidebar {
+                height: calc(100vh - 70px - 70px);
+            }
+            .toast-container {
+                top: 90px;
+                right: 25px;
+            }
+            .form-container {
+                padding: 30px;
+            }
+            .form-title {
+                font-size: 1.7rem;
+                margin-bottom: 30px;
+            }
+            .footer-nav .nav-link {
+                font-size: 0.9rem;
+            }
+            .footer-nav .nav-link i {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Report Styles */
+        #report-content {
+            margin-left: 0;
+            padding: 15px;
+            width: 100%;
+            transition: margin-left var(--transition-speed) ease-in-out, width var(--transition-speed) ease-in-out;
+            flex: 1;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .table-responsive {
+            max-height: calc(100vh - var(--header-height) - var(--footer-height) - 250px); /* Adjust based on filter height */
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+        }
+        .table-responsive thead th {
+            position: sticky;
+            top: 0;
+            background-color: #bbdefb; /* Light blue background for header */
+            z-index: 10;
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(100, 181, 246, 0.1);
+        }
+        #noDataMessage {
+            padding: 2rem;
+        }
+        #noDataMessage i {
+            font-size: 3rem;
+            color: #90a4ae;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Bar for Login/User Info -->
+    <header class="header-bar">
+        <div class="d-flex align-items-center">
+            <button id="sidebarToggle" class="btn btn-primary">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="brand-title">
+                <div class="brand-logo">O</div>
+                <h4>PT Otics Indonesia</h4>
+            </div>
+        </div>
+        <div id="loginSection">
+            <button id="showLoginBtn" class="btn btn-light btn-sm" style="padding: 5px 15px; font-size: 0.9rem;">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+        </div>
+        <div id="userInfoSection">
+            <div class="user-badge">
+                <i class="bi bi-person-circle"></i>
+                <span id="loggedInUser" style="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+            </div>
+            <button id="logoutBtn" class="btn btn-outline-light btn-sm" style="padding: 5px 10px;">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
+    </header>
+    <!-- Centered Login Modal -->
+    <div id="centeredLoginContainer">
+        <div id="centeredLoginForm">
+            <div class="login-header">
+                <h3>Selamat Datang</h3>
+                <p>Silakan login untuk melanjutkan</p>
+            </div>
+            <div id="loginAlertContainer"></div>
+            <form id="centeredLoginFormElement">
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                        <input type="email" id="centeredUsername" class="form-control" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="password-container input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                        <input type="password" id="centeredPassword" class="form-control" placeholder="Password" required>
+                        <button type="button" class="password-toggle" id="centeredTogglePassword">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-login">
+                    <span id="loginBtnText">Login</span>
+                    <span id="loginBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                </button>
+            </form>
+            <div class="forgot-password">
+                <a href="#"><i class="bi bi-question-circle"></i> Lupa Password?</a>
+            </div>
+        </div>
+    </div>
+    <!-- Sidebar Overlay (for mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Sidebar -->
+    <div id="sidebar" class="d-flex flex-column hidden">
+        <div class="sidebar-header">
+            <h6 class="mb-0">Line Produksi</h6>
+            <input type="text" id="sidebarSearch" class="form-control mt-2" placeholder="Cari line produksi...">
+        </div>
+        <div class="sidebar-content">
+            <ul class="nav flex-column" id="lineList">
+                <!-- Line items will be populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+    <!-- Main Content -->
+    <div id="main-content">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-12 h-100 d-flex flex-column">
+                    <div class="form-container flex-grow-1">
+                        <h2 class="form-title">Input Data Produksi</h2>
+                        <form id="productionForm">
+                            <div class="form-group mb-4">
+                                <label for="namaLineProduksi" class="form-label">Line Produksi <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-diagram-3"></i></span>
+                                    <input type="text" class="form-control" id="namaLineProduksi" required readonly placeholder="Pilih dari sidebar">
+                                </div>
+                                <div class="form-text text-muted">Sentuh ikon menu untuk memilih line</div>
+                                <div class="invalid-feedback">Silakan pilih line produksi.</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label for="namaPart" class="form-label">Nama Part <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-gear"></i></span>
+                                            <input type="text" class="form-control" id="namaPart" required placeholder="Masukkan nama part">
+                                        </div>
+                                        <div class="invalid-feedback">Nama part wajib diisi.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-4">
+                                        <label for="tanggal" class="form-label">Tanggal <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-calendar"></i></span>
+                                            <input type="date" class="form-control" id="tanggal" required>
+                                        </div>
+                                        <div class="invalid-feedback">Tanggal wajib diisi.</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-4">
+                                        <label for="group" class="form-label">Group <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-people"></i></span>
+                                            <input type="text" class="form-control" id="group" required placeholder="Group">
+                                        </div>
+                                        <div class="invalid-feedback">Group wajib diisi.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="section-divider">
+                            <h4 class="section-title">Parameter Produksi</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-4">
+                                        <label for="sigmaProduksi" class="form-label">Sigma Produksi <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-speedometer2"></i></span>
+                                            <input type="number" step="any" class="form-control" id="sigmaProduksi" required placeholder="Sigma">
+                                        </div>
+                                        <div class="invalid-feedback">Wajib diisi.</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-4">
+                                        <label for="sigmaOP" class="form-label">Sigma OP <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-speedometer"></i></span>
+                                            <input type="number" step="any" class="form-control" id="sigmaOP" required placeholder="Sigma">
+                                        </div>
+                                        <div class="invalid-feedback">Wajib diisi.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="loadingTime" class="form-label">Loading Time (menit) <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-clock"></i></span>
+                                    <input type="number" step="any" class="form-control" id="loadingTime" required placeholder="Menit">
+                                </div>
+                                <div class="invalid-feedback">Wajib diisi.</div>
+                            </div>
+                            <hr class="section-divider">
+                            <h4 class="section-title">Waktu Tambahan</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-3">
+                                        <label for="lineStop" class="form-label">Line Stop</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-pause-btn"></i></span>
+                                            <input type="number" step="any" class="form-control" id="lineStop" placeholder="Menit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-3">
+                                        <label for="qualityCheck" class="form-label">Quality Check</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-clipboard-check"></i></span>
+                                            <input type="number" step="any" class="form-control" id="qualityCheck" placeholder="Menit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-3">
+                                        <label for="perbaikanMesin" class="form-label">Perbaikan</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-tools"></i></span>
+                                            <input type="number" step="any" class="form-control" id="perbaikanMesin" placeholder="Menit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-3">
+                                        <label for="dangae" class="form-label">Dangae</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="bi bi-exclamation-triangle"></i></span>
+                                            <input type="number" step="any" class="form-control" id="dangae" placeholder="Menit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                    <span id="submitBtnText"><i class="bi bi-save"></i> Simpan Data</span>
+                                    <span id="submitBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Content -->
+    <div id="report-content" class="container-fluid h-100 d-none">
+        <div class="row justify-content-center h-100">
+            <div class="col-12 h-100 d-flex flex-column">
+                <div class="form-container flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="form-title mb-0">Laporan Data Produksi</h2>
+                        <button id="backToInputBtn" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Kembali
+                        </button>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <label for="filterTanggal" class="form-label">Filter Tanggal</label>
+                                <input type="date" id="filterTanggal" class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filterLine" class="form-label">Filter Line</label>
+                                <select id="filterLine" class="form-control form-control-sm">
+                                    <option value="">Semua Line</option>
+                                    <!-- Options akan diisi oleh JS -->
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filterGroup" class="form-label">Filter Group</label>
+                                <input type="text" id="filterGroup" class="form-control form-control-sm" placeholder="Group">
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button id="applyFiltersBtn" class="btn btn-primary btn-sm w-100">Terapkan Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered align-middle">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Line Produksi</th>
+                                    <th>Nama Part</th>
+                                    <th>Tanggal</th>
+                                    <th>Group</th>
+                                    <th>Sigma Produksi</th>
+                                    <th>Sigma OP</th>
+                                    <th>Loading Time</th>
+                                    <th>Line Stop</th>
+                                    <th>Quality Check</th>
+                                    <th>Perbaikan</th>
+                                    <th>Dangae</th>
+                                    <th>Input By</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportTableBody">
+                                <!-- Data akan diisi oleh JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="noDataMessage" class="text-center text-muted mt-4 d-none">
+                        <i class="bi bi-database-x display-5"></i>
+                        <p class="mt-2">Tidak ada data yang ditemukan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer - Fixed at bottom -->
+    <footer>
+        <ul class="nav footer-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <i class="bi bi-house-door"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-file-earmark-bar-graph"></i>
+                    <span>Report</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="footerUserLink">
+                    <i class="bi bi-person"></i>
+                    <span>User</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEAmmyJxMriLaNBA4n8xEXtu1g91uv860",
+            authDomain: "coreengine-142ea.firebaseapp.com",
+            databaseURL: "https://coreengine-142ea-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "coreengine-142ea",
+            storageBucket: "coreengine-142ea.firebasestorage.app",
+            messagingSenderId: "890812454910",
+            appId: "1:890812454910:web:d0906c637e26017df052af",
+            measurementId: "G-3C9ZF4EXVM"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        // --- DOM Elements ---
+        const loginSection = document.getElementById('loginSection');
+        const userInfoSection = document.getElementById('userInfoSection');
+        const showLoginBtn = document.getElementById('showLoginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loggedInUserSpan = document.getElementById('loggedInUser');
+        const footerUserLink = document.getElementById('footerUserLink');
+        const mainContent = document.getElementById('main-content');
+        const reportContent = document.getElementById('report-content'); // New
+        const centeredLoginContainer = document.getElementById('centeredLoginContainer');
+        const centeredLoginForm = document.getElementById('centeredLoginFormElement');
+        const centeredUsername = document.getElementById('centeredUsername');
+        const centeredPassword = document.getElementById('centeredPassword');
+        const centeredTogglePassword = document.getElementById('centeredTogglePassword');
+        const loginBtnText = document.getElementById('loginBtnText');
+        const loginBtnSpinner = document.getElementById('loginBtnSpinner');
+        const loginAlertContainer = document.getElementById('loginAlertContainer');
+
+        // Report specific elements
+        const reportNavLink = document.querySelector('.footer-nav .nav-link[href="#"] .bi-file-earmark-bar-graph').parentElement; // Find Report link
+        const homeNavLink = document.querySelector('.footer-nav .nav-link[href="#"] .bi-house-door').parentElement; // Find Home link
+        const backToInputBtn = document.getElementById('backToInputBtn'); // New
+        const reportTableBody = document.getElementById('reportTableBody');
+        const noDataMessage = document.getElementById('noDataMessage');
+        const filterTanggal = document.getElementById('filterTanggal');
+        const filterLine = document.getElementById('filterLine');
+        const filterGroup = document.getElementById('filterGroup');
+        const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+
+        // Form elements
+        const form = document.getElementById('productionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const submitBtnSpinner = document.getElementById('submitBtnSpinner');
+        const toastContainer = document.querySelector('.toast-container');
+        const namaLineProduksiInput = document.getElementById('namaLineProduksi');
+        const lineList = document.getElementById('lineList');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarSearch = document.getElementById('sidebarSearch');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        let selectedLineLink = null;
+        let allProduksiData = []; // To store fetched data for filtering
+
+        // --- Data line produksi ---
+        const lineProduksiData = [
+            "Balance Shaft No 1", "Cam Cap", "Cam Cap 1a", "Cam Cap 1b", "Cam Cap 1c D05e",
+            "Cam Cap 1c Nr", "Cam Cap 2 2mp", "Cam Cap 2 3mp", "Cam Cap 2 3 D05e", "Cam Cap 2 4mp",
+            "Cam Cap 2 5mp", "Cam Cap 3 2mp", "Cam Cap 3 3mp", "Cam Cap 3 4mp", "Cam Cap 3 5mp",
+            "Cam Cap 4 2mp", "Cam Cap 4 3mp", "Cam Cap 4 4mp", "Cam Cap 4 5mp", "Cam Housing",
+            "Cam Housing A", "Cam Housing Assy", "Cam Housing Assy A", "Cam Housing Assy B",
+            "Cam Housing Assy C D05e", "Cam Housing Assy C Nr", "Cam Housing B", "Cam Housing C",
+            "Cam Housing D", "Cam Housing E D05e", "Cam Housing E Nr", "Common Rail 1", "Common Rail 2",
+            "Common Rail 3", "Common Rail 4", "Common Rail 5", "Common Rail 6", "Common Rail 7",
+            "Common Rail 8", "Common Rail 9", "Common Rail 10", "Common Rail 11", "Common Rail 12",
+            "Connector", "Drive Gear", "Housing", "Housing Inlet Tr", "Packing Imv", "Retainer", "Spacer Drive Gear"
+        ];
+
+        // --- Utility Functions ---
+        function showToast(message, isError = false) {
+            const toastEl = document.createElement('div');
+            toastEl.className = `toast align-items-center border-0 ${isError ? 'bg-danger' : 'bg-success'} text-white`;
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            toastEl.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastContainer.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+            toastEl.addEventListener('hidden.bs.toast', () => {
+                toastEl.remove();
+            });
+        }
+
+        function populateLineList(lines = lineProduksiData) {
+            lineList.innerHTML = '';
+            lines.forEach(line => {
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                const a = document.createElement('a');
+                a.className = 'nav-link';
+                a.href = '#';
+                a.innerHTML = `<i class="bi bi-chevron-right"></i>${line}`;
+                a.dataset.lineName = line;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (selectedLineLink) {
+                        selectedLineLink.classList.remove('active');
+                    }
+                    a.classList.add('active');
+                    selectedLineLink = a;
+                    namaLineProduksiInput.value = line;
+                    namaLineProduksiInput.classList.remove('is-invalid');
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.add('hidden');
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+                li.appendChild(a);
+                lineList.appendChild(li);
+            });
+        }
+
+        function filterLines() {
+            const searchTerm = sidebarSearch.value.toLowerCase();
+            const filteredLines = lineProduksiData.filter(line =>
+                line.toLowerCase().includes(searchTerm)
+            );
+            populateLineList(filteredLines);
+            if (namaLineProduksiInput.value && !filteredLines.includes(namaLineProduksiInput.value)) {
+                 if (selectedLineLink) {
+                    selectedLineLink.classList.remove('active');
+                    selectedLineLink = null;
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('hidden');
+            sidebarOverlay.classList.toggle('active');
+        }
+
+        function showLoginModal() {
+            centeredLoginContainer.style.display = 'flex';
+        }
+
+        function hideLoginModal() {
+            centeredLoginContainer.style.display = 'none';
+        }
+
+        function showLoginAlert(message, type = 'error') {
+            loginAlertContainer.innerHTML = '';
+            const alertTypes = {
+                'success': { icon: 'bi-check-circle-fill', title: 'Berhasil' },
+                'error': { icon: 'bi-exclamation-triangle-fill', title: 'Error' },
+                'info': { icon: 'bi-info-circle-fill', title: 'Informasi' },
+                'warning': { icon: 'bi-exclamation-circle-fill', title: 'Peringatan' }
+            };
+            const alertData = alertTypes[type] || alertTypes['error'];
+            const alertHtml = `
+                <div class="custom-alert alert-${type}">
+                    <div class="alert-icon">
+                        <i class="bi ${alertData.icon}"></i>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">${alertData.title}</div>
+                        <div class="alert-message">${message}</div>
+                    </div>
+                </div>
+            `;
+            loginAlertContainer.innerHTML = alertHtml;
+        }
+
+        function checkLoginStatus() {
+            const user = auth.currentUser;
+            if (user) {
+                loginSection.style.display = 'none';
+                userInfoSection.style.display = 'flex';
+                loggedInUserSpan.textContent = user.email.split('@')[0];
+                footerUserLink.innerHTML = `<i class="bi bi-person-check"></i><span>${user.email.split('@')[0]}</span>`;
+                mainContent.style.display = 'block';
+                reportContent.classList.add('d-none'); // Ensure report is hidden on login
+                hideLoginModal();
+            } else {
+                loginSection.style.display = 'block';
+                userInfoSection.style.display = 'none';
+                footerUserLink.innerHTML = '<i class="bi bi-person"></i><span>User</span>';
+                mainContent.style.display = 'none';
+                reportContent.classList.add('d-none'); // Ensure report is hidden if not logged in
+            }
+        }
+
+        function showMainContent() {
+            mainContent.style.display = 'block';
+            reportContent.classList.add('d-none');
+            // Update active nav link
+            homeNavLink.classList.add('active');
+            reportNavLink.classList.remove('active');
+        }
+
+        function showReportContent() {
+            mainContent.style.display = 'none';
+            reportContent.classList.remove('d-none');
+            // Update active nav link
+            homeNavLink.classList.remove('active');
+            reportNavLink.classList.add('active');
+            fetchAndDisplayReport(); // Fetch data when report is shown
+        }
+
+        // --- Report Functions ---
+        function populateFilterLineDropdown() {
+            filterLine.innerHTML = '<option value="">Semua Line</option>'; // Reset options
+            lineProduksiData.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line;
+                option.textContent = line;
+                filterLine.appendChild(option);
+            });
+        }
+
+        async function fetchAndDisplayReport(tanggalFilter = '', lineFilter = '', groupFilter = '') {
+            const user = auth.currentUser;
+            if (!user) {
+                showToast('Anda harus login terlebih dahulu.', true);
+                return;
+            }
+
+            try {
+                let q = query(collection(db, "produksiData"), orderBy("timestamp", "desc"));
+
+                // Apply filters if provided
+                if (tanggalFilter) {
+                     // Firestore stores dates as Timestamps or ISO strings. Assuming date input is 'YYYY-MM-DD'
+                     // We need to query for documents where the date part of timestamp matches.
+                     // A simple way is to use startAt and endAt with the date string.
+                     const startOfDay = new Date(tanggalFilter);
+                     startOfDay.setHours(0, 0, 0, 0);
+                     const endOfDay = new Date(tanggalFilter);
+                     endOfDay.setHours(23, 59, 59, 999);
+
+                     q = query(q, where("timestamp", ">=", startOfDay), where("timestamp", "<=", endOfDay));
+                }
+                if (lineFilter) {
+                    q = query(q, where("namaLineProduksi", "==", lineFilter));
+                }
+                if (groupFilter) {
+                    q = query(q, where("group", "==", groupFilter));
+                }
+
+                const querySnapshot = await getDocs(q);
+                allProduksiData = []; // Reset local data store
+                querySnapshot.forEach((doc) => {
+                    const data = { id: doc.id, ...doc.data() };
+                    // Format timestamp for display
+                    data.formattedTimestamp = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString('id-ID') : 'N/A';
+                    data.formattedDate = data.tanggal ? new Date(data.tanggal).toLocaleDateString('id-ID') : 'N/A';
+                    allProduksiData.push(data);
+                });
+
+                displayReportData(allProduksiData);
+
+            } catch (error) {
+                console.error("Error fetching report  ", error);
+                showToast(`Gagal memuat  ${error.message}`, true);
+                reportTableBody.innerHTML = ''; // Clear table on error
+                noDataMessage.classList.remove('d-none');
+            }
+        }
+
+        function displayReportData(dataArray) {
+            reportTableBody.innerHTML = '';
+            if (dataArray.length === 0) {
+                noDataMessage.classList.remove('d-none');
+                return;
+            }
+            noDataMessage.classList.add('d-none');
+
+            dataArray.forEach((data, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${data.namaLineProduksi || ''}</td>
+                    <td>${data.namaPart || ''}</td>
+                    <td>${data.formattedDate}</td>
+                    <td>${data.group || ''}</td>
+                    <td>${data.sigmaProduksi !== undefined ? data.sigmaProduksi.toFixed(2) : ''}</td>
+                    <td>${data.sigmaOP !== undefined ? data.sigmaOP.toFixed(2) : ''}</td>
+                    <td>${data.loadingTime !== undefined ? data.loadingTime.toFixed(2) : ''}</td>
+                    <td>${data.lineStop !== undefined ? data.lineStop.toFixed(2) : ''}</td>
+                    <td>${data.qualityCheck !== undefined ? data.qualityCheck.toFixed(2) : ''}</td>
+                    <td>${data.perbaikanMesin !== undefined ? data.perbaikanMesin.toFixed(2) : ''}</td>
+                    <td>${data.dangae !== undefined ? data.dangae.toFixed(2) : ''}</td>
+                    <td>${data.inputBy || 'N/A'}</td>
+                    <td>${data.formattedTimestamp}</td>
+                `;
+                reportTableBody.appendChild(row);
+            });
+        }
+
+        // --- Event Listeners ---
+        centeredTogglePassword.addEventListener('click', function () {
+            const type = centeredPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            centeredPassword.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+        });
+
+        centeredLoginContainer.addEventListener('click', function(e) {
+            if (e.target === centeredLoginContainer) {
+                hideLoginModal();
+            }
+        });
+
+        showLoginBtn.addEventListener('click', showLoginModal);
+
+        auth.onAuthStateChanged(user => {
+            checkLoginStatus();
+            if(user) {
+                populateFilterLineDropdown(); // Populate dropdown once logged in
+            }
+        });
+
+        centeredLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = centeredUsername.value;
+            const password = centeredPassword.value;
+            loginBtnText.textContent = 'Memproses...';
+            loginBtnSpinner.classList.remove('d-none');
+            centeredLoginForm.querySelector('button[type="submit"]').disabled = true;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    showLoginAlert('Login berhasil! Selamat datang.', 'success');
+                    centeredLoginForm.reset();
+                    setTimeout(() => {
+                        hideLoginModal();
+                    }, 1500);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    let errorMessage = 'Terjadi kesalahan saat login.';
+                    if (errorCode === 'auth/user-not-found') {
+                        errorMessage = 'Email tidak terdaftar.';
+                    } else if (errorCode === 'auth/wrong-password') {
+                        errorMessage = 'Password salah.';
+                    } else if (errorCode === 'auth/invalid-email') {
+                        errorMessage = 'Format email tidak valid.';
+                    } else if (errorCode === 'auth/too-many-requests') {
+                        errorMessage = 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
+                    }
+                    showLoginAlert(errorMessage, 'error');
+                })
+                .finally(() => {
+                    loginBtnText.textContent = 'Login';
+                    loginBtnSpinner.classList.add('d-none');
+                    centeredLoginForm.querySelector('button[type="submit"]').disabled = false;
+                });
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                showToast('Anda telah logout.', false);
+            }).catch((error) => {
+                showToast(`Logout gagal: ${error.message}`, true);
+            });
+        });
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+        sidebarSearch.addEventListener('input', filterLines);
+
+        form.addEventListener('input', (e) => {
+            if (e.target.hasAttribute('required')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.remove('is-invalid');
+                }
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) {
+                showToast('Anda harus login terlebih dahulu.', true);
+                return;
+            }
+            let isValid = true;
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            if (!namaLineProduksiInput.value.trim()) {
+                namaLineProduksiInput.classList.add('is-invalid');
+                isValid = false;
+                namaLineProduksiInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (!isValid) {
+                showToast('Mohon lengkapi semua field yang wajib diisi.', true);
+                return;
+            }
+            submitBtn.disabled = true;
+            submitBtnText.innerHTML = '<i class="bi bi-arrow-repeat spin"></i> Menyimpan...';
+            submitBtnSpinner.classList.remove('d-none');
+            const currentUser = user.email || 'Unknown';
+            const data = {
+                namaLineProduksi: namaLineProduksiInput.value,
+                namaPart: document.getElementById('namaPart').value,
+                tanggal: document.getElementById('tanggal').value,
+                group: document.getElementById('group').value,
+                sigmaProduksi: parseFloat(document.getElementById('sigmaProduksi').value),
+                sigmaOP: parseFloat(document.getElementById('sigmaOP').value),
+                loadingTime: parseFloat(document.getElementById('loadingTime').value),
+                lineStop: parseFloat(document.getElementById('lineStop').value || 0),
+                qualityCheck: parseFloat(document.getElementById('qualityCheck').value || 0),
+                perbaikanMesin: parseFloat(document.getElementById('perbaikanMesin').value || 0),
+                dangae: parseFloat(document.getElementById('dangae').value || 0),
+                timestamp: new Date(), // This will be a JS Date object, Firestore converts it
+                inputBy: currentUser
+            };
+            try {
+                const docRef = await addDoc(collection(db, "produksiData"), data);
+                console.log("Document written with ID: ", docRef.id);
+                showToast('Data berhasil disimpan!', false);
+                form.reset();
+                namaLineProduksiInput.value = '';
+                if (selectedLineLink) {
+                    selectedLineLink.classList.remove('active');
+                    selectedLineLink = null;
+                }
+                form.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                showToast('Gagal menyimpan: ' + error.message, true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtnText.innerHTML = '<i class="bi bi-save"></i> Simpan Data';
+                submitBtnSpinner.classList.add('d-none');
+            }
+        });
+
+        // --- Report Event Listeners ---
+        reportNavLink.addEventListener('click', function(e) {
+             e.preventDefault();
+             showReportContent();
+        });
+
+        homeNavLink.addEventListener('click', function(e) {
+             e.preventDefault();
+             showMainContent();
+        });
+
+        backToInputBtn.addEventListener('click', showMainContent);
+
+        applyFiltersBtn.addEventListener('click', () => {
+            const tanggalFilter = filterTanggal.value;
+            const lineFilter = filterLine.value;
+            const groupFilter = filterGroup.value.trim();
+            fetchAndDisplayReport(tanggalFilter, lineFilter, groupFilter);
+        });
+
+        // --- Initialization ---
+        populateLineList();
+
+        // Load Bootstrap JS dynamically or handle fallback
+        import('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js').then(() => {
+            console.log('Bootstrap JS loaded');
+        }).catch(err => {
+            console.error('Failed to load Bootstrap JS:', err);
+            window.bootstrap = {
+                Toast: function(el, options) {
+                    this.show = function() { el.style.display = 'block'; setTimeout(() => this.hide(), options?.delay || 3000); };
+                    this.hide = function() { el.style.display = 'none'; };
+                }
+            };
+        });
+    </script>
+</body>
 </html>
