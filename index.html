@@ -18,20 +18,17 @@
             --card-bg: #ffffff;
             --border-color: #dee2e6;
         }
-        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--light-bg);
             height: 100vh;
             overflow: hidden;
         }
-
         /* Page Containers */
         .page {
             display: none;
@@ -39,11 +36,9 @@
             height: 100vh;
             width: 100%;
         }
-
         .page.active {
             display: flex;
         }
-
         /* Login Page */
         .login-container {
             width: 100%;
@@ -51,7 +46,6 @@
             padding: 20px;
             margin: auto;
         }
-
         .login-card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -59,49 +53,41 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid var(--border-color);
         }
-
         .app-logo {
             text-align: center;
             margin-bottom: 25px;
         }
-
         .app-logo i {
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 15px;
         }
-
         .app-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #333;
             margin-bottom: 5px;
         }
-
         .app-subtitle {
             font-size: 0.95rem;
             color: var(--secondary-color);
         }
-
         .form-label {
             font-weight: 500;
             font-size: 0.9rem;
             margin-bottom: 5px;
             color: #495057;
         }
-
         .form-control, .form-select {
             border-radius: 8px;
             padding: 12px 15px;
             font-size: 1rem;
             border: 1px solid #ced4da;
         }
-
         .form-control:focus, .form-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
         }
-
         .btn-primary {
             background-color: var(--primary-color);
             border: none;
@@ -111,76 +97,26 @@
             font-size: 1rem;
             margin-top: 10px;
         }
-
         .btn-primary:hover {
             background-color: #0b5ed7;
         }
-
-        .btn-google {
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            padding: 12px;
-            font-weight: 500;
-            font-size: 1rem;
-            margin-top: 10px;
-            color: #495057;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-google:hover {
-            background-color: #f8f9fa;
-        }
-
         .status-message {
             margin-top: 15px;
             padding: 12px;
             border-radius: 8px;
             font-size: 0.9rem;
         }
-
         .alert-danger {
             background-color: rgba(220, 53, 69, 0.1);
             color: var(--danger-color);
             border: 1px solid rgba(220, 53, 69, 0.2);
         }
-
-        .divider {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .divider::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background-color: var(--border-color);
-            z-index: 1;
-        }
-
-        .divider span {
-            background-color: var(--card-bg);
-            position: relative;
-            z-index: 2;
-            padding: 0 15px;
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-        }
-
         .footer-text {
             text-align: center;
             margin-top: 20px;
             font-size: 0.85rem;
             color: var(--secondary-color);
         }
-
         /* App Header */
         .app-header {
             background-color: var(--primary-color);
@@ -194,18 +130,15 @@
             z-index: 1000;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .app-header-title {
             font-size: 1.2rem;
             font-weight: 600;
         }
-
         .user-section {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .user-avatar {
             width: 36px;
             height: 36px;
@@ -216,7 +149,6 @@
             justify-content: center;
             font-weight: bold;
         }
-
         .logout-btn {
             background: none;
             border: none;
@@ -224,21 +156,18 @@
             font-size: 1.2rem;
             cursor: pointer;
         }
-
         /* Main Content */
         .main-content {
             flex: 1;
             overflow-y: auto;
             padding: 15px;
         }
-
         .section-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 15px;
             color: #333;
         }
-
         /* Form Container */
         .form-container {
             background-color: var(--card-bg);
@@ -248,7 +177,6 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
-
         /* Data Card */
         .data-card {
             background-color: var(--card-bg);
@@ -258,7 +186,6 @@
             margin-bottom: 15px;
             border: 1px solid var(--border-color);
         }
-
         .data-header {
             display: flex;
             justify-content: space-between;
@@ -266,32 +193,26 @@
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
         }
-
         .data-title {
             font-weight: 600;
             color: var(--primary-color);
         }
-
         .data-date {
             font-size: 0.85rem;
             color: var(--secondary-color);
         }
-
         .data-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
-
         .data-label {
             color: var(--secondary-color);
         }
-
         .data-value {
             font-weight: 500;
         }
-
         /* Filter Section */
         .filter-section {
             background-color: var(--card-bg);
@@ -301,13 +222,11 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
-
         .month-selector {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .month-btn {
             background: none;
             border: 1px solid var(--border-color);
@@ -318,26 +237,22 @@
             align-items: center;
             justify-content: center;
         }
-
         .month-display {
             flex: 1;
             text-align: center;
             font-weight: 500;
             font-size: 1.1rem;
         }
-
         .no-data {
             text-align: center;
             padding: 30px;
             color: var(--secondary-color);
         }
-
         .no-data i {
             font-size: 3rem;
             margin-bottom: 15px;
             opacity: 0.3;
         }
-
         /* User Profile */
         .profile-card {
             background-color: var(--card-bg);
@@ -348,7 +263,6 @@
             border: 1px solid var(--border-color);
             text-align: center;
         }
-
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -362,38 +276,31 @@
             font-weight: bold;
             margin: 0 auto 15px;
         }
-
         .profile-name {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 5px;
         }
-
         .profile-email {
             color: var(--secondary-color);
             margin-bottom: 20px;
         }
-
         .profile-info {
             text-align: left;
             margin-top: 20px;
         }
-
         .info-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
         }
-
         .info-label {
             color: var(--secondary-color);
         }
-
         .info-value {
             font-weight: 500;
         }
-
         /* Bottom Navigation */
         .bottom-nav {
             position: sticky;
@@ -407,7 +314,6 @@
             border-top: 1px solid var(--border-color);
             z-index: 1000;
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -417,16 +323,13 @@
             font-size: 0.75rem;
             transition: color 0.2s;
         }
-
         .nav-item.active {
             color: var(--primary-color);
         }
-
         .nav-item i {
             font-size: 1.25rem;
             margin-bottom: 4px;
         }
-
         /* Shift Info */
         .shift-info {
             font-size: 0.8rem;
@@ -437,25 +340,21 @@
             border-radius: 6px;
             border-left: 3px solid var(--primary-color);
         }
-
         /* Loading Spinner */
         .spinner-border {
             width: 1rem;
             height: 1rem;
             border-width: 0.15em;
         }
-
         .d-none {
             display: none;
         }
-
         /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
-
         .btn-edit {
             background-color: var(--warning-color);
             border: none;
@@ -464,7 +363,6 @@
             border-radius: 5px;
             font-size: 0.8rem;
         }
-
         .btn-delete {
             background-color: var(--danger-color);
             border: none;
@@ -473,20 +371,104 @@
             border-radius: 5px;
             font-size: 0.8rem;
         }
-
         /* Modal */
         .modal-content {
             border-radius: 12px;
         }
-
         .modal-header {
             background-color: var(--primary-color);
             color: white;
             border-radius: 12px 12px 0 0;
         }
-
         .modal-footer {
             padding: 10px 15px;
+        }
+        
+        /* Custom Alert Styles */
+        .custom-alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-alert-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .custom-alert {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        
+        .custom-alert-overlay.show .custom-alert {
+            transform: translateY(0);
+        }
+        
+        .custom-alert-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .custom-alert-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .custom-alert-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .custom-alert-body {
+            padding: 20px;
+        }
+        
+        .custom-alert-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .custom-alert-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .custom-alert-btn-confirm {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .custom-alert-btn-cancel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            color: #333;
         }
     </style>
 </head>
@@ -500,42 +482,27 @@
                     <h1 class="app-title">Data Produksi</h1>
                     <p class="app-subtitle">Silakan login untuk melanjutkan</p>
                 </div>
-                
                 <form id="loginForm">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" required>
                     </div>
-                    
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" required>
                     </div>
-                    
                     <button type="submit" class="btn btn-primary w-100" id="loginBtn">
                         <span id="loginText">Login dengan Email</span>
                         <span id="loginSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     </button>
                 </form>
-                
-                <div class="divider">
-                    <span>atau</span>
-                </div>
-                
-                <button id="googleLoginBtn" class="btn-google w-100">
-                    <i class="bi bi-google"></i>
-                    Login dengan Google
-                </button>
-                
                 <div id="loginStatus" class="status-message mt-3 d-none"></div>
-                
                 <div class="footer-text">
                     © 2023 Data Produksi | v1.0
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Home Page -->
     <div id="homePage" class="page">
         <!-- App Header -->
@@ -548,7 +515,6 @@
                 </button>
             </div>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Filter Section -->
@@ -564,11 +530,9 @@
                     </button>
                 </div>
             </section>
-
             <!-- Data List Section -->
             <section class="data-section">
                 <h2 class="section-title">Data Produksi</h2>
-                
                 <div id="dataContainer">
                     <div class="no-data" id="noDataMessage">
                         <i class="bi bi-clipboard-data"></i>
@@ -578,7 +542,6 @@
                 </div>
             </section>
         </main>
-
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <a href="#" class="nav-item active" id="homeNav">
@@ -595,7 +558,6 @@
             </a>
         </nav>
     </div>
-
     <!-- Input/Edit Page -->
     <div id="inputPage" class="page">
         <!-- App Header -->
@@ -608,7 +570,6 @@
                 </button>
             </div>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <section class="input-section">
@@ -634,24 +595,20 @@
                                 <option value="COMMON RAIL 12">COMMON RAIL 12</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="namaPart" class="form-label">Nama Part</label>
                             <select class="form-select" id="namaPart" required disabled>
                                 <option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
                             <input type="date" class="form-control" id="tanggal" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="group" class="form-label">Group</label>
                             <input type="text" class="form-control" id="group" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="shift" class="form-label">Shift</label>
                             <select class="form-select" id="shift" required>
@@ -661,38 +618,31 @@
                             </select>
                             <div id="shiftInfo" class="shift-info mt-2 d-none"></div>
                         </div>
-
                         <div class="mb-3">
                             <label for="aktualMontiv" class="form-label">Aktual Montiv (pcs)</label>
                             <input type="number" class="form-control" id="aktualMontiv" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="sigmaProduksi" class="form-label">Sigma Produksi</label>
                             <input type="number" step="any" class="form-control" id="sigmaProduksi" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="sigmaOP" class="form-label">Sigma OP</label>
                             <input type="number" step="any" class="form-control" id="sigmaOP" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="loadingTime" class="form-label">Loading Time (menit)</label>
                             <input type="number" step="any" class="form-control" id="loadingTime" required>
                         </div>
-
                         <button type="submit" class="btn btn-primary w-100" id="submitBtn">
                             <span id="submitText">Simpan Data</span>
                             <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         </button>
                     </form>
-                    
                     <div id="inputStatusMessage" class="status-message mt-3 d-none"></div>
                 </div>
             </section>
         </main>
-
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <a href="#" class="nav-item" id="homeNav2">
@@ -709,7 +659,6 @@
             </a>
         </nav>
     </div>
-
     <!-- Profile Page -->
     <div id="profilePage" class="page">
         <!-- App Header -->
@@ -722,7 +671,6 @@
                 </button>
             </div>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <section class="profile-section">
@@ -730,7 +678,6 @@
                     <div class="profile-avatar" id="profileAvatar">U</div>
                     <h3 class="profile-name" id="profileName">Nama Pengguna</h3>
                     <div class="profile-email" id="profileEmail">email@contoh.com</div>
-                    
                     <div class="profile-info">
                         <div class="info-item">
                             <span class="info-label">Metode Login</span>
@@ -745,14 +692,12 @@
                             <span class="info-value" id="userUid">-</span>
                         </div>
                     </div>
-                    
                     <button id="profileLogoutBtn2" class="btn btn-outline-danger w-100 mt-4">
                         <i class="bi bi-box-arrow-right"></i> Logout
                     </button>
                 </div>
             </section>
         </main>
-
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <a href="#" class="nav-item" id="homeNav3">
@@ -769,7 +714,24 @@
             </a>
         </nav>
     </div>
-
+    
+    <!-- Custom Alert -->
+    <div class="custom-alert-overlay" id="customAlert">
+        <div class="custom-alert">
+            <div class="custom-alert-header">
+                <div class="custom-alert-title" id="alertTitle">Konfirmasi</div>
+                <button class="custom-alert-close">&times;</button>
+            </div>
+            <div class="custom-alert-body" id="alertMessage">
+                Apakah Anda yakin ingin melanjutkan?
+            </div>
+            <div class="custom-alert-footer">
+                <button class="custom-alert-btn custom-alert-btn-cancel" id="alertCancelBtn">Batal</button>
+                <button class="custom-alert-btn custom-alert-btn-confirm" id="alertConfirmBtn">OK</button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -788,14 +750,12 @@
             </div>
         </div>
     </div>
-
     <!-- Firebase SDK -->
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-        
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAEAmmyJxMriLaNBA4n8xEXtu1g91uv860",
@@ -807,14 +767,11 @@
             appId: "1:890812454910:web:d0906c637e26017df052af",
             measurementId: "G-3C9ZF4EXVM"
         };
-        
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        
         // Initialize Firebase services
         const db = getFirestore(app);
         const auth = getAuth(app);
-        
         // DOM Elements
         const loginPage = document.getElementById('loginPage');
         const homePage = document.getElementById('homePage');
@@ -822,14 +779,20 @@
         const profilePage = document.getElementById('profilePage');
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         
+        // Custom Alert Elements
+        const customAlert = document.getElementById('customAlert');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertMessage = document.getElementById('alertMessage');
+        const alertConfirmBtn = document.getElementById('alertConfirmBtn');
+        const alertCancelBtn = document.getElementById('alertCancelBtn');
+        const alertCloseBtn = document.querySelector('.custom-alert-close');
+        
         // Login Page Elements
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const loginText = document.getElementById('loginText');
         const loginSpinner = document.getElementById('loginSpinner');
         const loginStatus = document.getElementById('loginStatus');
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        
         // Home Page Elements
         const homeUserAvatar = document.getElementById('homeUserAvatar');
         const homeLogoutBtn = document.getElementById('homeLogoutBtn');
@@ -838,7 +801,6 @@
         const currentMonth = document.getElementById('currentMonth');
         const prevMonth = document.getElementById('prevMonth');
         const nextMonth = document.getElementById('nextMonth');
-        
         // Input Page Elements
         const inputPageTitle = document.getElementById('inputPageTitle');
         const inputUserAvatar = document.getElementById('inputUserAvatar');
@@ -854,7 +816,6 @@
         const partSelect = document.getElementById('namaPart');
         const documentIdInput = document.getElementById('documentId');
         const formTitle = document.getElementById('formTitle');
-        
         // Profile Page Elements
         const profileUserAvatar = document.getElementById('profileUserAvatar');
         const profileAvatar = document.getElementById('profileAvatar');
@@ -865,7 +826,6 @@
         const userUid = document.getElementById('userUid');
         const profileLogoutBtn = document.getElementById('profileLogoutBtn');
         const profileLogoutBtn2 = document.getElementById('profileLogoutBtn2');
-        
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
@@ -876,15 +836,12 @@
         const homeNav3 = document.getElementById('homeNav3');
         const inputNav3 = document.getElementById('inputNav3');
         const profileNav3 = document.getElementById('profileNav3');
-        
         // Delete Modal Elements
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-        
         // State variables
         let currentUser = null;
         let currentDate = new Date();
         let currentEditDocId = null;
-        
         // Data line produksi dan part
         const linePartData = {
             'COMMON RAIL 01': ['19MY', '634F', 'E494', 'E694', 'H6-A', 'JDE20', 'MDE5', 'MDE8'],
@@ -901,23 +858,53 @@
             'COMMON RAIL 12': ['4N15', 'CR22']
         };
         
+        // Custom Alert Functions
+        function showAlert(title, message, onConfirm, showCancel = true) {
+            alertTitle.textContent = title;
+            alertMessage.textContent = message;
+            
+            alertCancelBtn.style.display = showCancel ? 'block' : 'none';
+            
+            // Set up event listeners
+            const confirmHandler = () => {
+                closeAlert();
+                if (onConfirm) onConfirm();
+            };
+            
+            const cancelHandler = () => {
+                closeAlert();
+            };
+            
+            const closeHandler = () => {
+                closeAlert();
+            };
+            
+            alertConfirmBtn.addEventListener('click', confirmHandler, { once: true });
+            alertCancelBtn.addEventListener('click', cancelHandler, { once: true });
+            alertCloseBtn.addEventListener('click', closeHandler, { once: true });
+            
+            // Show alert
+            customAlert.classList.add('show');
+        }
+        
+        function closeAlert() {
+            customAlert.classList.remove('show');
+        }
+        
         // Format date for display
         function formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(dateString).toLocaleDateString('id-ID', options);
         }
-        
         // Format month for display
         function formatMonth(date) {
             const options = { year: 'numeric', month: 'long' };
             return date.toLocaleDateString('id-ID', options);
         }
-        
         // Update month display
         function updateMonthDisplay() {
             currentMonth.textContent = formatMonth(currentDate);
         }
-        
         // Fetch data from Firestore
         async function fetchData() {
             try {
@@ -926,7 +913,6 @@
                 const month = currentDate.getMonth();
                 const startDate = new Date(year, month, 1);
                 const endDate = new Date(year, month + 1, 0, 23, 59, 59);
-                
                 // Query data for the current month
                 const q = query(
                     collection(db, "produksiData"),
@@ -934,27 +920,17 @@
                     where("tanggal", "<=", endDate.toISOString().split('T')[0]),
                     orderBy("tanggal", "desc")
                 );
-                
                 const querySnapshot = await getDocs(q);
                 const dataList = [];
-                
                 querySnapshot.forEach((doc) => {
                     dataList.push({ id: doc.id, ...doc.data() });
                 });
-                
                 renderData(dataList);
             } catch (error) {
                 console.error("Error fetching data: ", error);
-                dataContainer.innerHTML = `
-                    <div class="no-data">
-                        <i class="bi bi-exclamation-circle"></i>
-                        <p>Gagal memuat data</p>
-                        <small>${error.message}</small>
-                    </div>
-                `;
+                showAlert('Error', 'Gagal memuat data: ' + error.message);
             }
         }
-        
         // Render data to UI
         function renderData(dataList) {
             if (dataList.length === 0) {
@@ -963,10 +939,8 @@
                 dataContainer.appendChild(noDataMessage);
                 return;
             }
-            
             noDataMessage.style.display = 'none';
             dataContainer.innerHTML = '';
-            
             dataList.forEach(data => {
                 const dataCard = document.createElement('div');
                 dataCard.className = 'data-card';
@@ -1006,7 +980,6 @@
                 `;
                 dataContainer.appendChild(dataCard);
             });
-            
             // Add event listeners to edit and delete buttons
             document.querySelectorAll('.btn-edit').forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -1014,7 +987,6 @@
                     editData(docId);
                 });
             });
-            
             document.querySelectorAll('.btn-delete').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const docId = e.currentTarget.getAttribute('data-id');
@@ -1022,16 +994,13 @@
                 });
             });
         }
-        
         // Edit data
         async function editData(docId) {
             try {
                 const docRef = doc(db, "produksiData", docId);
                 const docSnap = await getDoc(docRef);
-                
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    
                     // Set form values
                     documentIdInput.value = docId;
                     document.getElementById('namaLineProduksi').value = data.namaLineProduksi;
@@ -1044,55 +1013,47 @@
                     document.getElementById('sigmaProduksi').value = data.sigmaProduksi;
                     document.getElementById('sigmaOP').value = data.sigmaOP;
                     document.getElementById('loadingTime').value = data.loadingTime;
-                    
                     // Update shift info
                     updateShiftInfo();
-                    
                     // Change form title and button text
                     formTitle.textContent = 'Edit Data Produksi';
                     inputPageTitle.textContent = 'Edit Data';
                     submitText.textContent = 'Update Data';
-                    
                     // Enable part select
                     document.getElementById('namaPart').disabled = false;
-                    
                     // Show input page
                     showPage('inputPage');
                 } else {
-                    console.log("No such document!");
+                    showAlert('Error', 'Dokumen tidak ditemukan!');
                 }
             } catch (error) {
                 console.error("Error getting document: ", error);
+                showAlert('Error', 'Gagal mengambil data: ' + error.message);
             }
         }
-        
         // Show delete confirmation
         function showDeleteConfirmation(docId) {
             currentEditDocId = docId;
             deleteModal.show();
         }
-        
         // Delete data
         async function deleteData() {
             if (!currentEditDocId) return;
-            
             try {
                 await deleteDoc(doc(db, "produksiData", currentEditDocId));
                 console.log("Document successfully deleted!");
                 deleteModal.hide();
                 fetchData(); // Refresh data
-                showInputStatus('Data berhasil dihapus!', false);
+                showAlert('Sukses', 'Data berhasil dihapus!');
             } catch (error) {
                 console.error("Error deleting document: ", error);
-                showInputStatus('Gagal menghapus data: ' + error.message, true);
+                showAlert('Error', 'Gagal menghapus data: ' + error.message);
             }
         }
-        
         // Update part options based on selected line
         function updatePartOptions() {
             const selectedLine = lineSelect.value;
             partSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
-            
             if (selectedLine && linePartData[selectedLine]) {
                 partSelect.disabled = false;
                 linePartData[selectedLine].forEach(part => {
@@ -1106,7 +1067,6 @@
                 partSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>';
             }
         }
-        
         // Update shift information
         function updateShiftInfo() {
             const shift = shiftSelect.value;
@@ -1120,7 +1080,6 @@
                 shiftInfo.classList.add('d-none');
             }
         }
-        
         // Set loading state for login button
         function setLoginLoading(isLoading) {
             if (isLoading) {
@@ -1133,13 +1092,11 @@
                 loginBtn.disabled = false;
             }
         }
-        
         // Show login status message
         function showLoginStatus(message, isError = false) {
             loginStatus.textContent = message;
             loginStatus.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'd-none'}`;
         }
-        
         // Set loading state for submit button
         function setInputLoading(isLoading) {
             if (isLoading) {
@@ -1152,13 +1109,11 @@
                 submitBtn.disabled = false;
             }
         }
-        
         // Show input status message
         function showInputStatus(message, isError = false) {
             inputStatusMessage.textContent = message;
             inputStatusMessage.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'alert alert-success'} ${message ? '' : 'd-none'}`;
         }
-        
         // Reset form
         function resetForm() {
             productionForm.reset();
@@ -1170,7 +1125,6 @@
             inputPageTitle.textContent = 'Input Data';
             submitText.textContent = 'Simpan Data';
         }
-        
         // Show/hide pages
         function showPage(pageId) {
             // Hide all pages
@@ -1178,13 +1132,10 @@
             homePage.classList.remove('active');
             inputPage.classList.remove('active');
             profilePage.classList.remove('active');
-            
             // Show requested page
             document.getElementById(pageId).classList.add('active');
-            
             // Update navigation active state
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            
             if (pageId === 'homePage') {
                 homeNav.classList.add('active');
                 homeNav2.classList.add('active');
@@ -1199,30 +1150,25 @@
                 profileNav3.classList.add('active');
             }
         }
-        
         // Update user profile display
         function updateUserProfile(user) {
             if (user) {
                 const displayName = user.displayName || user.email.split('@')[0];
                 const avatarText = displayName.charAt(0).toUpperCase();
-                
                 // Update avatars
                 homeUserAvatar.textContent = avatarText;
                 inputUserAvatar.textContent = avatarText;
                 profileUserAvatar.textContent = avatarText;
                 profileAvatar.textContent = avatarText;
-                
                 // Update profile info
                 profileName.textContent = displayName;
                 profileEmail.textContent = user.email;
                 userUid.textContent = user.uid;
-                
                 // Set login method
                 if (user.providerData && user.providerData.length > 0) {
                     const provider = user.providerData[0].providerId;
                     loginMethod.textContent = provider === 'google.com' ? 'Google' : 'Email';
                 }
-                
                 // Set join date
                 if (user.metadata && user.metadata.creationTime) {
                     const creationDate = new Date(user.metadata.creationTime);
@@ -1230,7 +1176,6 @@
                 }
             }
         }
-        
         // Handle user state changes
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -1244,15 +1189,12 @@
                 showPage('loginPage');
             }
         });
-        
         // Email/password login
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             setLoginLoading(true);
-            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 showLoginStatus('', false);
@@ -1263,36 +1205,30 @@
                 setLoginLoading(false);
             }
         });
-        
-        // Google login
-        googleLoginBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                console.error("Google login error: ", error);
-                showLoginStatus('Gagal login dengan Google: ' + error.message, true);
-            }
-        });
-        
         // Logout functions
         function logout() {
             signOut(auth).catch((error) => {
                 console.error("Logout error: ", error);
+                showAlert('Error', 'Gagal logout: ' + error.message);
             });
         }
-        
-        homeLogoutBtn.addEventListener('click', logout);
-        inputLogoutBtn.addEventListener('click', logout);
-        profileLogoutBtn.addEventListener('click', logout);
-        profileLogoutBtn2.addEventListener('click', logout);
-        
+        homeLogoutBtn.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+        });
+        inputLogoutBtn.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+        });
+        profileLogoutBtn.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+        });
+        profileLogoutBtn2.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+        });
         // Navigation
         homeNav.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
         });
-        
         inputNav.addEventListener('click', (e) => {
             e.preventDefault();
             resetForm();
@@ -1300,71 +1236,58 @@
             // Set today's date as default
             document.getElementById('tanggal').valueAsDate = new Date();
         });
-        
         profileNav.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
         });
-        
         // Duplicate navigation for other nav items
         homeNav2.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
         });
-        
         inputNav2.addEventListener('click', (e) => {
             e.preventDefault();
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
-        
         profileNav2.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
         });
-        
         homeNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
         });
-        
         inputNav3.addEventListener('click', (e) => {
             e.preventDefault();
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
-        
         profileNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
         });
-        
         // Month navigation
         prevMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             updateMonthDisplay();
             fetchData();
         });
-        
         nextMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() + 1);
             updateMonthDisplay();
             fetchData();
         });
-        
         // Input form event listeners
         lineSelect.addEventListener('change', updatePartOptions);
         shiftSelect.addEventListener('change', updateShiftInfo);
-        
         // Input form submission
         productionForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             setInputLoading(true);
             showInputStatus('', false);
-            
             // Get form data
             const data = {
                 namaLineProduksi: lineSelect.value,
@@ -1378,38 +1301,38 @@
                 loadingTime: parseFloat(document.getElementById('loadingTime').value),
                 timestamp: new Date()
             };
-            
             try {
                 if (documentIdInput.value) {
                     // Update existing document
                     const docRef = doc(db, "produksiData", documentIdInput.value);
                     await updateDoc(docRef, data);
                     console.log("Document successfully updated!");
-                    showInputStatus('Data berhasil diperbarui!');
+                    showAlert('Sukses', 'Data berhasil diperbarui!', () => {
+                        showPage('homePage');
+                        fetchData();
+                    });
                 } else {
                     // Add new document
                     const docRef = await addDoc(collection(db, "produksiData"), data);
                     console.log("Document written with ID: ", docRef.id);
-                    showInputStatus('Data berhasil disimpan!');
+                    showAlert('Sukses', 'Data berhasil disimpan!', () => {
+                        showPage('homePage');
+                        fetchData();
+                    });
                 }
-                
                 resetForm();
-                fetchData(); // Refresh data
             } catch (error) {
                 console.error("Error saving document: ", error);
-                showInputStatus('Gagal menyimpan data: ' + error.message, true);
+                showAlert('Error', 'Gagal menyimpan data: ' + error.message);
             } finally {
                 setInputLoading(false);
             }
         });
-        
         // Delete confirmation
         confirmDeleteBtn.addEventListener('click', deleteData);
-        
         // Initialize
         updateMonthDisplay();
     </script>
-    
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
