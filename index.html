@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -543,7 +542,70 @@
             background-color: #e9ecef !important;
             font-weight: bold;
         }
-        
+        /* Filter Section Styling */
+        .filter-section .form-label {
+            font-size: 0.75rem;
+            margin-bottom: 3px;
+            color: var(--secondary-color);
+        }
+        .filter-section .form-select {
+            padding: 5px 10px;
+            font-size: 0.85rem;
+        }
+        .filter-section .btn {
+            padding: 5px 10px;
+            font-size: 0.85rem;
+        }
+        /* Access Control */
+        .access-control-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .access-control-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .access-control-item:last-child {
+            border-bottom: none;
+        }
+        .access-control-label {
+            font-weight: 500;
+        }
+        .access-control-value {
+            color: var(--secondary-color);
+        }
+        /* Settings Section */
+        .settings-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-label {
+            font-weight: 500;
+        }
+        .settings-value {
+            color: var(--secondary-color);
+        }
         /* Auto Logout Warning */
         .auto-logout-warning {
             position: fixed;
@@ -591,33 +653,6 @@
             background-color: var(--danger-color);
             color: white;
         }
-        
-        /* Settings Page */
-        .settings-section {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-        }
-        .settings-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-        .settings-label {
-            font-weight: 500;
-        }
-        .settings-value {
-            color: var(--secondary-color);
-        }
-        
         /* Dark Mode */
         .dark-mode {
             --primary-color: #375a7f;
@@ -639,6 +674,7 @@
         .dark-mode .summary-card,
         .dark-mode .line-monitoring-section,
         .dark-mode .settings-section,
+        .dark-mode .access-control-section,
         .dark-mode .bottom-nav,
         .dark-mode .custom-alert {
             background-color: var(--card-bg);
@@ -684,6 +720,7 @@
         .dark-mode .data-label,
         .dark-mode .info-label,
         .dark-mode .settings-label,
+        .dark-mode .access-control-label,
         .dark-mode .summary-card-title {
             color: #adb5bd;
         }
@@ -797,6 +834,61 @@
             <!-- Data List Section -->
             <section class="data-section">
                 <h2 class="section-title">Data Produksi Terbaru</h2>
+                
+                <!-- Filter Section untuk Data Terbaru -->
+                <div class="filter-section mb-3">
+                    <div class="row g-2">
+                        <div class="col-6 col-md-3">
+                            <label for="filterLine" class="form-label">Line Produksi</label>
+                            <select class="form-select form-select-sm" id="filterLine">
+                                <option value="">Semua Line</option>
+                                <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                <option value="COMMON RAIL 12">COMMON RAIL 12</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label for="filterPart" class="form-label">Part</label>
+                            <select class="form-select form-select-sm" id="filterPart">
+                                <option value="">Semua Part</option>
+                                <!-- Options akan diisi secara dinamis berdasarkan line yang dipilih -->
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label for="filterGroup" class="form-label">Group</label>
+                            <select class="form-select form-select-sm" id="filterGroup">
+                                <option value="">Semua Group</option>
+                                <option value="PG-1">PG-1</option>
+                                <option value="PG-2.1">PG-2.1</option>
+                                <option value="PG-2.2">PG-2.2</option>
+                                <option value="PG-2.3">PG-2.3</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label for="filterShift" class="form-label">Shift</label>
+                            <select class="form-select form-select-sm" id="filterShift">
+                                <option value="">Semua Shift</option>
+                                <option value="1">Shift 1</option>
+                                <option value="2">Shift 2</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-end">
+                            <button class="btn btn-outline-secondary w-100" id="resetFilterBtn">
+                                <i class="bi bi-x-circle"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
                 <div id="dataContainer">
                     <div class="no-data" id="noDataMessage">
                         <i class="bi bi-clipboard-data"></i>
@@ -1034,6 +1126,22 @@
                 </div>
             </section>
             
+            <section class="access-control-section">
+                <h2 class="section-title">Hak Akses Pengguna</h2>
+                <div class="access-control-item">
+                    <span class="access-control-label">Line Produksi yang Dapat Diakses</span>
+                    <span class="access-control-value" id="accessibleLines">-</span>
+                </div>
+                <div class="access-control-item">
+                    <span class="access-control-label">Hak Input Data</span>
+                    <span class="access-control-value" id="inputPermission">-</span>
+                </div>
+                <div class="access-control-item">
+                    <span class="access-control-label">Hak Edit/Hapus Data</span>
+                    <span class="access-control-value" id="editPermission">-</span>
+                </div>
+            </section>
+            
             <section class="settings-section">
                 <h2 class="section-title">Tentang</h2>
                 <div class="settings-item">
@@ -1113,8 +1221,8 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAEAmmyJxMriLaNBA4n8xEXtu1g91uv860",
@@ -1194,6 +1302,9 @@
         const settingsLogoutBtn = document.getElementById('settingsLogoutBtn');
         const darkModeToggle = document.getElementById('darkModeToggle');
         const autoLogoutTime = document.getElementById('autoLogoutTime');
+        const accessibleLines = document.getElementById('accessibleLines');
+        const inputPermission = document.getElementById('inputPermission');
+        const editPermission = document.getElementById('editPermission');
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
@@ -1213,6 +1324,12 @@
         const settingsNav4 = document.getElementById('settingsNav4');
         // Delete Modal Elements
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        // Filter Elements
+        const filterLine = document.getElementById('filterLine');
+        const filterPart = document.getElementById('filterPart');
+        const filterGroup = document.getElementById('filterGroup');
+        const filterShift = document.getElementById('filterShift');
+        const resetFilterBtn = document.getElementById('resetFilterBtn');
         // Auto Logout Elements
         const autoLogoutWarning = document.getElementById('autoLogoutWarning');
         const autoLogoutTimer = document.getElementById('autoLogoutTimer');
@@ -1222,6 +1339,7 @@
         let currentUser = null;
         let currentDate = new Date();
         let currentEditDocId = null;
+        let userPermissions = null;
         // Auto Logout State
         let inactivityTimer;
         let warningTimer;
@@ -1243,6 +1361,58 @@
             'COMMON RAIL 11': ['19MY', 'RZ4E', '902FD'],
             'COMMON RAIL 12': ['902FF', 'ES01B']
         };
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Konfigurasi hak akses berdasarkan UUID
+        const userAccessConfig = {
+            // Contoh konfigurasi untuk user A dengan UUID tertentu
+            "userA-uuid-here": {
+                accessibleLines: ["COMMON RAIL 01", "COMMON RAIL 02", "COMMON RAIL 03", "COMMON RAIL 04", "COMMON RAIL 05"],
+                canInput: true,
+                canEdit: true
+            },
+            // Contoh konfigurasi untuk user B dengan UUID tertentu
+            "userB-uuid-here": {
+                accessibleLines: ["COMMON RAIL 06", "COMMON RAIL 07", "COMMON RAIL 08"],
+                canInput: true,
+                canEdit: false
+            },
+            // Default untuk user lainnya
+            "default": {
+                accessibleLines: Object.keys(linePartData),
+                canInput: true,
+                canEdit: true
+            }
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+
         // Custom Alert Functions
         function showAlert(title, message, onConfirm, showCancel = true) {
             alertTitle.textContent = title;
@@ -1365,6 +1535,19 @@
             });
             lineTableBody.innerHTML = tableRowsHTML;
         }
+        // Fungsi untuk mengisi opsi part berdasarkan line yang dipilih di filter
+        function updateFilterPartOptions() {
+            const selectedLine = filterLine.value;
+            filterPart.innerHTML = '<option value="">Semua Part</option>';
+            if (selectedLine && linePartData[selectedLine]) {
+                linePartData[selectedLine].forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part;
+                    option.textContent = part;
+                    filterPart.appendChild(option);
+                });
+            }
+        }
         // Fetch data from Firestore
         async function fetchData() {
             try {
@@ -1385,6 +1568,8 @@
                 querySnapshot.forEach((doc) => {
                     dataList.push({ id: doc.id, ...doc.data() });
                 });
+                // Simpan data lengkap untuk filter
+                window.fullDataList = dataList;
                 // Update dashboard
                 calculateDashboardStats(dataList);
                 generateLineMonitoringTable(dataList);
@@ -1395,19 +1580,43 @@
                 showAlert('Error', 'Gagal memuat data: ' + error.message);
             }
         }
-        // Render data to UI
-        function renderData(dataList) {
-            if (dataList.length === 0) {
+        // Render data to UI dengan filter
+        function renderData(fullDataList) {
+            // Terapkan filter
+            let filteredDataList = [...fullDataList]; // Salin array untuk menghindari mutasi langsung
+            
+            // Filter berdasarkan hak akses pengguna
+            if (userPermissions && userPermissions.accessibleLines) {
+                filteredDataList = filteredDataList.filter(data => 
+                    userPermissions.accessibleLines.includes(data.namaLineProduksi)
+                );
+            }
+            
+            if (filterLine.value) {
+                filteredDataList = filteredDataList.filter(data => data.namaLineProduksi === filterLine.value);
+            }
+            if (filterPart.value) {
+                filteredDataList = filteredDataList.filter(data => data.namaPart === filterPart.value);
+            }
+            if (filterGroup.value) {
+                filteredDataList = filteredDataList.filter(data => data.group === filterGroup.value);
+            }
+            if (filterShift.value) {
+                filteredDataList = filteredDataList.filter(data => data.shift === filterShift.value);
+            }
+            
+            if (filteredDataList.length === 0) {
                 noDataMessage.style.display = 'block';
                 dataContainer.innerHTML = '';
                 dataContainer.appendChild(noDataMessage);
                 return;
             }
+            
             noDataMessage.style.display = 'none';
             dataContainer.innerHTML = '';
-            // Show only the 5 most recent entries
-            const recentData = dataList.slice(0, 5);
-            recentData.forEach(data => {
+            
+            // Tampilkan data yang sudah difilter
+            filteredDataList.forEach(data => {
                 const dataCard = document.createElement('div');
                 dataCard.className = 'data-card';
                 dataCard.innerHTML = `
@@ -1436,37 +1645,67 @@
                         <span class="data-value">${data.loadingTime} menit</span>
                     </div>
                     <div class="action-buttons">
-                        <button class="btn-edit" data-id="${data.id}">
-                            <i class="bi bi-pencil"></i> Edit
-                        </button>
-                        <button class="btn-delete" data-id="${data.id}">
-                            <i class="bi bi-trash"></i> Hapus
-                        </button>
+                        ${userPermissions && userPermissions.canEdit ? `
+                            <button class="btn-edit" data-id="${data.id}">
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <button class="btn-delete" data-id="${data.id}">
+                                <i class="bi bi-trash"></i> Hapus
+                            </button>
+                        ` : `
+                            <button class="btn-edit" data-id="${data.id}" disabled>
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <button class="btn-delete" data-id="${data.id}" disabled>
+                                <i class="bi bi-trash"></i> Hapus
+                            </button>
+                        `}
                     </div>
                 `;
                 dataContainer.appendChild(dataCard);
             });
-            // Add event listeners to edit and delete buttons
-            document.querySelectorAll('.btn-edit').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const docId = e.currentTarget.getAttribute('data-id');
-                    editData(docId);
+            
+            // Tambahkan event listener untuk tombol edit dan hapus jika pengguna memiliki hak akses
+            if (userPermissions && userPermissions.canEdit) {
+                document.querySelectorAll('.btn-edit').forEach(button => {
+                    if (!button.disabled) {
+                        button.addEventListener('click', (e) => {
+                            const docId = e.currentTarget.getAttribute('data-id');
+                            editData(docId);
+                        });
+                    }
                 });
-            });
-            document.querySelectorAll('.btn-delete').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const docId = e.currentTarget.getAttribute('data-id');
-                    showDeleteConfirmation(docId);
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    if (!button.disabled) {
+                        button.addEventListener('click', (e) => {
+                            const docId = e.currentTarget.getAttribute('data-id');
+                            showDeleteConfirmation(docId);
+                        });
+                    }
                 });
-            });
+            }
         }
         // Edit data
         async function editData(docId) {
+            // Cek hak akses edit
+            if (!userPermissions || !userPermissions.canEdit) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk mengedit data.');
+                return;
+            }
+            
             try {
                 const docRef = doc(db, "produksiData", docId);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    
+                    // Cek apakah user memiliki akses ke line produksi ini
+                    if (userPermissions.accessibleLines && 
+                        !userPermissions.accessibleLines.includes(data.namaLineProduksi)) {
+                        showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk mengedit data line produksi ini.');
+                        return;
+                    }
+                    
                     // Set form values
                     documentIdInput.value = docId;
                     document.getElementById('namaLineProduksi').value = data.namaLineProduksi;
@@ -1499,12 +1738,19 @@
         }
         // Show delete confirmation
         function showDeleteConfirmation(docId) {
+            // Cek hak akses hapus
+            if (!userPermissions || !userPermissions.canEdit) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk menghapus data.');
+                return;
+            }
+            
             currentEditDocId = docId;
             deleteModal.show();
         }
         // Delete data
         async function deleteData() {
             if (!currentEditDocId) return;
+            
             try {
                 await deleteDoc(doc(db, "produksiData", currentEditDocId));
                 console.log("Document successfully deleted!");
@@ -1652,6 +1898,30 @@
                 }
             }
         }
+        // Update user permissions display
+        function updateUserPermissionsDisplay() {
+            if (userPermissions) {
+                // Update accessible lines display
+                accessibleLines.textContent = userPermissions.accessibleLines.join(', ');
+                
+                // Update input permission display
+                inputPermission.textContent = userPermissions.canInput ? 'Diizinkan' : 'Ditolak';
+                inputPermission.className = 'access-control-value ' + (userPermissions.canInput ? 'text-success' : 'text-danger');
+                
+                // Update edit permission display
+                editPermission.textContent = userPermissions.canEdit ? 'Diizinkan' : 'Ditolak';
+                editPermission.className = 'access-control-value ' + (userPermissions.canEdit ? 'text-success' : 'text-danger');
+            }
+        }
+        // Get user permissions based on UUID
+        function getUserPermissions(uid) {
+            // Cek apakah ada konfigurasi khusus untuk UUID ini
+            if (userAccessConfig[uid]) {
+                return userAccessConfig[uid];
+            }
+            // Jika tidak ada, gunakan konfigurasi default
+            return userAccessConfig["default"];
+        }
         // Auto Logout Functions
         function startInactivityTimer() {
             resetInactivityTimer();
@@ -1733,17 +2003,48 @@
             if (user) {
                 currentUser = user;
                 updateUserProfile(user);
+                // Get user permissions
+                userPermissions = getUserPermissions(user.uid);
+                updateUserPermissionsDisplay();
                 showPage('homePage');
                 fetchData();
                 updateMonthDisplay();
                 formatDateRange();
                 startInactivityTimer();
+                
+                // Filter line options based on user permissions
+                filterLineOptions();
             } else {
                 currentUser = null;
+                userPermissions = null;
                 hideAutoLogoutWarning();
                 showPage('loginPage');
             }
         });
+        
+        // Filter line options based on user permissions
+        function filterLineOptions() {
+            if (userPermissions && userPermissions.accessibleLines) {
+                // Filter options di halaman input
+                const inputLineOptions = lineSelect.querySelectorAll('option');
+                inputLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+                
+                // Filter options di filter home page
+                const filterLineOptions = filterLine.querySelectorAll('option');
+                filterLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
         // Email/password login
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1807,6 +2108,11 @@
         });
         inputNav.addEventListener('click', (e) => {
             e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
+                return;
+            }
             resetForm();
             showPage('inputPage');
             // Set today's date as default
@@ -1827,6 +2133,11 @@
         });
         inputNav2.addEventListener('click', (e) => {
             e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
+                return;
+            }
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
@@ -1845,6 +2156,11 @@
         });
         inputNav3.addEventListener('click', (e) => {
             e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
+                return;
+            }
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
@@ -1863,6 +2179,11 @@
         });
         inputNav4.addEventListener('click', (e) => {
             e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
+                return;
+            }
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
@@ -1894,9 +2215,31 @@
         // Settings event listeners
         darkModeToggle.addEventListener('change', toggleDarkMode);
         autoLogoutTime.addEventListener('change', updateLogoutTime);
+        // Filter event listeners
+        filterLine.addEventListener('change', () => {
+            updateFilterPartOptions();
+            renderData(window.fullDataList || []);
+        });
+        filterPart.addEventListener('change', () => renderData(window.fullDataList || []));
+        filterGroup.addEventListener('change', () => renderData(window.fullDataList || []));
+        filterShift.addEventListener('change', () => renderData(window.fullDataList || []));
+        resetFilterBtn.addEventListener('click', () => {
+            filterLine.value = '';
+            filterPart.innerHTML = '<option value="">Semua Part</option>';
+            filterGroup.value = '';
+            filterShift.value = '';
+            renderData(window.fullDataList || []);
+        });
         // Input form submission
         productionForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
+                return;
+            }
+            
             setInputLoading(true);
             showInputStatus('', false);
             // Get form data
@@ -1912,6 +2255,15 @@
                 loadingTime: parseFloat(document.getElementById('loadingTime').value),
                 timestamp: new Date()
             };
+            
+            // Cek apakah user memiliki akses ke line produksi ini
+            if (userPermissions.accessibleLines && 
+                !userPermissions.accessibleLines.includes(data.namaLineProduksi)) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data line produksi ini.');
+                setInputLoading(false);
+                return;
+            }
+            
             try {
                 if (documentIdInput.value) {
                     // Update existing document
@@ -1945,6 +2297,7 @@
         updateMonthDisplay();
         formatDateRange();
         loadSettings();
+        updateFilterPartOptions();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
