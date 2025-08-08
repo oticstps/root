@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -478,12 +479,10 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
-        
         .custom-alert-overlay.show {
             opacity: 1;
             visibility: visible;
         }
-        
         .custom-alert {
             background: white;
             border-radius: 10px;
@@ -493,11 +492,9 @@
             transform: translateY(-50px);
             transition: transform 0.3s ease;
         }
-        
         .custom-alert-overlay.show .custom-alert {
             transform: translateY(0);
         }
-        
         .custom-alert-header {
             padding: 15px 20px;
             border-bottom: 1px solid #eee;
@@ -505,12 +502,10 @@
             justify-content: space-between;
             align-items: center;
         }
-        
         .custom-alert-title {
             font-weight: bold;
             font-size: 1.1rem;
         }
-        
         .custom-alert-close {
             background: none;
             border: none;
@@ -518,11 +513,9 @@
             cursor: pointer;
             color: #999;
         }
-        
         .custom-alert-body {
             padding: 20px;
         }
-        
         .custom-alert-footer {
             padding: 15px 20px;
             border-top: 1px solid #eee;
@@ -530,19 +523,16 @@
             justify-content: flex-end;
             gap: 10px;
         }
-        
         .custom-alert-btn {
             padding: 8px 15px;
             border-radius: 5px;
             border: none;
             cursor: pointer;
         }
-        
         .custom-alert-btn-confirm {
             background-color: var(--primary-color);
             color: white;
         }
-        
         .custom-alert-btn-cancel {
             background-color: #f8f9fa;
             border: 1px solid #ddd;
@@ -552,6 +542,163 @@
         .shift-separator {
             background-color: #e9ecef !important;
             font-weight: bold;
+        }
+        
+        /* Auto Logout Warning */
+        .auto-logout-warning {
+            position: fixed;
+            bottom: 70px; /* Above bottom nav */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 90%;
+            width: 350px;
+        }
+        .auto-logout-warning.hidden {
+            display: none;
+        }
+        .auto-logout-timer {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        .auto-logout-buttons {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+        .auto-logout-btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .auto-logout-stay {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .auto-logout-logout {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        /* Settings Page */
+        .settings-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-label {
+            font-weight: 500;
+        }
+        .settings-value {
+            color: var(--secondary-color);
+        }
+        
+        /* Dark Mode */
+        .dark-mode {
+            --primary-color: #375a7f;
+            --secondary-color: #adb5bd;
+            --success-color: #00bc8c;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #444;
+            background-color: var(--light-bg);
+            color: #e0e0e0;
+        }
+        .dark-mode .login-card,
+        .dark-mode .form-container,
+        .dark-mode .data-card,
+        .dark-mode .filter-section,
+        .dark-mode .profile-card,
+        .dark-mode .summary-card,
+        .dark-mode .line-monitoring-section,
+        .dark-mode .settings-section,
+        .dark-mode .bottom-nav,
+        .dark-mode .custom-alert {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            color: #e0e0e0;
+        }
+        .dark-mode .form-control,
+        .dark-mode .form-select {
+            background-color: #2d2d2d;
+            border-color: #444;
+            color: #e0e0e0;
+        }
+        .dark-mode .form-control:focus,
+        .dark-mode .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(55, 90, 127, 0.25);
+        }
+        .dark-mode .app-header {
+            background-color: #2c3e50;
+        }
+        .dark-mode .line-table th {
+            background-color: #2d2d2d;
+        }
+        .dark-mode .line-table td {
+            background-color: var(--card-bg);
+        }
+        .dark-mode .line-table tr:nth-child(even) td {
+            background-color: #2d2d2d;
+        }
+        .dark-mode .shift-separator {
+            background-color: #333 !important;
+        }
+        .dark-mode .app-title,
+        .dark-mode .app-header-title,
+        .dark-mode .section-title,
+        .dark-mode .data-title,
+        .dark-mode .profile-name,
+        .dark-mode .dashboard-title,
+        .dark-mode .line-monitoring-title {
+            color: #f8f9fa;
+        }
+        .dark-mode .form-label,
+        .dark-mode .data-label,
+        .dark-mode .info-label,
+        .dark-mode .settings-label,
+        .dark-mode .summary-card-title {
+            color: #adb5bd;
+        }
+        .dark-mode .profile-email,
+        .dark-mode .data-date,
+        .dark-mode .dashboard-date-range {
+            color: #888;
+        }
+        .dark-mode .custom-alert-header {
+            background-color: var(--primary-color);
+        }
+        .dark-mode .custom-alert-btn-cancel {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
         }
     </style>
 </head>
@@ -605,13 +752,6 @@
                 <div class="dashboard-title">Ringkasan Produksi</div>
                 <div class="dashboard-date-range" id="dashboardDateRange">1 - 31 Januari 2023</div>
             </div>
-            
-
-
-
-
-
-
             <!-- Summary Cards -->
             <div class="summary-cards">
                 <div class="summary-card">
@@ -625,10 +765,6 @@
                     <div class="summary-card-title">menit</div>
                 </div>
             </div>
-            
-
-
-            
             <!-- Filter Section -->
             <section class="filter-section">
                 <h2 class="section-title">Filter Data</h2>
@@ -642,9 +778,6 @@
                     </button>
                 </div>
             </section>
-
-
-
             <!-- Line Monitoring Section -->
             <section class="line-monitoring-section">
                 <h2 class="line-monitoring-title">Monitoring Line Produksi</h2>
@@ -661,9 +794,6 @@
                     </table>
                 </div>
             </section>
-            
-
-            
             <!-- Data List Section -->
             <section class="data-section">
                 <h2 class="section-title">Data Produksi Terbaru</h2>
@@ -689,6 +819,10 @@
             <a href="#" class="nav-item" id="profileNav">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
+            </a>
+            <a href="#" class="nav-item" id="settingsNav">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
             </a>
         </nav>
     </div>
@@ -797,6 +931,10 @@
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
             </a>
+            <a href="#" class="nav-item" id="settingsNav2">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
         </nav>
     </div>
     <!-- Profile Page -->
@@ -852,6 +990,80 @@
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
             </a>
+            <a href="#" class="nav-item" id="settingsNav3">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+    <!-- Settings Page -->
+    <div id="settingsPage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title">Pengaturan</div>
+            <div class="user-section">
+                <div class="user-avatar" id="settingsUserAvatar">U</div>
+                <button class="logout-btn" id="settingsLogoutBtn">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="settings-section">
+                <h2 class="section-title">Tampilan</h2>
+                <div class="settings-item">
+                    <span class="settings-label">Mode Gelap</span>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                        <label class="form-check-label" for="darkModeToggle"></label>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2 class="section-title">Keamanan</h2>
+                <div class="settings-item">
+                    <span class="settings-label">Waktu Logout Otomatis</span>
+                    <select class="form-select form-select-sm" id="autoLogoutTime" style="width: auto;">
+                        <option value="15">15 menit</option>
+                        <option value="30" selected>30 menit</option>
+                        <option value="45">45 menit</option>
+                        <option value="60">1 jam</option>
+                    </select>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2 class="section-title">Tentang</h2>
+                <div class="settings-item">
+                    <span class="settings-label">Versi Aplikasi</span>
+                    <span class="settings-value">v1.0</span>
+                </div>
+                <div class="settings-item">
+                    <span class="settings-label">Tahun</span>
+                    <span class="settings-value">2025</span>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item" id="homeNav4">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" id="inputNav4">
+                <i class="bi bi-plus-circle"></i>
+                <span>Input</span>
+            </a>
+            <a href="#" class="nav-item" id="profileNav4">
+                <i class="bi bi-person"></i>
+                <span>Profil</span>
+            </a>
+            <a href="#" class="nav-item active" id="settingsNav4">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
         </nav>
     </div>
     <!-- Delete Confirmation Modal -->
@@ -888,6 +1100,15 @@
             </div>
         </div>
     </div>
+    <!-- Auto Logout Warning -->
+    <div class="auto-logout-warning hidden" id="autoLogoutWarning">
+        <i class="bi bi-clock-history"></i>
+        <span>Sesi akan berakhir dalam <span class="auto-logout-timer" id="autoLogoutTimer">00:00</span></span>
+        <div class="auto-logout-buttons">
+            <button class="auto-logout-btn auto-logout-stay" id="stayLoggedInBtn">Tetap Login</button>
+            <button class="auto-logout-btn auto-logout-logout" id="logoutNowBtn">Logout</button>
+        </div>
+    </div>
     <!-- Firebase SDK -->
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -915,8 +1136,8 @@
         const homePage = document.getElementById('homePage');
         const inputPage = document.getElementById('inputPage');
         const profilePage = document.getElementById('profilePage');
+        const settingsPage = document.getElementById('settingsPage');
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-        
         // Custom Alert Elements
         const customAlert = document.getElementById('customAlert');
         const alertTitle = document.getElementById('alertTitle');
@@ -924,7 +1145,6 @@
         const alertConfirmBtn = document.getElementById('alertConfirmBtn');
         const alertCancelBtn = document.getElementById('alertCancelBtn');
         const alertCloseBtn = document.querySelector('.custom-alert-close');
-        
         // Login Page Elements
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
@@ -969,22 +1189,45 @@
         const userUid = document.getElementById('userUid');
         const profileLogoutBtn = document.getElementById('profileLogoutBtn');
         const profileLogoutBtn2 = document.getElementById('profileLogoutBtn2');
+        // Settings Page Elements
+        const settingsUserAvatar = document.getElementById('settingsUserAvatar');
+        const settingsLogoutBtn = document.getElementById('settingsLogoutBtn');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const autoLogoutTime = document.getElementById('autoLogoutTime');
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
         const profileNav = document.getElementById('profileNav');
+        const settingsNav = document.getElementById('settingsNav');
         const homeNav2 = document.getElementById('homeNav2');
         const inputNav2 = document.getElementById('inputNav2');
         const profileNav2 = document.getElementById('profileNav2');
+        const settingsNav2 = document.getElementById('settingsNav2');
         const homeNav3 = document.getElementById('homeNav3');
         const inputNav3 = document.getElementById('inputNav3');
         const profileNav3 = document.getElementById('profileNav3');
+        const settingsNav3 = document.getElementById('settingsNav3');
+        const homeNav4 = document.getElementById('homeNav4');
+        const inputNav4 = document.getElementById('inputNav4');
+        const profileNav4 = document.getElementById('profileNav4');
+        const settingsNav4 = document.getElementById('settingsNav4');
         // Delete Modal Elements
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        // Auto Logout Elements
+        const autoLogoutWarning = document.getElementById('autoLogoutWarning');
+        const autoLogoutTimer = document.getElementById('autoLogoutTimer');
+        const stayLoggedInBtn = document.getElementById('stayLoggedInBtn');
+        const logoutNowBtn = document.getElementById('logoutNowBtn');
         // State variables
         let currentUser = null;
         let currentDate = new Date();
         let currentEditDocId = null;
+        // Auto Logout State
+        let inactivityTimer;
+        let warningTimer;
+        let logoutTime = 30 * 60 * 1000; // Default 30 minutes
+        let warningTime = 60 * 1000; // 1 minute warning
+        let timeLeft = logoutTime;
         // Data line produksi dan part
         const linePartData = {
             'COMMON RAIL 01': [ '634F', 'E494', 'E694', 'H6-A', 'P3263','P3267', 'MDE8'],
@@ -1000,40 +1243,31 @@
             'COMMON RAIL 11': ['19MY', 'RZ4E', '902FD'],
             'COMMON RAIL 12': ['902FF', 'ES01B']
         };
-        
         // Custom Alert Functions
         function showAlert(title, message, onConfirm, showCancel = true) {
             alertTitle.textContent = title;
             alertMessage.textContent = message;
-            
             alertCancelBtn.style.display = showCancel ? 'block' : 'none';
-            
             // Set up event listeners
             const confirmHandler = () => {
                 closeAlert();
                 if (onConfirm) onConfirm();
             };
-            
             const cancelHandler = () => {
                 closeAlert();
             };
-            
             const closeHandler = () => {
                 closeAlert();
             };
-            
             alertConfirmBtn.addEventListener('click', confirmHandler, { once: true });
             alertCancelBtn.addEventListener('click', cancelHandler, { once: true });
             alertCloseBtn.addEventListener('click', closeHandler, { once: true });
-            
             // Show alert
             customAlert.classList.add('show');
         }
-        
         function closeAlert() {
             customAlert.classList.remove('show');
         }
-        
         // Format date for display
         function formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -1050,7 +1284,6 @@
             const month = currentDate.getMonth();
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
-            
             const options = { day: 'numeric', month: 'long' };
             dashboardDateRange.textContent = `${firstDay.getDate()} - ${lastDay.getDate()} ${firstDay.toLocaleDateString('id-ID', options)} ${year}`;
         }
@@ -1063,7 +1296,6 @@
             // Total production
             const totalProd = dataList.reduce((sum, data) => sum + data.aktualMontiv, 0);
             totalProduction.textContent = totalProd.toLocaleString();
-            
             // Total loading time
             const totalLoadTime = dataList.reduce((sum, data) => sum + data.loadingTime, 0);
             totalLoadingTime.textContent = totalLoadTime.toLocaleString();
@@ -1075,14 +1307,12 @@
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const daysInMonth = lastDay.getDate();
-            
             // Create date headers
             let headerHTML = '<th>Line Produksi</th>';
             for (let day = 1; day <= daysInMonth; day++) {
                 headerHTML += `<th>${day}</th>`;
             }
             tableHeader.innerHTML = headerHTML;
-            
             // Group data by line, date, and shift
             const lineData = {};
             dataList.forEach(data => {
@@ -1090,7 +1320,6 @@
                 const date = new Date(data.tanggal);
                 const day = date.getDate();
                 const shift = data.shift;
-                
                 if (!lineData[line]) {
                     lineData[line] = {};
                 }
@@ -1099,14 +1328,12 @@
                 }
                 lineData[line][day][shift] += data.aktualMontiv;
             });
-            
             // Generate table rows
             const lineNames = [
                 'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
                 'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
                 'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
             ];
-            
             let tableRowsHTML = '';
             lineNames.forEach(lineName => {
                 // Shift 1 row
@@ -1121,7 +1348,6 @@
                 }
                 shift1RowHTML += '</tr>';
                 tableRowsHTML += shift1RowHTML;
-                
                 // Shift 2 row
                 let shift2RowHTML = `<tr><td>${lineName} (Shift 2)</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
@@ -1134,11 +1360,9 @@
                 }
                 shift2RowHTML += '</tr>';
                 tableRowsHTML += shift2RowHTML;
-                
                 // Separator row
                 tableRowsHTML += '<tr class="shift-separator"><td colspan="' + (daysInMonth + 1) + '"></td></tr>';
             });
-            
             lineTableBody.innerHTML = tableRowsHTML;
         }
         // Fetch data from Firestore
@@ -1149,7 +1373,6 @@
                 const month = currentDate.getMonth();
                 const startDate = new Date(year, month, 1);
                 const endDate = new Date(year, month + 1, 0, 23, 59, 59);
-                
                 // Query data for the current month
                 const q = query(
                     collection(db, "produksiData"),
@@ -1162,16 +1385,14 @@
                 querySnapshot.forEach((doc) => {
                     dataList.push({ id: doc.id, ...doc.data() });
                 });
-                
                 // Update dashboard
                 calculateDashboardStats(dataList);
                 generateLineMonitoringTable(dataList);
-                
                 // Render recent data list
                 renderData(dataList);
             } catch (error) {
-                console.error("Error fetching  ", error);
-                showAlert('Error', 'Gagal memuat  ' + error.message);
+                console.error("Error fetching data: ", error);
+                showAlert('Error', 'Gagal memuat data: ' + error.message);
             }
         }
         // Render data to UI
@@ -1273,7 +1494,7 @@
                 }
             } catch (error) {
                 console.error("Error getting document: ", error);
-                showAlert('Error', 'Gagal mengambil  ' + error.message);
+                showAlert('Error', 'Gagal mengambil data: ' + error.message);
             }
         }
         // Show delete confirmation
@@ -1292,7 +1513,7 @@
                 showAlert('Sukses', 'Data berhasil dihapus!');
             } catch (error) {
                 console.error("Error deleting document: ", error);
-                showAlert('Error', 'Gagal menghapus  ' + error.message);
+                showAlert('Error', 'Gagal menghapus data: ' + error.message);
             }
         }
         // Update part options based on selected line
@@ -1377,6 +1598,7 @@
             homePage.classList.remove('active');
             inputPage.classList.remove('active');
             profilePage.classList.remove('active');
+            settingsPage.classList.remove('active');
             // Show requested page
             document.getElementById(pageId).classList.add('active');
             // Update navigation active state
@@ -1385,14 +1607,22 @@
                 homeNav.classList.add('active');
                 homeNav2.classList.add('active');
                 homeNav3.classList.add('active');
+                homeNav4.classList.add('active');
             } else if (pageId === 'inputPage') {
                 inputNav.classList.add('active');
                 inputNav2.classList.add('active');
                 inputNav3.classList.add('active');
+                inputNav4.classList.add('active');
             } else if (pageId === 'profilePage') {
                 profileNav.classList.add('active');
                 profileNav2.classList.add('active');
                 profileNav3.classList.add('active');
+                profileNav4.classList.add('active');
+            } else if (pageId === 'settingsPage') {
+                settingsNav.classList.add('active');
+                settingsNav2.classList.add('active');
+                settingsNav3.classList.add('active');
+                settingsNav4.classList.add('active');
             }
         }
         // Update user profile display
@@ -1404,6 +1634,7 @@
                 homeUserAvatar.textContent = avatarText;
                 inputUserAvatar.textContent = avatarText;
                 profileUserAvatar.textContent = avatarText;
+                settingsUserAvatar.textContent = avatarText;
                 profileAvatar.textContent = avatarText;
                 // Update profile info
                 profileName.textContent = displayName;
@@ -1421,6 +1652,82 @@
                 }
             }
         }
+        // Auto Logout Functions
+        function startInactivityTimer() {
+            resetInactivityTimer();
+            // Add event listeners for user activity
+            ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(event => {
+                document.addEventListener(event, resetInactivityTimer, true);
+            });
+        }
+        
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            clearTimeout(warningTimer);
+            timeLeft = logoutTime;
+            
+            inactivityTimer = setTimeout(() => {
+                showAutoLogoutWarning();
+            }, logoutTime - warningTime);
+        }
+        
+        function showAutoLogoutWarning() {
+            autoLogoutWarning.classList.remove('hidden');
+            updateAutoLogoutTimer();
+            
+            warningTimer = setInterval(() => {
+                timeLeft -= 1000;
+                updateAutoLogoutTimer();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(warningTimer);
+                    performLogout();
+                }
+            }, 1000);
+        }
+        
+        function updateAutoLogoutTimer() {
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            autoLogoutTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function hideAutoLogoutWarning() {
+            autoLogoutWarning.classList.add('hidden');
+            clearInterval(warningTimer);
+        }
+        
+        function updateLogoutTime() {
+            const selectedTime = parseInt(autoLogoutTime.value);
+            logoutTime = selectedTime * 60 * 1000;
+            // Save to localStorage
+            localStorage.setItem('autoLogoutTime', selectedTime);
+            resetInactivityTimer();
+        }
+        
+        // Dark Mode Functions
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+        
+        function loadSettings() {
+            // Load dark mode preference
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+            
+            // Load auto logout time
+            const savedLogoutTime = localStorage.getItem('autoLogoutTime');
+            if (savedLogoutTime) {
+                autoLogoutTime.value = savedLogoutTime;
+                logoutTime = parseInt(savedLogoutTime) * 60 * 1000;
+            }
+        }
+        
         // Handle user state changes
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -1430,8 +1737,10 @@
                 fetchData();
                 updateMonthDisplay();
                 formatDateRange();
+                startInactivityTimer();
             } else {
                 currentUser = null;
+                hideAutoLogoutWarning();
                 showPage('loginPage');
             }
         });
@@ -1452,23 +1761,44 @@
             }
         });
         // Logout functions
-        function logout() {
-            signOut(auth).catch((error) => {
+        async function performLogout() {
+            try {
+                await signOut(auth);
+                hideAutoLogoutWarning();
+            } catch (error) {
                 console.error("Logout error: ", error);
                 showAlert('Error', 'Gagal logout: ' + error.message);
-            });
+            }
         }
+        
+        function logout() {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
+        }
+        
         homeLogoutBtn.addEventListener('click', () => {
-            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
         inputLogoutBtn.addEventListener('click', () => {
-            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
         profileLogoutBtn.addEventListener('click', () => {
-            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
         profileLogoutBtn2.addEventListener('click', () => {
-            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', logout);
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
+        });
+        settingsLogoutBtn.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
+        });
+        // Auto Logout Event Listeners
+        stayLoggedInBtn.addEventListener('click', () => {
+            hideAutoLogoutWarning();
+            resetInactivityTimer();
+        });
+        
+        logoutNowBtn.addEventListener('click', () => {
+            hideAutoLogoutWarning();
+            performLogout();
         });
         // Navigation
         homeNav.addEventListener('click', (e) => {
@@ -1486,6 +1816,10 @@
             e.preventDefault();
             showPage('profilePage');
         });
+        settingsNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+        });
         // Duplicate navigation for other nav items
         homeNav2.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1501,6 +1835,10 @@
             e.preventDefault();
             showPage('profilePage');
         });
+        settingsNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+        });
         homeNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
@@ -1514,6 +1852,28 @@
         profileNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
+        });
+        settingsNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+        });
+        homeNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+        });
+        inputNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetForm();
+            showPage('inputPage');
+            document.getElementById('tanggal').valueAsDate = new Date();
+        });
+        profileNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
         });
         // Month navigation
         prevMonth.addEventListener('click', () => {
@@ -1531,6 +1891,9 @@
         // Input form event listeners
         lineSelect.addEventListener('change', updatePartOptions);
         shiftSelect.addEventListener('change', updateShiftInfo);
+        // Settings event listeners
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+        autoLogoutTime.addEventListener('change', updateLogoutTime);
         // Input form submission
         productionForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1581,6 +1944,7 @@
         // Initialize
         updateMonthDisplay();
         formatDateRange();
+        loadSettings();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
