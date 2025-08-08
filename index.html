@@ -788,7 +788,7 @@
                 </div>
                 <form id="loginForm">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Username</label>
                         <input type="email" class="form-control" id="email" required>
                     </div>
                     <div class="mb-3">
@@ -1921,7 +1921,7 @@
                 // Set login method
                 if (user.providerData && user.providerData.length > 0) {
                     const provider = user.providerData[0].providerId;
-                    loginMethod.textContent = provider === 'google.com' ? 'Google' : 'Email';
+                    loginMethod.textContent = provider === 'google.com' ? 'Google' : 'Username';
                 }
                 // Set join date
                 if (user.metadata && user.metadata.creationTime) {
