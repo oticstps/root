@@ -17,18 +17,40 @@
             --light-bg: #f8f9fa;
             --card-bg: #ffffff;
             --border-color: #dee2e6;
+            --text-color: #212529;
+            --text-muted: #6c757d;
         }
+        
+        .dark-mode {
+            --primary-color: #3a86ff;
+            --secondary-color: #adb5bd;
+            --success-color: #06d6a0;
+            --danger-color: #ef476f;
+            --warning-color: #ffd166;
+            --light-bg: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --text-color: #e0e0e0;
+            --text-muted: #adb5bd;
+            --table-header-bg: #2d2d2d;
+            --table-row-even: #252525;
+            --shift-separator: #333;
+        }
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--light-bg);
+            color: var(--text-color);
             height: 100vh;
             overflow: hidden;
         }
+        
         /* Page Containers */
         .page {
             display: none;
@@ -36,9 +58,11 @@
             height: 100vh;
             width: 100%;
         }
+        
         .page.active {
             display: flex;
         }
+        
         /* Login Page */
         .login-container {
             width: 100%;
@@ -46,6 +70,7 @@
             padding: 20px;
             margin: auto;
         }
+        
         .login-card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -53,41 +78,52 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid var(--border-color);
         }
+        
         .app-logo {
             text-align: center;
             margin-bottom: 25px;
         }
+        
         .app-logo i {
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 15px;
         }
+        
         .app-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            color: var(--text-color);
             margin-bottom: 5px;
         }
+        
         .app-subtitle {
             font-size: 0.95rem;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .form-label {
             font-weight: 500;
             font-size: 0.9rem;
             margin-bottom: 5px;
-            color: #495057;
+            color: var(--text-color);
         }
+        
         .form-control, .form-select {
             border-radius: 8px;
             padding: 12px 15px;
             font-size: 1rem;
-            border: 1px solid #ced4da;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
         }
+        
         .form-control:focus, .form-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+            color: var(--text-color);
         }
+        
         .btn-primary {
             background-color: var(--primary-color);
             border: none;
@@ -96,27 +132,33 @@
             font-weight: 500;
             font-size: 1rem;
             margin-top: 10px;
+            color: white;
         }
+        
         .btn-primary:hover {
             background-color: #0b5ed7;
         }
+        
         .status-message {
             margin-top: 15px;
             padding: 12px;
             border-radius: 8px;
             font-size: 0.9rem;
         }
+        
         .alert-danger {
             background-color: rgba(220, 53, 69, 0.1);
             color: var(--danger-color);
             border: 1px solid rgba(220, 53, 69, 0.2);
         }
+        
         .footer-text {
             text-align: center;
             margin-top: 20px;
             font-size: 0.85rem;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         /* App Header */
         .app-header {
             background-color: var(--primary-color);
@@ -130,15 +172,18 @@
             z-index: 1000;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        
         .app-header-title {
             font-size: 1.2rem;
             font-weight: 600;
         }
+        
         .user-section {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        
         .user-avatar {
             width: 36px;
             height: 36px;
@@ -149,6 +194,7 @@
             justify-content: center;
             font-weight: bold;
         }
+        
         .logout-btn {
             background: none;
             border: none;
@@ -156,18 +202,21 @@
             font-size: 1.2rem;
             cursor: pointer;
         }
+        
         /* Main Content */
         .main-content {
             flex: 1;
             overflow-y: auto;
             padding: 15px;
         }
+        
         .section-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text-color);
         }
+        
         /* Form Container */
         .form-container {
             background-color: var(--card-bg);
@@ -177,6 +226,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
+        
         /* Data Card */
         .data-card {
             background-color: var(--card-bg);
@@ -186,6 +236,7 @@
             margin-bottom: 15px;
             border: 1px solid var(--border-color);
         }
+        
         .data-header {
             display: flex;
             justify-content: space-between;
@@ -193,26 +244,33 @@
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
         }
+        
         .data-title {
             font-weight: 600;
             color: var(--primary-color);
         }
+        
         .data-date {
             font-size: 0.85rem;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .data-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
+        
         .data-label {
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .data-value {
             font-weight: 500;
+            color: var(--text-color);
         }
+        
         /* Filter Section */
         .filter-section {
             background-color: var(--card-bg);
@@ -222,11 +280,13 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
+        
         .month-selector {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        
         .month-btn {
             background: none;
             border: 1px solid var(--border-color);
@@ -236,23 +296,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-color);
         }
+        
         .month-display {
             flex: 1;
             text-align: center;
             font-weight: 500;
             font-size: 1.1rem;
+            color: var(--text-color);
         }
+        
         .no-data {
             text-align: center;
             padding: 30px;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .no-data i {
             font-size: 3rem;
             margin-bottom: 15px;
             opacity: 0.3;
         }
+        
         /* User Profile */
         .profile-card {
             background-color: var(--card-bg);
@@ -263,6 +329,7 @@
             border: 1px solid var(--border-color);
             text-align: center;
         }
+        
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -276,31 +343,40 @@
             font-weight: bold;
             margin: 0 auto 15px;
         }
+        
         .profile-name {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 5px;
+            color: var(--text-color);
         }
+        
         .profile-email {
-            color: var(--secondary-color);
+            color: var(--text-muted);
             margin-bottom: 20px;
         }
+        
         .profile-info {
             text-align: left;
             margin-top: 20px;
         }
+        
         .info-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
         }
+        
         .info-label {
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .info-value {
             font-weight: 500;
+            color: var(--text-color);
         }
+        
         /* Bottom Navigation */
         .bottom-nav {
             position: sticky;
@@ -314,47 +390,55 @@
             border-top: 1px solid var(--border-color);
             z-index: 1000;
         }
+        
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: var(--secondary-color);
+            color: var(--text-muted);
             font-size: 0.75rem;
             transition: color 0.2s;
         }
+        
         .nav-item.active {
             color: var(--primary-color);
         }
+        
         .nav-item i {
             font-size: 1.25rem;
             margin-bottom: 4px;
         }
+        
         /* Shift Info */
         .shift-info {
             font-size: 0.8rem;
-            color: #6c757d;
+            color: var(--text-muted);
             margin-top: 5px;
             padding: 8px 12px;
             background-color: rgba(13, 110, 253, 0.05);
             border-radius: 6px;
             border-left: 3px solid var(--primary-color);
         }
+        
         /* Loading Spinner */
         .spinner-border {
             width: 1rem;
             height: 1rem;
             border-width: 0.15em;
         }
+        
         .d-none {
             display: none;
         }
+        
         /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
+        
         .btn-edit {
             background-color: var(--warning-color);
             border: none;
@@ -363,6 +447,7 @@
             border-radius: 5px;
             font-size: 0.8rem;
         }
+        
         .btn-delete {
             background-color: var(--danger-color);
             border: none;
@@ -371,18 +456,25 @@
             border-radius: 5px;
             font-size: 0.8rem;
         }
+        
         /* Modal */
         .modal-content {
             border-radius: 12px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
         }
+        
         .modal-header {
             background-color: var(--primary-color);
             color: white;
             border-radius: 12px 12px 0 0;
         }
+        
         .modal-footer {
             padding: 10px 15px;
+            border-top: 1px solid var(--border-color);
         }
+        
         /* Dashboard Styles */
         .dashboard-header {
             display: flex;
@@ -390,20 +482,25 @@
             align-items: center;
             margin-bottom: 20px;
         }
+        
         .dashboard-title {
             font-size: 1.25rem;
             font-weight: 600;
+            color: var(--text-color);
         }
+        
         .dashboard-date-range {
             font-size: 0.9rem;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .summary-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
+        
         .summary-card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -412,16 +509,19 @@
             border: 1px solid var(--border-color);
             text-align: center;
         }
+        
         .summary-card-title {
             font-size: 0.9rem;
-            color: var(--secondary-color);
+            color: var(--text-muted);
             margin-bottom: 5px;
         }
+        
         .summary-card-value {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
         }
+        
         .line-monitoring-section {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -431,18 +531,21 @@
             border: 1px solid var(--border-color);
             overflow-x: auto;
         }
+        
         .line-monitoring-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text-color);
         }
+        
         .line-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
-            min-width: 600px; /* Ensure horizontal scroll */
+            min-width: 600px;
         }
+        
         .line-table th,
         .line-table td {
             padding: 8px 6px;
@@ -450,18 +553,24 @@
             border: 1px solid var(--border-color);
             white-space: nowrap;
         }
+        
         .line-table th {
-            background-color: #f8f9fa;
+            background-color: var(--table-header-bg);
             font-weight: 600;
             position: sticky;
             top: 0;
+            color: var(--text-color);
         }
+        
         .line-table td {
             background-color: var(--card-bg);
+            color: var(--text-color);
         }
+        
         .line-table tr:nth-child(even) td {
-            background-color: #f8f9fa;
+            background-color: var(--table-row-even);
         }
+        
         /* Custom Alert Styles */
         .custom-alert-overlay {
             position: fixed;
@@ -478,84 +587,101 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
+        
         .custom-alert-overlay.show {
             opacity: 1;
             visibility: visible;
         }
+        
         .custom-alert {
-            background: white;
+            background: var(--card-bg);
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             width: 90%;
             max-width: 400px;
             transform: translateY(-50px);
             transition: transform 0.3s ease;
+            color: var(--text-color);
         }
+        
         .custom-alert-overlay.show .custom-alert {
             transform: translateY(0);
         }
+        
         .custom-alert-header {
             padding: 15px 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        
         .custom-alert-title {
             font-weight: bold;
             font-size: 1.1rem;
         }
+        
         .custom-alert-close {
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #999;
+            color: var(--text-muted);
         }
+        
         .custom-alert-body {
             padding: 20px;
         }
+        
         .custom-alert-footer {
             padding: 15px 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: flex-end;
             gap: 10px;
         }
+        
         .custom-alert-btn {
             padding: 8px 15px;
             border-radius: 5px;
             border: none;
             cursor: pointer;
         }
+        
         .custom-alert-btn-confirm {
             background-color: var(--primary-color);
             color: white;
         }
+        
         .custom-alert-btn-cancel {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            color: #333;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
         }
+        
         /* Shift separation styles */
         .shift-separator {
-            background-color: #e9ecef !important;
+            background-color: var(--shift-separator) !important;
             font-weight: bold;
         }
+        
         /* Filter Section Styling */
         .filter-section .form-label {
             font-size: 0.75rem;
             margin-bottom: 3px;
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         .filter-section .form-select {
             padding: 5px 10px;
             font-size: 0.85rem;
         }
+        
         .filter-section .btn {
             padding: 5px 10px;
             font-size: 0.85rem;
         }
+        
         /* Access Control */
         .access-control-section {
             background-color: var(--card-bg);
@@ -565,6 +691,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
+        
         .access-control-item {
             display: flex;
             justify-content: space-between;
@@ -572,15 +699,20 @@
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
         }
+        
         .access-control-item:last-child {
             border-bottom: none;
         }
+        
         .access-control-label {
             font-weight: 500;
+            color: var(--text-color);
         }
+        
         .access-control-value {
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         /* Settings Section */
         .settings-section {
             background-color: var(--card-bg);
@@ -590,6 +722,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
+        
         .settings-item {
             display: flex;
             justify-content: space-between;
@@ -597,19 +730,24 @@
             padding: 12px 0;
             border-bottom: 1px solid var(--border-color);
         }
+        
         .settings-item:last-child {
             border-bottom: none;
         }
+        
         .settings-label {
             font-weight: 500;
+            color: var(--text-color);
         }
+        
         .settings-value {
-            color: var(--secondary-color);
+            color: var(--text-muted);
         }
+        
         /* Auto Logout Warning */
         .auto-logout-warning {
             position: fixed;
-            bottom: 70px; /* Above bottom nav */
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #fff3cd;
@@ -625,19 +763,23 @@
             max-width: 90%;
             width: 350px;
         }
+        
         .auto-logout-warning.hidden {
             display: none;
         }
+        
         .auto-logout-timer {
             font-weight: bold;
             min-width: 30px;
             text-align: center;
         }
+        
         .auto-logout-buttons {
             display: flex;
             gap: 8px;
             margin-left: auto;
         }
+        
         .auto-logout-btn {
             padding: 5px 10px;
             border-radius: 4px;
@@ -645,97 +787,15 @@
             font-size: 0.85rem;
             cursor: pointer;
         }
+        
         .auto-logout-stay {
             background-color: var(--primary-color);
             color: white;
         }
+        
         .auto-logout-logout {
             background-color: var(--danger-color);
             color: white;
-        }
-        /* Dark Mode */
-        .dark-mode {
-            --primary-color: #ffffff;
-            --secondary-color: #adb5bd;
-            --success-color: #00bc8c;
-            --danger-color: #e74c3c;
-            --warning-color: #f39c12;
-            --light-bg: #121212;
-            --card-bg: #1e1e1e;
-            --border-color: #444;
-            background-color: var(--light-bg);
-            color: #e0e0e0;
-        }
-        .dark-mode .login-card,
-        .dark-mode .form-container,
-        .dark-mode .data-card,
-        .dark-mode .filter-section,
-        .dark-mode .profile-card,
-        .dark-mode .summary-card,
-        .dark-mode .line-monitoring-section,
-        .dark-mode .settings-section,
-        .dark-mode .access-control-section,
-        .dark-mode .bottom-nav,
-        .dark-mode .custom-alert {
-            background-color: var(--card-bg);
-            border-color: var(--border-color);
-            color: #e0e0e0;
-        }
-        .dark-mode .form-control,
-        .dark-mode .form-select {
-            background-color: #2d2d2d;
-            border-color: #444;
-            color: #e0e0e0;
-        }
-        .dark-mode .form-control:focus,
-        .dark-mode .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(55, 90, 127, 0.25);
-        }
-        .dark-mode .app-header {
-            background-color: #2c3e50;
-        }
-        .dark-mode .line-table th {
-            background-color: #2d2d2d;
-        }
-        .dark-mode .line-table td {
-            background-color: var(--card-bg);
-        }
-        .dark-mode .line-table tr:nth-child(even) td {
-            background-color: #2d2d2d;
-        }
-        .dark-mode .shift-separator {
-            background-color: #333 !important;
-        }
-        .dark-mode .app-title,
-        .dark-mode .app-header-title,
-        .dark-mode .section-title,
-        .dark-mode .data-title,
-        .dark-mode .profile-name,
-        .dark-mode .dashboard-title,
-        .dark-mode .line-monitoring-title {
-            color: #f8f9fa;
-        }
-        .dark-mode .form-label,
-        .dark-mode .data-label,
-        .dark-mode .info-label,
-        .dark-mode .settings-label,
-        .dark-mode .access-control-label,
-        .dark-mode .summary-card-title {
-            color: #adb5bd;
-        }
-        .dark-mode .profile-email,
-        .dark-mode .data-date,
-        .dark-mode .dashboard-date-range {
-            color: #888;
-        }
-        .dark-mode .custom-alert-header {
-            background-color: var(--primary-color);
-        }
-        .dark-mode .custom-alert-btn-cancel {
-            background-color: #333;
-            border-color: #555;
-            color: #e0e0e0;
         }
         
         /* Refresh Loading Popup */
@@ -751,15 +811,81 @@
             align-items: center;
             z-index: 2500;
         }
+        
         #refreshLoadingPopup.show {
             display: flex;
         }
+        
         .refresh-loading-content {
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 30px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            color: var(--text-color);
+        }
+        
+        /* Line Access Selection */
+        .line-access-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .line-access-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: var(--table-row-even);
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .line-access-item .form-check {
+            margin-bottom: 0;
+        }
+        
+        .line-access-item .form-check-input {
+            margin-top: 0;
+            margin-right: 5px;
+        }
+        
+        /* Form Switch Dark Mode */
+        .form-switch .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        /* Button Styles */
+        .btn-outline-secondary {
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--table-row-even);
+        }
+        
+        /* Table Header Sub-headers */
+        .line-table th[colspan="2"] {
+            background-color: var(--table-header-bg);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .line-table {
+                font-size: 0.75rem;
+            }
+            
+            .line-table th,
+            .line-table td {
+                padding: 6px 4px;
+            }
+            
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -773,7 +899,6 @@
             <div style="font-size: 1.1rem; font-weight: 500;">Memuat Data...</div>
         </div>
     </div>
-
     <!-- Login Page -->
     <div id="loginPage" class="page active">
         <div class="login-container">
@@ -1160,15 +1285,26 @@
                 <h2 class="section-title">Hak Akses Pengguna</h2>
                 <div class="access-control-item">
                     <span class="access-control-label">Line Produksi yang Dapat Diakses</span>
-                    <span class="access-control-value" id="accessibleLines">-</span>
+                    <div class="line-access-container" id="lineAccessContainer">
+                        <!-- Line access checkboxes will be generated here -->
+                    </div>
                 </div>
                 <div class="access-control-item">
                     <span class="access-control-label">Hak Input Data</span>
-                    <span class="access-control-value" id="inputPermission">-</span>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="inputPermissionToggle">
+                        <label class="form-check-label" for="inputPermissionToggle"></label>
+                    </div>
                 </div>
                 <div class="access-control-item">
                     <span class="access-control-label">Hak Edit/Hapus Data</span>
-                    <span class="access-control-value" id="editPermission">-</span>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="editPermissionToggle">
+                        <label class="form-check-label" for="editPermissionToggle"></label>
+                    </div>
+                </div>
+                <div class="access-control-item">
+                    <button class="btn btn-primary" id="savePermissionsBtn">Simpan Hak Akses</button>
                 </div>
             </section>
             <section class="settings-section">
@@ -1331,9 +1467,10 @@
         const settingsLogoutBtn = document.getElementById('settingsLogoutBtn');
         const darkModeToggle = document.getElementById('darkModeToggle');
         const autoLogoutTime = document.getElementById('autoLogoutTime');
-        const accessibleLines = document.getElementById('accessibleLines');
-        const inputPermission = document.getElementById('inputPermission');
-        const editPermission = document.getElementById('editPermission');
+        const lineAccessContainer = document.getElementById('lineAccessContainer');
+        const inputPermissionToggle = document.getElementById('inputPermissionToggle');
+        const editPermissionToggle = document.getElementById('editPermissionToggle');
+        const savePermissionsBtn = document.getElementById('savePermissionsBtn');
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
@@ -1366,7 +1503,6 @@
         const logoutNowBtn = document.getElementById('logoutNowBtn');
         // Refresh Loading Popup
         const refreshLoadingPopup = document.getElementById('refreshLoadingPopup');
-        
         // State variables
         let currentUser = null;
         let currentDate = new Date();
@@ -1393,46 +1529,20 @@
             'COMMON RAIL 11': ['19MY', 'RZ4E', '902FD'],
             'COMMON RAIL 12': ['902FF', 'ES01B']
         };
-        // Konfigurasi hak akses berdasarkan UUID
-        const userAccessConfig = {
-            // Contoh konfigurasi untuk user A dengan UUID tertentu
-            "userA-uuid-here": {
-                accessibleLines: ["COMMON RAIL 01", "COMMON RAIL 02", "COMMON RAIL 03", "COMMON RAIL 04", "COMMON RAIL 05"],
-                canInput: true,
-                canEdit: true
-            },
-            // Contoh konfigurasi untuk user B dengan UUID tertentu
-            "userB-uuid-here": {
-                accessibleLines: ["COMMON RAIL 06", "COMMON RAIL 07", "COMMON RAIL 08"],
-                canInput: true,
-                canEdit: false
-            },
-            // Default untuk user lainnya
-            "default": {
-                accessibleLines: Object.keys(linePartData),
-                canInput: true,
-                canEdit: true
-            }
-        };
-        
         // Refresh Loading Popup Functions
         function showRefreshLoading() {
             refreshLoadingPopup.classList.add('show');
         }
-        
         function hideRefreshLoading() {
             refreshLoadingPopup.classList.remove('show');
         }
-        
         // Tampilkan loading saat halaman dimuat
         showRefreshLoading();
-        
         // Sembunyikan loading setelah semua konten dimuat
         window.addEventListener('load', function() {
             // Tambahkan sedikit delay agar terlihat jika loading sangat cepat
             setTimeout(hideRefreshLoading, 300);
         });
-        
         // Custom Alert Functions
         function showAlert(title, message, onConfirm, showCancel = true) {
             alertTitle.textContent = title;
@@ -1497,27 +1607,38 @@
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const daysInMonth = lastDay.getDate();
-            // Create date headers
-            let headerHTML = '<th>Line Produksi</th>';
+
+            // Create date headers with Loading Time sub-columns
+            let headerHTML = '<th rowspan="2">Line Produksi</th>';
+            let subHeaderHTML = '<tr>'; // New row for sub-headers
             for (let day = 1; day <= daysInMonth; day++) {
-                headerHTML += `<th>${day}</th>`;
+                headerHTML += `<th colspan="2" style="text-align: center;">${day}</th>`; // Span 2 columns
+                subHeaderHTML += '<th style="font-size: 0.75rem;">Prod</th><th style="font-size: 0.75rem;">LT</th>'; // Sub-headers: Production, Loading Time
             }
-            tableHeader.innerHTML = headerHTML;
+            headerHTML += '</tr>';
+            subHeaderHTML += '</tr>';
+            tableHeader.innerHTML = headerHTML + subHeaderHTML;
+
             // Group data by line, date, and shift
+            // Store both aktualMontiv (prod) and loadingTime (lt)
             const lineData = {};
             dataList.forEach(data => {
                 const line = data.namaLineProduksi;
-                const date = new Date(data.tanggal);
-                const day = date.getDate();
+                const dateObj = new Date(data.tanggal);
+                // Ensure date comparison works correctly with date strings
+                const dateKey = dateObj.toISOString().split('T')[0]; // Use YYYY-MM-DD format for key
                 const shift = data.shift;
                 if (!lineData[line]) {
                     lineData[line] = {};
                 }
-                if (!lineData[line][day]) {
-                    lineData[line][day] = { '1': 0, '2': 0 };
+                if (!lineData[line][dateKey]) {
+                    lineData[line][dateKey] = { '1': { prod: 0, lt: 0 }, '2': { prod: 0, lt: 0 } };
                 }
-                lineData[line][day][shift] += data.aktualMontiv;
+                // Aggregate production and loading time
+                lineData[line][dateKey][shift].prod += data.aktualMontiv;
+                lineData[line][dateKey][shift].lt += data.loadingTime;
             });
+
             // Generate table rows
             const lineNames = [
                 'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
@@ -1529,29 +1650,36 @@
                 // Shift 1 row
                 let shift1RowHTML = `<tr><td>${lineName} (Shift 1)</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
-                    const data = lineData[lineName] && lineData[lineName][day];
-                    if (data && data['1'] > 0) {
-                        shift1RowHTML += `<td>${data['1']}</td>`;
+                    const dateKey = new Date(year, month, day).toISOString().split('T')[0];
+                    const data = lineData[lineName] && lineData[lineName][dateKey];
+                    if (data && (data['1'].prod > 0 || data['1'].lt > 0)) {
+                        // Display Production and Loading Time side-by-side
+                        shift1RowHTML += `<td style="text-align:right;">${data['1'].prod}</td><td style="text-align:right;">${data['1'].lt}</td>`;
                     } else {
-                        shift1RowHTML += '<td>-</td>';
+                        shift1RowHTML += '<td>-</td><td>-</td>';
                     }
                 }
                 shift1RowHTML += '</tr>';
                 tableRowsHTML += shift1RowHTML;
+
                 // Shift 2 row
                 let shift2RowHTML = `<tr><td>${lineName} (Shift 2)</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
-                    const data = lineData[lineName] && lineData[lineName][day];
-                    if (data && data['2'] > 0) {
-                        shift2RowHTML += `<td>${data['2']}</td>`;
+                     const dateKey = new Date(year, month, day).toISOString().split('T')[0];
+                    const data = lineData[lineName] && lineData[lineName][dateKey];
+                    if (data && (data['2'].prod > 0 || data['2'].lt > 0)) {
+                        // Display Production and Loading Time side-by-side
+                        shift2RowHTML += `<td style="text-align:right;">${data['2'].prod}</td><td style="text-align:right;">${data['2'].lt}</td>`;
                     } else {
-                        shift2RowHTML += '<td>-</td>';
+                        shift2RowHTML += '<td>-</td><td>-</td>';
                     }
                 }
                 shift2RowHTML += '</tr>';
                 tableRowsHTML += shift2RowHTML;
+
                 // Separator row
-                tableRowsHTML += '<tr class="shift-separator"><td colspan="' + (daysInMonth + 1) + '"></td></tr>';
+                // Adjust colspan to account for double columns (days * 2) + line name column
+                tableRowsHTML += `<tr class="shift-separator"><td colspan="${(daysInMonth * 2) + 1}"></td></tr>`;
             });
             lineTableBody.innerHTML = tableRowsHTML;
         }
@@ -1907,27 +2035,107 @@
                 }
             }
         }
+        // Generate line access checkboxes
+        function generateLineAccessCheckboxes() {
+            lineAccessContainer.innerHTML = '';
+            const lineNames = [
+                'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+            ];
+            
+            lineNames.forEach(lineName => {
+                const lineItem = document.createElement('div');
+                lineItem.className = 'line-access-item';
+                lineItem.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="line-${lineName.replace(/\s+/g, '-')}" value="${lineName}">
+                        <label class="form-check-label" for="line-${lineName.replace(/\s+/g, '-')}">${lineName}</label>
+                    </div>
+                `;
+                lineAccessContainer.appendChild(lineItem);
+            });
+        }
         // Update user permissions display
         function updateUserPermissionsDisplay() {
             if (userPermissions) {
                 // Update accessible lines display
-                accessibleLines.textContent = userPermissions.accessibleLines.join(', ');
+                const lineCheckboxes = lineAccessContainer.querySelectorAll('input[type="checkbox"]');
+                lineCheckboxes.forEach(checkbox => {
+                    checkbox.checked = userPermissions.accessibleLines.includes(checkbox.value);
+                });
+                
                 // Update input permission display
-                inputPermission.textContent = userPermissions.canInput ? 'Diizinkan' : 'Ditolak';
-                inputPermission.className = 'access-control-value ' + (userPermissions.canInput ? 'text-success' : 'text-danger');
+                inputPermissionToggle.checked = userPermissions.canInput;
+                
                 // Update edit permission display
-                editPermission.textContent = userPermissions.canEdit ? 'Diizinkan' : 'Ditolak';
-                editPermission.className = 'access-control-value ' + (userPermissions.canEdit ? 'text-success' : 'text-danger');
+                editPermissionToggle.checked = userPermissions.canEdit;
             }
         }
-        // Get user permissions based on UUID
-        function getUserPermissions(uid) {
-            // Cek apakah ada konfigurasi khusus untuk UUID ini
-            if (userAccessConfig[uid]) {
-                return userAccessConfig[uid];
+        // Save user permissions
+        async function saveUserPermissions() {
+            if (!currentUser) return;
+            
+            // Get selected lines
+            const selectedLines = [];
+            const lineCheckboxes = lineAccessContainer.querySelectorAll('input[type="checkbox"]');
+            lineCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedLines.push(checkbox.value);
+                }
+            });
+            
+            // Get permissions
+            const canInput = inputPermissionToggle.checked;
+            const canEdit = editPermissionToggle.checked;
+            
+            // Create permissions object
+            const permissions = {
+                uid: currentUser.uid,
+                accessibleLines: selectedLines,
+                canInput: canInput,
+                canEdit: canEdit
+            };
+            
+            try {
+                // Save to Firestore
+                const userPermissionsRef = doc(db, "userPermissions", currentUser.uid);
+                await setDoc(userPermissionsRef, permissions);
+                
+                // Update local permissions
+                userPermissions = permissions;
+                
+                showAlert('Sukses', 'Hak akses berhasil disimpan!');
+            } catch (error) {
+                console.error("Error saving permissions: ", error);
+                showAlert('Error', 'Gagal menyimpan hak akses: ' + error.message);
             }
-            // Jika tidak ada, gunakan konfigurasi default
-            return userAccessConfig["default"];
+        }
+        // Get user permissions from Firestore
+        async function getUserPermissions(uid) {
+            try {
+                const userPermissionsRef = doc(db, "userPermissions", uid);
+                const userPermissionsSnap = await getDoc(userPermissionsRef);
+                
+                if (userPermissionsSnap.exists()) {
+                    return userPermissionsSnap.data();
+                } else {
+                    // Return default permissions if not found
+                    return {
+                        uid: uid,
+                        accessibleLines: [
+                            'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                            'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                            'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+                        ],
+                        canInput: true,
+                        canEdit: true
+                    };
+                }
+            } catch (error) {
+                console.error("Error getting user permissions: ", error);
+                return null;
+            }
         }
         // Auto Logout Functions
         function startInactivityTimer() {
@@ -1994,12 +2202,12 @@
             }
         }
         // Handle user state changes
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
                 updateUserProfile(user);
                 // Get user permissions
-                userPermissions = getUserPermissions(user.uid);
+                userPermissions = await getUserPermissions(user.uid);
                 updateUserPermissionsDisplay();
                 showPage('homePage');
                 fetchData();
@@ -2203,6 +2411,7 @@
         // Settings event listeners
         darkModeToggle.addEventListener('change', toggleDarkMode);
         autoLogoutTime.addEventListener('change', updateLogoutTime);
+        savePermissionsBtn.addEventListener('click', saveUserPermissions);
         // Filter event listeners
         filterLine.addEventListener('change', () => {
             updateFilterPartOptions();
@@ -2282,6 +2491,7 @@
         formatDateRange();
         loadSettings();
         updateFilterPartOptions();
+        generateLineAccessCheckboxes();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
