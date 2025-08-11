@@ -1441,7 +1441,7 @@
             </a>
             <a href="#" class="nav-item" id="inputNavKpp">
                 <i class="bi bi-plus-circle"></i>
-                <span>Input Man Hour</span>
+                <span>Input</span>
             </a>
             <a href="#" class="nav-item active" id="kppNavKpp"> <!-- Active by default -->
                 <i class="bi bi-clipboard-check"></i>
@@ -1520,6 +1520,9 @@
             </a>
         </nav>
     </div>
+
+
+    
     <!-- Settings Page -->
     <div id="settingsPage" class="page">
         <!-- App Header -->
@@ -1851,81 +1854,89 @@
         };
         // Data KPP NG
         const kppNgData = {
-          "COMMON RAIL 12": {
-            "902FF": {
-              "#10": [
-                "Ø 5.4 Besar / Kecil / Step",
-                "Ø 9.3 Besar / Kecil / Step",
-                "Drill Ø 9.3 Patah / Gompal",
-                "Drill Ø 5.1 Patah / Gompal",
-                "Reamer Ø 5.4 Patah / Gompal",
-                "Proses Miring / Salah Pemasangan #10",
-                "Lain-lain #10"
-              ],
-              "#20": [
-                "Lub.Gundril miring",
-                "Lub.Gundril kasar",
-                "Lub.Gundril over load",
-                "Gundrill Patah",
-                "Proses Miring / Salah Pemasangan #20",
-                "Lain - lain #20"
-              ],
-              "#30": [
-                "Seal plug M20 Kasar / Gores / Bibiri / Gosong",
-                "Ulir M20 Longgar / Seret",
-                "Lubang ØM20 Besar / kecil / Step",
-                "Tap M20 Patah / Gompal",
-                "Ketebalan Muka baut",
-                "Proses Miring / Salah Pemasangan #30",
-                "Concentricity Gundrill Miring M20 Mekura",
-                "Lain - lain #30"
-              ],
-              "#70": [
-                "Drill Ø4 Patah / Gompal",
-                "Seal M20 Kasar / Gores / Bibiri",
-                "Diameter Seal M20 Besar / Kecil",
-                "Lubang ØM20 Besar / Kecil / Step",
-                "Tirus M20 gores, kasar, bibiri",
-                "Ulir M20 Longgar / Seret",
-                "Tap M20 Patah / Gompal",
-                "Seal M10 Kasar / Gores / Bibiri",
-                "Ulir M10 Longgar / Seret",
-                "Lub Ø M10 Besar / Kecil",
-                "Tap M10 Patah / Gompal",
-                "Ø17,6 Besar / kecil",
-                "Ø17,6 Kasar / Gores / Step",
-                "Ø17,4 Besar / kecil",
-                "Ø17,4 Kasar / Gores / Step",
-                "Seal Men M10 Unbalance",
-                "NG Posisi Seal M10",
-                "NG Tenaoshi Seal & Tirus M20 & M10",
-                "Concentricity Gundrill Miring M20",
-                "Proses Miring / Salah Pemasangan #70",
-                "Lain - lain #70"
-              ],
-              "#80": [
-                "Drill Ø0.67 Patah",
-                "Reamer Ø0.68 Patah",
-                "Lubang Ø0,7 Over",
-                "Center Drill Ø0.7 Patah",
-                "Drill Ø4.0 Patah / Gompal",
-                "Reamer 90° Patah / Gompal",
-                "Seal Inj M14 Kasar / Gores / Bibiri",
-                "ØM14 Besar / Kecil / Oval",
-                "Ulir M14 Longgar / Seret",
-                "Tap M14 Patah / Gompal",
-                "Posisi Miring / Salah Pemasangan #80",
-                "NG Tenaoshi 90°",
-                "Lain - lain #80"
-              ],
-              "#120": [
-                "Muka Taper 90º Mushire",
-                "Lubang Ø0.7 Miring",
-                "Ø4.0 Kasar Gores",
-                "Dakon",
-                "Lain-lain #120"
-              ]
-            }
+            "COMMON RAIL 12": {
+                "902FF": {
+                    "#10": [
+                        "Ø 5.4 Besar / Kecil / Step",
+                        "Ø 9.3 Besar / Kecil / Step",
+                        "Drill Ø 9.3 Patah / Gompal",
+                        "Drill Ø 5.1 Patah / Gompal",
+                        "Reamer Ø 5.4 Patah / Gompal",
+                        "Proses Miring / Salah Pemasangan #10",
+                        "Lain-lain #10"
+                    ],
+                    "#20": [
+                        "Lub.Gundril miring",
+                        "Lub.Gundril kasar",
+                        "Lub.Gundril over load",
+                        "Gundrill Patah",
+                        "Proses Miring / Salah Pemasangan #20",
+                        "Lain - lain #20"
+                    ],
+                    "#30": [
+                        "Seal plug M20 Kasar / Gores / Bibiri / Gosong",
+                        "Ulir M20 Longgar / Seret",
+                        "Lubang ØM20 Besar / kecil / Step",
+                        "Tap M20 Patah / Gompal",
+                        "Ketebalan Muka baut",
+                        "Proses Miring / Salah Pemasangan #30",
+                        "Concentricity Gundrill Miring M20 Mekura",
+                        "Lain - lain #30"
+                    ],
+                    "#70": [
+                        "Drill Ø4 Patah / Gompal",
+                        "Seal M20 Kasar / Gores / Bibiri",
+                        "Diameter Seal M20 Besar / Kecil",
+                        "Lubang ØM20 Besar / Kecil / Step",
+                        "Tirus M20 gores, kasar, bibiri",
+                        "Ulir M20 Longgar / Seret",
+                        "Tap M20 Patah / Gompal",
+                        "Seal M10 Kasar / Gores / Bibiri",
+                        "Ulir M10 Longgar / Seret",
+                        "Lub Ø M10 Besar / Kecil",
+                        "Tap M10 Patah / Gompal",
+                        "Ø17,6 Besar / kecil",
+                        "Ø17,6 Kasar / Gores / Step",
+                        "Ø17,4 Besar / kecil",
+                        "Ø17,4 Kasar / Gores / Step",
+                        "Seal Men M10 Unbalance",
+                        "NG Posisi Seal M10",
+                        "NG Tenaoshi Seal & Tirus M20 & M10",
+                        "Concentricity Gundrill Miring M20",
+                        "Proses Miring / Salah Pemasangan #70",
+                        "Lain - lain #70"
+                    ],
+                    "#80": [
+                        "Drill Ø0.67 Patah",
+                        "Reamer Ø0.68 Patah",
+                        "Lubang Ø0,7 Over",
+                        "Center Drill Ø0.7 Patah",
+                        "Drill Ø4.0 Patah / Gompal",
+                        "Reamer 90° Patah / Gompal",
+                        "Seal Inj M14 Kasar / Gores / Bibiri",
+                        "ØM14 Besar / Kecil / Oval",
+                        "Ulir M14 Longgar / Seret",
+                        "Tap M14 Patah / Gompal",
+                        "Posisi Miring / Salah Pemasangan #80",
+                        "NG Tenaoshi 90°",
+                        "Lain - lain #80"
+                    ],
+                    "#120": [
+                        "Muka Taper 90º Mushire",
+                        "Lubang Ø0.7 Miring",
+                        "Ø4.0 Kasar Gores",
+                        "Dakon",
+                        "Lain-lain #120"
+                    ]
+                },
+
+
+
+
+
+
+
+            
             // Tambahkan data untuk part lain jika ada
           }
           // Tambahkan data untuk line lain jika ada
