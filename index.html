@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -765,6 +766,177 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        /* Dashboard Selection */
+        .dashboard-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+        }
+        .dashboard-selection-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+        .dashboard-selection-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .dashboard-selection-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .dashboard-selection-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .dashboard-selection-btn i {
+            font-size: 1.5rem;
+        }
+        /* Dashboard Content */
+        .dashboard-content {
+            display: none;
+        }
+        .dashboard-content.active {
+            display: block;
+        }
+        /* KPP Dashboard Styles */
+        .kpp-dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .kpp-summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .kpp-summary-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .kpp-summary-card-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .kpp-summary-card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--danger-color);
+        }
+        .kpp-ng-table-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+        .kpp-ng-table-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        .kpp-ng-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 600px;
+        }
+        .kpp-ng-table th,
+        .kpp-ng-table td {
+            padding: 8px 6px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+        .kpp-ng-table th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            color: var(--text-color);
+        }
+        .kpp-ng-table td {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        .kpp-ng-table tr:nth-child(even) td {
+            background-color: var(--table-row-even);
+        }
+        /* KPP Data List */
+        .kpp-data-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .kpp-data-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .kpp-data-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .kpp-data-title {
+            font-weight: 600;
+            color: var(--danger-color);
+        }
+        .kpp-data-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .kpp-data-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        .kpp-data-label {
+            color: var(--text-muted);
+        }
+        .kpp-data-value {
+            font-weight: 500;
+            color: var(--text-color);
+        }
     </style>
 </head>
 <body>
@@ -821,115 +993,238 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Dashboard Header -->
-            <div class="dashboard-header">
-                <div class="dashboard-title">Ringkasan Produksi</div>
-                <div class="dashboard-date-range" id="dashboardDateRange">1 - 31 Januari 2023</div>
-            </div>
-            <!-- Summary Cards -->
-            <div class="summary-cards">
-                <div class="summary-card">
-                    <div class="summary-card-title">Total Produksi</div>
-                    <div class="summary-card-value" id="totalProduction">0</div>
-                    <div class="summary-card-title">pcs</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-card-title">Total Loading Time</div>
-                    <div class="summary-card-value" id="totalLoadingTime">0</div>
-                    <div class="summary-card-title">menit</div>
+            <!-- Dashboard Selection -->
+            <div id="dashboardSelection" class="dashboard-selection">
+                <h2 class="dashboard-selection-title">Pilih Dashboard</h2>
+                <div class="dashboard-selection-buttons">
+                    <a href="#" id="manhourDashboardBtn" class="dashboard-selection-btn">
+                        <i class="bi bi-bar-chart-line"></i>
+                        <span>Dashboard Manhour (Hasil Produksi)</span>
+                    </a>
+                    <a href="#" id="kppDashboardBtn" class="dashboard-selection-btn">
+                        <i class="bi bi-clipboard-check"></i>
+                        <span>Menu KPP (Pencatatan NG)</span>
+                    </a>
                 </div>
             </div>
-            <!-- Filter Section -->
-            <section class="filter-section">
-                <h2 class="section-title">Filter Data</h2>
-                <div class="month-selector">
-                    <button class="month-btn" id="prevMonth">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <div class="month-display" id="currentMonth">Januari 2023</div>
-                    <button class="month-btn" id="nextMonth">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
+            <!-- Manhour Dashboard Content -->
+            <div id="manhourDashboard" class="dashboard-content">
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <div class="dashboard-title">Ringkasan Produksi</div>
+                    <div class="dashboard-date-range" id="dashboardDateRange">1 - 31 Januari 2023</div>
                 </div>
-            </section>
-            <!-- Line Monitoring Section -->
-            <section class="line-monitoring-section">
-                <h2 class="line-monitoring-title">Monitoring Line Produksi</h2>
-                <div style="overflow-x: auto;">
-                    <table class="line-table">
-                        <thead id="tableHeader">
-                            <!-- Header will be generated dynamically -->
-                        </thead>
-                        <tbody id="lineTableBody">
-                            <!-- Data rows will be generated dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <!-- Data List Section -->
-            <section class="data-section">
-                <h2 class="section-title">Data Produksi Terbaru</h2>
-                <!-- Filter Section untuk Data Terbaru -->
-                <div class="filter-section mb-3">
-                    <div class="row g-2">
-                        <div class="col-6 col-md-3">
-                            <label for="filterLine" class="form-label">Line Produksi</label>
-                            <select class="form-select form-select-sm" id="filterLine">
-                                <option value="">Semua Line</option>
-                                <option value="COMMON RAIL 01">COMMON RAIL 01</option>
-                                <option value="COMMON RAIL 02">COMMON RAIL 02</option>
-                                <option value="COMMON RAIL 03">COMMON RAIL 03</option>
-                                <option value="COMMON RAIL 04">COMMON RAIL 04</option>
-                                <option value="COMMON RAIL 05">COMMON RAIL 05</option>
-                                <option value="COMMON RAIL 06">COMMON RAIL 06</option>
-                                <option value="COMMON RAIL 07">COMMON RAIL 07</option>
-                                <option value="COMMON RAIL 08">COMMON RAIL 08</option>
-                                <option value="COMMON RAIL 09">COMMON RAIL 09</option>
-                                <option value="COMMON RAIL 10">COMMON RAIL 10</option>
-                                <option value="COMMON RAIL 11">COMMON RAIL 11</option>
-                                <option value="COMMON RAIL 12">COMMON RAIL 12</option>
-                            </select>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <label for="filterPart" class="form-label">Part</label>
-                            <select class="form-select form-select-sm" id="filterPart">
-                                <option value="">Semua Part</option>
-                                <!-- Options akan diisi secara dinamis berdasarkan line yang dipilih -->
-                            </select>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <label for="filterGroup" class="form-label">Group</label>
-                            <select class="form-select form-select-sm" id="filterGroup">
-                                <option value="">Semua Group</option>
-                                <option value="PG-1">PG-1</option>
-                                <option value="PG-2.1">PG-2.1</option>
-                                <option value="PG-2.2">PG-2.2</option>
-                                <option value="PG-2.3">PG-2.3</option>
-                            </select>
-                        </div>
-                        <div class="col-6 col-md-2">
-                            <label for="filterShift" class="form-label">Shift</label>
-                            <select class="form-select form-select-sm" id="filterShift">
-                                <option value="">Semua Shift</option>
-                                <option value="1">Shift 1</option>
-                                <option value="2">Shift 2</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-2 d-flex align-items-end">
-                            <button class="btn btn-outline-secondary w-100" id="resetFilterBtn">
-                                <i class="bi bi-x-circle"></i> Reset
-                            </button>
-                        </div>
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-card-title">Total Produksi</div>
+                        <div class="summary-card-value" id="totalProduction">0</div>
+                        <div class="summary-card-title">pcs</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-title">Total Loading Time</div>
+                        <div class="summary-card-value" id="totalLoadingTime">0</div>
+                        <div class="summary-card-title">menit</div>
                     </div>
                 </div>
-                <div id="dataContainer">
-                    <div class="no-data" id="noDataMessage">
-                        <i class="bi bi-clipboard-data"></i>
-                        <p>Tidak ada data produksi</p>
-                        <small>Silakan input data terlebih dahulu</small>
+                <!-- Filter Section -->
+                <section class="filter-section">
+                    <h2 class="section-title">Filter Data</h2>
+                    <div class="month-selector">
+                        <button class="month-btn" id="prevMonth">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <div class="month-display" id="currentMonth">Januari 2023</div>
+                        <button class="month-btn" id="nextMonth">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </section>
+                <!-- Line Monitoring Section -->
+                <section class="line-monitoring-section">
+                    <h2 class="line-monitoring-title">Monitoring Line Produksi</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="line-table">
+                            <thead id="tableHeader">
+                                <!-- Header will be generated dynamically -->
+                            </thead>
+                            <tbody id="lineTableBody">
+                                <!-- Data rows will be generated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <!-- Data List Section -->
+                <section class="data-section">
+                    <h2 class="section-title">Data Produksi Terbaru</h2>
+                    <!-- Filter Section untuk Data Terbaru -->
+                    <div class="filter-section mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 col-md-3">
+                                <label for="filterLine" class="form-label">Line Produksi</label>
+                                <select class="form-select form-select-sm" id="filterLine">
+                                    <option value="">Semua Line</option>
+                                    <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                    <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                    <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                    <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                    <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                    <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                    <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                    <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                    <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                    <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                    <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                    <option value="COMMON RAIL 12">COMMON RAIL 12</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label for="filterPart" class="form-label">Part</label>
+                                <select class="form-select form-select-sm" id="filterPart">
+                                    <option value="">Semua Part</option>
+                                    <!-- Options akan diisi secara dinamis berdasarkan line yang dipilih -->
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label for="filterGroup" class="form-label">Group</label>
+                                <select class="form-select form-select-sm" id="filterGroup">
+                                    <option value="">Semua Group</option>
+                                    <option value="PG-1">PG-1</option>
+                                    <option value="PG-2.1">PG-2.1</option>
+                                    <option value="PG-2.2">PG-2.2</option>
+                                    <option value="PG-2.3">PG-2.3</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label for="filterShift" class="form-label">Shift</label>
+                                <select class="form-select form-select-sm" id="filterShift">
+                                    <option value="">Semua Shift</option>
+                                    <option value="1">Shift 1</option>
+                                    <option value="2">Shift 2</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 d-flex align-items-end">
+                                <button class="btn btn-outline-secondary w-100" id="resetFilterBtn">
+                                    <i class="bi bi-x-circle"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dataContainer">
+                        <div class="no-data" id="noDataMessage">
+                            <i class="bi bi-clipboard-data"></i>
+                            <p>Tidak ada data produksi</p>
+                            <small>Silakan input data terlebih dahulu</small>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- KPP Dashboard Content -->
+            <div id="kppDashboard" class="dashboard-content">
+                <!-- KPP Dashboard Header -->
+                <div class="kpp-dashboard-header">
+                    <div class="dashboard-title">Ringkasan KPP (NG)</div>
+                    <div class="dashboard-date-range" id="kppDashboardDateRange">1 - 31 Januari 2023</div>
+                </div>
+                <!-- KPP Summary Cards -->
+                <div class="kpp-summary-cards">
+                    <div class="kpp-summary-card">
+                        <div class="kpp-summary-card-title">Total NG</div>
+                        <div class="kpp-summary-card-value" id="totalNG">0</div>
+                        <div class="kpp-summary-card-title">pcs</div>
+                    </div>
+                    <div class="kpp-summary-card">
+                        <div class="kpp-summary-card-title">Total Item NG</div>
+                        <div class="kpp-summary-card-value" id="totalItemNG">0</div>
+                        <div class="kpp-summary-card-title">item</div>
                     </div>
                 </div>
-            </section>
+                <!-- Filter Section for KPP -->
+                <section class="filter-section">
+                    <h2 class="section-title">Filter Data KPP</h2>
+                    <div class="month-selector">
+                        <button class="month-btn" id="kppPrevMonth">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <div class="month-display" id="kppCurrentMonth">Januari 2023</div>
+                        <button class="month-btn" id="kppNextMonth">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </section>
+                <!-- NG Monitoring Section -->
+                <section class="kpp-ng-table-section">
+                    <h2 class="kpp-ng-table-title">Monitoring NG per Line</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="kpp-ng-table">
+                            <thead id="kppTableHeader">
+                                <!-- Header will be generated dynamically -->
+                            </thead>
+                            <tbody id="kppTableBody">
+                                <!-- Data rows will be generated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <!-- KPP Data List Section -->
+                <section class="kpp-data-section">
+                    <h2 class="section-title">Data KPP Terbaru</h2>
+                    <!-- Filter Section untuk Data KPP Terbaru -->
+                    <div class="filter-section mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 col-md-3">
+                                <label for="kppFilterLine" class="form-label">Line Produksi</label>
+                                <select class="form-select form-select-sm" id="kppFilterLine">
+                                    <option value="">Semua Line</option>
+                                    <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                    <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                    <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                    <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                    <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                    <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                    <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                    <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                    <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                    <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                    <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                    <option value="COMMON RAIL 12">COMMON RAIL 12</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label for="kppFilterPart" class="form-label">Part</label>
+                                <select class="form-select form-select-sm" id="kppFilterPart">
+                                    <option value="">Semua Part</option>
+                                    <!-- Options akan diisi secara dinamis -->
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label for="kppFilterProses" class="form-label">Proses (#)</label>
+                                <select class="form-select form-select-sm" id="kppFilterProses">
+                                    <option value="">Semua Proses</option>
+                                    <option value="#10">#10</option>
+                                    <option value="#20">#20</option>
+                                    <option value="#30">#30</option>
+                                    <option value="#70">#70</option>
+                                    <option value="#80">#80</option>
+                                    <option value="#120">#120</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-3 d-flex align-items-end">
+                                <button class="btn btn-outline-secondary w-100" id="kppResetFilterBtn">
+                                    <i class="bi bi-x-circle"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="kppDataContainer">
+                        <div class="no-data" id="kppNoDataMessage">
+                            <i class="bi bi-clipboard-x"></i>
+                            <p>Tidak ada data KPP</p>
+                            <small>Silakan input data KPP terlebih dahulu</small>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
@@ -940,6 +1235,10 @@
             <a href="#" class="nav-item" id="inputNav">
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
+            </a>
+            <a href="#" class="nav-item" id="kppNav">
+                <i class="bi bi-clipboard-check"></i>
+                <span>KPP</span>
             </a>
             <a href="#" class="nav-item" id="profileNav">
                 <i class="bi bi-person"></i>
@@ -1048,11 +1347,111 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
+            <a href="#" class="nav-item" id="kppNav2">
+                <i class="bi bi-clipboard-check"></i>
+                <span>KPP</span>
+            </a>
             <a href="#" class="nav-item" id="profileNav2">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
             </a>
             <a href="#" class="nav-item" id="settingsNav2">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+    <!-- KPP Page -->
+    <div id="kppPage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title">Input Data KPP</div>
+            <div class="user-section">
+                <div class="user-avatar" id="kppUserAvatar">U</div>
+                <button class="logout-btn" id="kppLogoutBtn">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="input-section">
+                <h2 class="section-title">Input Data NG KPP</h2>
+                <div class="form-container">
+                    <form id="kppForm">
+                        <input type="hidden" id="kppDocumentId"> <!-- Untuk edit -->
+                        <div class="mb-3">
+                            <label for="kppLineProduksi" class="form-label">Line Produksi</label>
+                            <select class="form-select" id="kppLineProduksi" required>
+                                <option value="" selected disabled>Pilih Line Produksi</option>
+                                <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                <option value="COMMON RAIL 12">COMMON RAIL 12</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppPart" class="form-label">Part</label>
+                            <select class="form-select" id="kppPart" required disabled>
+                                <option value="" selected disabled>Pilih Line Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppTanggal" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" id="kppTanggal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppProses" class="form-label">Proses (#)</label>
+                            <select class="form-select" id="kppProses" required disabled>
+                                <option value="" selected disabled>Pilih Part Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppItemNG" class="form-label">Item NG</label>
+                            <select class="form-select" id="kppItemNG" required disabled>
+                                <option value="" selected disabled>Pilih Proses Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppJumlahNG" class="form-label">Jumlah NG</label>
+                            <input type="number" class="form-control" id="kppJumlahNG" min="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="kppSubmitBtn">
+                            <span id="kppSubmitText">Simpan Data KPP</span>
+                            <span id="kppSubmitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                    <div id="kppStatusMessage" class="status-message mt-3 d-none"></div>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item" id="homeNavKpp">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" id="inputNavKpp">
+                <i class="bi bi-plus-circle"></i>
+                <span>Input Man Hour</span>
+            </a>
+            <a href="#" class="nav-item active" id="kppNavKpp"> <!-- Active by default -->
+                <i class="bi bi-clipboard-check"></i>
+                <span>KPP</span>
+            </a>
+            <a href="#" class="nav-item" id="profileNavKpp">
+                <i class="bi bi-person"></i>
+                <span>Profil</span>
+            </a>
+            <a href="#" class="nav-item" id="settingsNavKpp">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
@@ -1106,6 +1505,10 @@
             <a href="#" class="nav-item" id="inputNav3">
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
+            </a>
+            <a href="#" class="nav-item" id="kppNav3">
+                <i class="bi bi-clipboard-check"></i>
+                <span>KPP</span>
             </a>
             <a href="#" class="nav-item active" id="profileNav3">
                 <i class="bi bi-person"></i>
@@ -1201,6 +1604,10 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
+            <a href="#" class="nav-item" id="kppNav4">
+                <i class="bi bi-clipboard-check"></i>
+                <span>KPP</span>
+            </a>
             <a href="#" class="nav-item" id="profileNav4">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
@@ -1280,6 +1687,7 @@
         const loginPage = document.getElementById('loginPage');
         const homePage = document.getElementById('homePage');
         const inputPage = document.getElementById('inputPage');
+        const kppPage = document.getElementById('kppPage');
         const profilePage = document.getElementById('profilePage');
         const settingsPage = document.getElementById('settingsPage');
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
@@ -1324,6 +1732,19 @@
         const partSelect = document.getElementById('namaPart');
         const documentIdInput = document.getElementById('documentId');
         const formTitle = document.getElementById('formTitle');
+        // KPP Page Elements
+        const kppUserAvatar = document.getElementById('kppUserAvatar');
+        const kppLogoutBtn = document.getElementById('kppLogoutBtn');
+        const kppForm = document.getElementById('kppForm');
+        const kppSubmitBtn = document.getElementById('kppSubmitBtn');
+        const kppSubmitText = document.getElementById('kppSubmitText');
+        const kppSubmitSpinner = document.getElementById('kppSubmitSpinner');
+        const kppStatusMessage = document.getElementById('kppStatusMessage');
+        const kppLineSelect = document.getElementById('kppLineProduksi');
+        const kppPartSelect = document.getElementById('kppPart');
+        const kppProsesSelect = document.getElementById('kppProses');
+        const kppItemNGSelect = document.getElementById('kppItemNG');
+        const kppDocumentIdInput = document.getElementById('kppDocumentId');
         // Profile Page Elements
         const profileUserAvatar = document.getElementById('profileUserAvatar');
         const profileAvatar = document.getElementById('profileAvatar');
@@ -1346,18 +1767,22 @@
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
+        const kppNav = document.getElementById('kppNav');
         const profileNav = document.getElementById('profileNav');
         const settingsNav = document.getElementById('settingsNav');
         const homeNav2 = document.getElementById('homeNav2');
         const inputNav2 = document.getElementById('inputNav2');
+        const kppNav2 = document.getElementById('kppNav2');
         const profileNav2 = document.getElementById('profileNav2');
         const settingsNav2 = document.getElementById('settingsNav2');
         const homeNav3 = document.getElementById('homeNav3');
         const inputNav3 = document.getElementById('inputNav3');
+        const kppNav3 = document.getElementById('kppNav3');
         const profileNav3 = document.getElementById('profileNav3');
         const settingsNav3 = document.getElementById('settingsNav3');
         const homeNav4 = document.getElementById('homeNav4');
         const inputNav4 = document.getElementById('inputNav4');
+        const kppNav4 = document.getElementById('kppNav4');
         const profileNav4 = document.getElementById('profileNav4');
         const settingsNav4 = document.getElementById('settingsNav4');
         // Delete Modal Elements
@@ -1375,9 +1800,32 @@
         const logoutNowBtn = document.getElementById('logoutNowBtn');
         // Refresh Loading Popup
         const refreshLoadingPopup = document.getElementById('refreshLoadingPopup');
+        // Dashboard Selection Elements
+        const dashboardSelection = document.getElementById('dashboardSelection');
+        const manhourDashboard = document.getElementById('manhourDashboard');
+        const kppDashboard = document.getElementById('kppDashboard');
+        const manhourDashboardBtn = document.getElementById('manhourDashboardBtn');
+        const kppDashboardBtn = document.getElementById('kppDashboardBtn');
+        // KPP Dashboard Elements
+        const kppCurrentMonth = document.getElementById('kppCurrentMonth');
+        const kppPrevMonth = document.getElementById('kppPrevMonth');
+        const kppNextMonth = document.getElementById('kppNextMonth');
+        const kppDashboardDateRange = document.getElementById('kppDashboardDateRange');
+        const totalNG = document.getElementById('totalNG');
+        const totalItemNG = document.getElementById('totalItemNG');
+        const kppTableHeader = document.getElementById('kppTableHeader');
+        const kppTableBody = document.getElementById('kppTableBody');
+        const kppDataContainer = document.getElementById('kppDataContainer');
+        const kppNoDataMessage = document.getElementById('kppNoDataMessage');
+        // KPP Filter Elements
+        const kppFilterLine = document.getElementById('kppFilterLine');
+        const kppFilterPart = document.getElementById('kppFilterPart');
+        const kppFilterProses = document.getElementById('kppFilterProses');
+        const kppResetFilterBtn = document.getElementById('kppResetFilterBtn');
         // State variables
         let currentUser = null;
         let currentDate = new Date();
+        let currentKppDate = new Date(); // For KPP dashboard
         let currentEditDocId = null;
         let userPermissions = null;
         // Auto Logout State
@@ -1400,6 +1848,87 @@
             'COMMON RAIL 10': ['902FG', 'RG01'],
             'COMMON RAIL 11': ['19MY', 'RZ4E', '902FD'],
             'COMMON RAIL 12': ['902FF', 'ES01B']
+        };
+        // Data KPP NG
+        const kppNgData = {
+          "COMMON RAIL 12": {
+            "902FF": {
+              "#10": [
+                "Ø 5.4 Besar / Kecil / Step",
+                "Ø 9.3 Besar / Kecil / Step",
+                "Drill Ø 9.3 Patah / Gompal",
+                "Drill Ø 5.1 Patah / Gompal",
+                "Reamer Ø 5.4 Patah / Gompal",
+                "Proses Miring / Salah Pemasangan #10",
+                "Lain-lain #10"
+              ],
+              "#20": [
+                "Lub.Gundril miring",
+                "Lub.Gundril kasar",
+                "Lub.Gundril over load",
+                "Gundrill Patah",
+                "Proses Miring / Salah Pemasangan #20",
+                "Lain - lain #20"
+              ],
+              "#30": [
+                "Seal plug M20 Kasar / Gores / Bibiri / Gosong",
+                "Ulir M20 Longgar / Seret",
+                "Lubang ØM20 Besar / kecil / Step",
+                "Tap M20 Patah / Gompal",
+                "Ketebalan Muka baut",
+                "Proses Miring / Salah Pemasangan #30",
+                "Concentricity Gundrill Miring M20 Mekura",
+                "Lain - lain #30"
+              ],
+              "#70": [
+                "Drill Ø4 Patah / Gompal",
+                "Seal M20 Kasar / Gores / Bibiri",
+                "Diameter Seal M20 Besar / Kecil",
+                "Lubang ØM20 Besar / Kecil / Step",
+                "Tirus M20 gores, kasar, bibiri",
+                "Ulir M20 Longgar / Seret",
+                "Tap M20 Patah / Gompal",
+                "Seal M10 Kasar / Gores / Bibiri",
+                "Ulir M10 Longgar / Seret",
+                "Lub Ø M10 Besar / Kecil",
+                "Tap M10 Patah / Gompal",
+                "Ø17,6 Besar / kecil",
+                "Ø17,6 Kasar / Gores / Step",
+                "Ø17,4 Besar / kecil",
+                "Ø17,4 Kasar / Gores / Step",
+                "Seal Men M10 Unbalance",
+                "NG Posisi Seal M10",
+                "NG Tenaoshi Seal & Tirus M20 & M10",
+                "Concentricity Gundrill Miring M20",
+                "Proses Miring / Salah Pemasangan #70",
+                "Lain - lain #70"
+              ],
+              "#80": [
+                "Drill Ø0.67 Patah",
+                "Reamer Ø0.68 Patah",
+                "Lubang Ø0,7 Over",
+                "Center Drill Ø0.7 Patah",
+                "Drill Ø4.0 Patah / Gompal",
+                "Reamer 90° Patah / Gompal",
+                "Seal Inj M14 Kasar / Gores / Bibiri",
+                "ØM14 Besar / Kecil / Oval",
+                "Ulir M14 Longgar / Seret",
+                "Tap M14 Patah / Gompal",
+                "Posisi Miring / Salah Pemasangan #80",
+                "NG Tenaoshi 90°",
+                "Lain - lain #80"
+              ],
+              "#120": [
+                "Muka Taper 90º Mushire",
+                "Lubang Ø0.7 Miring",
+                "Ø4.0 Kasar Gores",
+                "Dakon",
+                "Lain-lain #120"
+              ]
+            }
+            // Tambahkan data untuk part lain jika ada
+          }
+          // Tambahkan data untuk line lain jika ada
         };
         // Refresh Loading Popup Functions
         function showRefreshLoading() {
@@ -1459,9 +1988,19 @@
             const options = { day: 'numeric', month: 'long' };
             dashboardDateRange.textContent = `${firstDay.getDate()} - ${lastDay.getDate()} ${firstDay.toLocaleDateString('id-ID', options)} ${year}`;
         }
+        // Format date range for KPP dashboard
+        function formatKppDateRange() {
+            const year = currentKppDate.getFullYear();
+            const month = currentKppDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const options = { day: 'numeric', month: 'long' };
+            kppDashboardDateRange.textContent = `${firstDay.getDate()} - ${lastDay.getDate()} ${firstDay.toLocaleDateString('id-ID', options)} ${year}`;
+        }
         // Update month display
         function updateMonthDisplay() {
             currentMonth.textContent = formatMonth(currentDate);
+            kppCurrentMonth.textContent = formatMonth(currentKppDate);
         }
         // Calculate dashboard statistics
         function calculateDashboardStats(dataList) {
@@ -1472,6 +2011,14 @@
             const totalLoadTime = dataList.reduce((sum, data) => sum + data.loadingTime, 0);
             totalLoadingTime.textContent = totalLoadTime.toLocaleString();
         }
+        // Calculate KPP dashboard statistics
+        function calculateKppDashboardStats(kppDataList) {
+            // Total NG
+            const totalNgCount = kppDataList.reduce((sum, data) => sum + data.jumlahNG, 0);
+            totalNG.textContent = totalNgCount.toLocaleString();
+            // Total Item NG (jumlah dokumen)
+            totalItemNG.textContent = kppDataList.length.toLocaleString();
+        }
         // Generate line monitoring table
         function generateLineMonitoringTable(dataList) {
             const year = currentDate.getFullYear();
@@ -1479,10 +2026,8 @@
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const daysInMonth = lastDay.getDate();
-
             // Clear existing header content first
             tableHeader.innerHTML = '';
-
             // Create the main header row (tanggal) - Use insertRow/insertCell for better structure
             const headerRow = document.createElement('tr');
             const lineNameHeader = document.createElement('th');
@@ -1490,10 +2035,8 @@
             lineNameHeader.textContent = 'Line Produksi';
             lineNameHeader.style.textAlign = 'center'; // Optional: Center align
             headerRow.appendChild(lineNameHeader);
-
             // Create sub-header row (Prod/LT)
             const subHeaderRow = document.createElement('tr');
-
             // Loop through days to create headers
             for (let day = 1; day <= daysInMonth; day++) {
                 // Main header cell for the day (spans 2 columns)
@@ -1502,25 +2045,21 @@
                 dayHeader.textContent = day;
                 dayHeader.style.textAlign = 'center'; // Center align day number
                 headerRow.appendChild(dayHeader);
-
                 // Sub-header cells for 'Prod' and 'LT'
                 const prodSubHeader = document.createElement('th');
                 prodSubHeader.textContent = 'Prod';
                 prodSubHeader.style.fontSize = '0.75rem';
                 prodSubHeader.style.textAlign = 'center'; // Align sub-headers
                 subHeaderRow.appendChild(prodSubHeader);
-
                 const ltSubHeader = document.createElement('th');
                 ltSubHeader.textContent = 'LT';
                 ltSubHeader.style.fontSize = '0.75rem';
                 ltSubHeader.style.textAlign = 'center'; // Align sub-headers
                 subHeaderRow.appendChild(ltSubHeader);
             }
-
             // Append both header rows to the table header
             tableHeader.appendChild(headerRow);
             tableHeader.appendChild(subHeaderRow);
-
             // Group data by line, date, and shift
             // Store both sigmaProduksi (prod) and loadingTime (lt)
             const lineData = {};
@@ -1540,7 +2079,6 @@
                 lineData[line][dateKey][shift].prod += data.sigmaProduksi;
                 lineData[line][dateKey][shift].lt += data.loadingTime;
             });
-
             // Generate table rows
             const lineNames = [
                 'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
@@ -1583,6 +2121,82 @@
             });
             lineTableBody.innerHTML = tableRowsHTML;
         }
+        // Generate KPP monitoring table
+        function generateKppMonitoringTable(kppDataList) {
+            const year = currentKppDate.getFullYear();
+            const month = currentKppDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            
+            // Clear existing header content first
+            kppTableHeader.innerHTML = '';
+            
+            // Create the main header row (tanggal)
+            const headerRow = document.createElement('tr');
+            const lineNameHeader = document.createElement('th');
+            lineNameHeader.textContent = 'Line Produksi';
+            lineNameHeader.style.textAlign = 'center';
+            headerRow.appendChild(lineNameHeader);
+            
+            // Loop through days to create headers
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayHeader = document.createElement('th');
+                dayHeader.textContent = day;
+                dayHeader.style.textAlign = 'center';
+                headerRow.appendChild(dayHeader);
+            }
+            
+            // Append header row to the table header
+            kppTableHeader.appendChild(headerRow);
+            
+            // Group KPP data by line and date
+            const kppLineData = {};
+            kppDataList.forEach(data => {
+                const line = data.namaLineProduksi;
+                const dateObj = new Date(data.tanggal);
+                const dateKey = dateObj.toISOString().split('T')[0]; // Use YYYY-MM-DD format for key
+                
+                if (!kppLineData[line]) {
+                    kppLineData[line] = {};
+                }
+                
+                if (!kppLineData[line][dateKey]) {
+                    kppLineData[line][dateKey] = 0;
+                }
+                
+                // Aggregate jumlah NG
+                kppLineData[line][dateKey] += data.jumlahNG;
+            });
+            
+            // Generate table rows
+            const lineNames = [
+                'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+            ];
+            
+            let tableRowsHTML = '';
+            lineNames.forEach(lineName => {
+                let lineRowHTML = `<tr><td>${lineName}</td>`;
+                
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateKey = new Date(year, month, day).toISOString().split('T')[0];
+                    const ngCount = kppLineData[lineName] && kppLineData[lineName][dateKey];
+                    
+                    if (ngCount > 0) {
+                        lineRowHTML += `<td style="text-align:right; color: var(--danger-color); font-weight: bold;">${ngCount}</td>`;
+                    } else {
+                        lineRowHTML += '<td>-</td>';
+                    }
+                }
+                
+                lineRowHTML += '</tr>';
+                tableRowsHTML += lineRowHTML;
+            });
+            
+            kppTableBody.innerHTML = tableRowsHTML;
+        }
         // Fungsi untuk mengisi opsi part berdasarkan line yang dipilih di filter
         function updateFilterPartOptions() {
             const selectedLine = filterLine.value;
@@ -1593,6 +2207,21 @@
                     option.value = part;
                     option.textContent = part;
                     filterPart.appendChild(option);
+                });
+            }
+        }
+        
+        // Fungsi untuk mengisi opsi part berdasarkan line yang dipilih di filter KPP
+        function updateKppFilterPartOptions() {
+            const selectedLine = kppFilterLine.value;
+            kppFilterPart.innerHTML = '<option value="">Semua Part</option>';
+            if (selectedLine && kppNgData[selectedLine]) {
+                const parts = Object.keys(kppNgData[selectedLine]);
+                parts.forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part;
+                    option.textContent = part;
+                    kppFilterPart.appendChild(option);
                 });
             }
         }
@@ -1626,6 +2255,42 @@
             } catch (error) {
                 console.error("Error fetching data: ", error);
                 showAlert('Error', 'Gagal memuat data: ' + error.message);
+            }
+        }
+        // Fetch KPP data from Firestore
+        async function fetchKppData() {
+            try {
+                // Calculate start and end of current month for KPP
+                const year = currentKppDate.getFullYear();
+                const month = currentKppDate.getMonth();
+                const startDate = new Date(year, month, 1);
+                const endDate = new Date(year, month + 1, 0, 23, 59, 59);
+                
+                // Query KPP data for the current month
+                const q = query(
+                    collection(db, "collection_kpp"),
+                    where("tanggal", ">=", startDate.toISOString().split('T')[0]),
+                    where("tanggal", "<=", endDate.toISOString().split('T')[0]),
+                    orderBy("tanggal", "desc")
+                );
+                const querySnapshot = await getDocs(q);
+                const kppDataList = [];
+                querySnapshot.forEach((doc) => {
+                    kppDataList.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Simpan data lengkap untuk filter KPP
+                window.fullKppDataList = kppDataList;
+                
+                // Update KPP dashboard
+                calculateKppDashboardStats(kppDataList);
+                generateKppMonitoringTable(kppDataList);
+                
+                // Render recent KPP data list
+                renderKppData(kppDataList);
+            } catch (error) {
+                console.error("Error fetching KPP data: ", error);
+                showAlert('Error', 'Gagal memuat data KPP: ' + error.message);
             }
         }
         // Render data to UI dengan filter
@@ -1723,6 +2388,86 @@
                 });
             }
         }
+        // Render KPP data to UI dengan filter
+        function renderKppData(fullKppDataList) {
+            // Terapkan filter
+            let filteredKppDataList = [...fullKppDataList]; // Salin array untuk menghindari mutasi langsung
+            // Filter berdasarkan hak akses pengguna
+            if (userPermissions && userPermissions.accessibleLines) {
+                filteredKppDataList = filteredKppDataList.filter(data => 
+                    userPermissions.accessibleLines.includes(data.namaLineProduksi)
+                );
+            }
+            if (kppFilterLine.value) {
+                filteredKppDataList = filteredKppDataList.filter(data => data.namaLineProduksi === kppFilterLine.value);
+            }
+            if (kppFilterPart.value) {
+                filteredKppDataList = filteredKppDataList.filter(data => data.namaPart === kppFilterPart.value);
+            }
+            if (kppFilterProses.value) {
+                filteredKppDataList = filteredKppDataList.filter(data => data.proses === kppFilterProses.value);
+            }
+            if (filteredKppDataList.length === 0) {
+                kppNoDataMessage.style.display = 'block';
+                kppDataContainer.innerHTML = '';
+                kppDataContainer.appendChild(kppNoDataMessage);
+                return;
+            }
+            kppNoDataMessage.style.display = 'none';
+            kppDataContainer.innerHTML = '';
+            // Tampilkan data KPP yang sudah difilter
+            filteredKppDataList.forEach(data => {
+                const kppDataCard = document.createElement('div');
+                kppDataCard.className = 'kpp-data-card';
+                kppDataCard.innerHTML = `
+                    <div class="kpp-data-header">
+                        <div class="kpp-data-title">${data.namaLineProduksi} - ${data.namaPart}</div>
+                        <div class="kpp-data-date">${formatDate(data.tanggal)}</div>
+                    </div>
+                    <div class="kpp-data-item">
+                        <span class="kpp-data-label">Proses:</span>
+                        <span class="kpp-data-value">${data.proses}</span>
+                    </div>
+                    <div class="kpp-data-item">
+                        <span class="kpp-data-label">Item NG:</span>
+                        <span class="kpp-data-value">${data.itemNG}</span>
+                    </div>
+                    <div class="kpp-data-item">
+                        <span class="kpp-data-label">Jumlah NG:</span>
+                        <span class="kpp-data-value">${data.jumlahNG} pcs</span>
+                    </div>
+                    <div class="action-buttons">
+                        ${userPermissions && userPermissions.canEdit ? `
+                            <button class="btn-edit" data-id="${data.id}" disabled>
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <button class="btn-delete" data-id="${data.id}">
+                                <i class="bi bi-trash"></i> Hapus
+                            </button>
+                        ` : `
+                            <button class="btn-edit" data-id="${data.id}" disabled>
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <button class="btn-delete" data-id="${data.id}" disabled>
+                                <i class="bi bi-trash"></i> Hapus
+                            </button>
+                        `}
+                    </div>
+                `;
+                kppDataContainer.appendChild(kppDataCard);
+            });
+            // Tambahkan event listener untuk tombol hapus jika pengguna memiliki hak akses
+            if (userPermissions && userPermissions.canEdit) {
+                document.querySelectorAll('#kppDataContainer .btn-delete').forEach(button => {
+                    if (!button.disabled) {
+                        button.addEventListener('click', (e) => {
+                            const docId = e.currentTarget.getAttribute('data-id');
+                            showDeleteKppConfirmation(docId);
+                        });
+                    }
+                });
+            }
+        }
         // Edit data
         async function editData(docId) {
             // Cek hak akses edit
@@ -1770,7 +2515,7 @@
                 showAlert('Error', 'Gagal mengambil data: ' + error.message);
             }
         }
-        // Show delete confirmation
+        // Show delete confirmation for produksi data
         function showDeleteConfirmation(docId) {
             // Cek hak akses hapus
             if (!userPermissions || !userPermissions.canEdit) {
@@ -1780,14 +2525,37 @@
             currentEditDocId = docId;
             deleteModal.show();
         }
-        // Delete data
+        // Show delete confirmation for KPP data
+        function showDeleteKppConfirmation(docId) {
+            // Cek hak akses hapus
+            if (!userPermissions || !userPermissions.canEdit) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk menghapus data.');
+                return;
+            }
+            currentEditDocId = docId;
+            deleteModal.show();
+        }
+        // Delete data (bisa untuk produksi atau KPP)
         async function deleteData() {
             if (!currentEditDocId) return;
             try {
-                await deleteDoc(doc(db, "produksiData", currentEditDocId));
-                console.log("Document successfully deleted!");
+                // Cek apakah ini data produksi atau KPP berdasarkan konteks
+                // Untuk contoh ini, kita asumsikan hanya ada satu koleksi yang dihapus
+                // Dalam implementasi nyata, Anda mungkin perlu menandai jenis data
+                
+                // Coba hapus dari produksiData dulu
+                try {
+                    await deleteDoc(doc(db, "produksiData", currentEditDocId));
+                    console.log("Document produksi successfully deleted!");
+                } catch (e) {
+                    // Jika gagal, coba hapus dari collection_kpp
+                    await deleteDoc(doc(db, "collection_kpp", currentEditDocId));
+                    console.log("Document KPP successfully deleted!");
+                }
+                
                 deleteModal.hide();
-                fetchData(); // Refresh data
+                fetchData(); // Refresh data produksi
+                fetchKppData(); // Refresh data KPP
                 showAlert('Sukses', 'Data berhasil dihapus!');
             } catch (error) {
                 console.error("Error deleting document: ", error);
@@ -1869,12 +2637,147 @@
             inputPageTitle.textContent = 'Input Data';
             submitText.textContent = 'Simpan Data';
         }
+        // --- Fungsi KPP ---
+        // Update part options for KPP based on selected line
+        function updateKppPartOptions() {
+            const selectedLine = kppLineSelect.value;
+            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
+            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Part Terlebih Dahulu</option>';
+            kppItemNGSelect.innerHTML = '<option value="" selected disabled>Pilih Proses Terlebih Dahulu</option>';
+            kppProsesSelect.disabled = true;
+            kppItemNGSelect.disabled = true;
+
+            if (selectedLine && kppNgData[selectedLine]) {
+                const parts = Object.keys(kppNgData[selectedLine]);
+                if (parts.length > 0) {
+                    kppPartSelect.disabled = false;
+                    parts.forEach(part => {
+                        const option = document.createElement('option');
+                        option.value = part;
+                        option.textContent = part;
+                        kppPartSelect.appendChild(option);
+                    });
+                } else {
+                    kppPartSelect.disabled = true;
+                }
+            } else {
+                kppPartSelect.disabled = true;
+            }
+        }
+
+        // Update proses options for KPP based on selected part
+        function updateKppProsesOptions() {
+            const selectedLine = kppLineSelect.value;
+            const selectedPart = kppPartSelect.value;
+            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Proses</option>';
+            kppItemNGSelect.innerHTML = '<option value="" selected disabled>Pilih Proses Terlebih Dahulu</option>';
+            kppItemNGSelect.disabled = true;
+
+            if (selectedLine && selectedPart && kppNgData[selectedLine] && kppNgData[selectedLine][selectedPart]) {
+                const prosesList = Object.keys(kppNgData[selectedLine][selectedPart]);
+                if (prosesList.length > 0) {
+                    kppProsesSelect.disabled = false;
+                    prosesList.forEach(proses => {
+                        const option = document.createElement('option');
+                        option.value = proses;
+                        option.textContent = proses;
+                        kppProsesSelect.appendChild(option);
+                    });
+                } else {
+                    kppProsesSelect.disabled = true;
+                }
+            } else {
+                kppProsesSelect.disabled = true;
+            }
+        }
+
+        // Update item NG options for KPP based on selected proses
+        function updateKppItemNGOptions() {
+            const selectedLine = kppLineSelect.value;
+            const selectedPart = kppPartSelect.value;
+            const selectedProses = kppProsesSelect.value;
+            kppItemNGSelect.innerHTML = '<option value="" selected disabled>Pilih Item NG</option>';
+
+            if (selectedLine && selectedPart && selectedProses &&
+                kppNgData[selectedLine] && kppNgData[selectedLine][selectedPart] &&
+                kppNgData[selectedLine][selectedPart][selectedProses]) {
+
+                const ngItems = kppNgData[selectedLine][selectedPart][selectedProses];
+                if (ngItems.length > 0) {
+                    kppItemNGSelect.disabled = false;
+                    ngItems.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item;
+                        option.textContent = item;
+                        kppItemNGSelect.appendChild(option);
+                    });
+                } else {
+                    kppItemNGSelect.disabled = true;
+                }
+            } else {
+                kppItemNGSelect.disabled = true;
+            }
+        }
+
+        // Set loading state for KPP submit button
+        function setKppInputLoading(isLoading) {
+            if (isLoading) {
+                kppSubmitText.textContent = kppDocumentIdInput.value ? 'Memperbarui...' : 'Menyimpan...';
+                kppSubmitSpinner.classList.remove('d-none');
+                kppSubmitBtn.disabled = true;
+            } else {
+                kppSubmitText.textContent = kppDocumentIdInput.value ? 'Update Data KPP' : 'Simpan Data KPP';
+                kppSubmitSpinner.classList.add('d-none');
+                kppSubmitBtn.disabled = false;
+            }
+        }
+
+        // Show KPP status message
+        function showKppStatus(message, isError = false) {
+            kppStatusMessage.textContent = message;
+            kppStatusMessage.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'alert alert-success'} ${message ? '' : 'd-none'}`;
+        }
+
+        // Reset KPP form
+        function resetKppForm() {
+            kppForm.reset();
+            kppDocumentIdInput.value = '';
+            kppPartSelect.disabled = true;
+            kppProsesSelect.disabled = true;
+            kppItemNGSelect.disabled = true;
+            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Line Terlebih Dahulu</option>';
+            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Part Terlebih Dahulu</option>';
+            kppItemNGSelect.innerHTML = '<option value="" selected disabled>Pilih Proses Terlebih Dahulu</option>';
+            kppSubmitText.textContent = 'Simpan Data KPP';
+            // Set today's date as default
+            document.getElementById('kppTanggal').valueAsDate = new Date();
+        }
+
+        // Show/hide KPP page
+        function showKppPage() {
+            // Hide all pages
+            loginPage.classList.remove('active');
+            homePage.classList.remove('active');
+            inputPage.classList.remove('active');
+            profilePage.classList.remove('active');
+            settingsPage.classList.remove('active');
+            kppPage.classList.remove('active'); // Tambahkan ini
+
+            // Show KPP page
+            kppPage.classList.add('active');
+
+            // Update navigation active state (sederhanakan jika perlu)
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            kppNavKpp.classList.add('active'); // Sesuaikan dengan ID yang digunakan
+            // Tambahkan juga untuk homeNavKpp, inputNavKpp, profileNavKpp, settingsNavKpp jika diperlukan
+        }
         // Show/hide pages
         function showPage(pageId) {
             // Hide all pages
             loginPage.classList.remove('active');
             homePage.classList.remove('active');
             inputPage.classList.remove('active');
+            kppPage.classList.remove('active');
             profilePage.classList.remove('active');
             settingsPage.classList.remove('active');
             // Show requested page
@@ -1891,6 +2794,11 @@
                 inputNav2.classList.add('active');
                 inputNav3.classList.add('active');
                 inputNav4.classList.add('active');
+            } else if (pageId === 'kppPage') {
+                kppNav.classList.add('active');
+                kppNav2.classList.add('active');
+                kppNav3.classList.add('active');
+                kppNav4.classList.add('active');
             } else if (pageId === 'profilePage') {
                 profileNav.classList.add('active');
                 profileNav2.classList.add('active');
@@ -1911,6 +2819,7 @@
                 // Update avatars
                 homeUserAvatar.textContent = avatarText;
                 inputUserAvatar.textContent = avatarText;
+                kppUserAvatar.textContent = avatarText;
                 profileUserAvatar.textContent = avatarText;
                 settingsUserAvatar.textContent = avatarText;
                 profileAvatar.textContent = avatarText;
@@ -2095,9 +3004,13 @@
                 userPermissions = await getUserPermissions(user.uid);
                 updateUserPermissionsDisplay();
                 showPage('homePage');
-                fetchData();
+                // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+                manhourDashboard.classList.remove('active');
+                kppDashboard.classList.remove('active');
+                dashboardSelection.style.display = 'flex';
                 updateMonthDisplay();
                 formatDateRange();
+                formatKppDateRange();
                 startInactivityTimer();
                 // Filter line options based on user permissions
                 filterLineOptions();
@@ -2122,6 +3035,22 @@
                 // Filter options di filter home page
                 const filterLineOptions = filterLine.querySelectorAll('option');
                 filterLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+                // Filter options di halaman KPP input
+                const kppLineOptions = kppLineSelect.querySelectorAll('option');
+                kppLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+                // Filter options di filter KPP dashboard
+                const kppFilterLineOptions = kppFilterLine.querySelectorAll('option');
+                kppFilterLineOptions.forEach(option => {
                     if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
                         option.disabled = true;
                         option.style.display = 'none';
@@ -2164,6 +3093,9 @@
         inputLogoutBtn.addEventListener('click', () => {
             showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
+        kppLogoutBtn.addEventListener('click', () => {
+            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
+        });
         profileLogoutBtn.addEventListener('click', () => {
             showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
@@ -2186,6 +3118,10 @@
         homeNav.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
+            // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+            manhourDashboard.classList.remove('active');
+            kppDashboard.classList.remove('active');
+            dashboardSelection.style.display = 'flex';
         });
         inputNav.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2199,6 +3135,16 @@
             // Set today's date as default
             document.getElementById('tanggal').valueAsDate = new Date();
         });
+        kppNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm(); // Reset form saat membuka halaman
+            showKppPage();
+        });
         profileNav.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -2211,6 +3157,10 @@
         homeNav2.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
+            // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+            manhourDashboard.classList.remove('active');
+            kppDashboard.classList.remove('active');
+            dashboardSelection.style.display = 'flex';
         });
         inputNav2.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2223,6 +3173,16 @@
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
+        kppNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showKppPage();
+        });
         profileNav2.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -2234,6 +3194,10 @@
         homeNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
+            // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+            manhourDashboard.classList.remove('active');
+            kppDashboard.classList.remove('active');
+            dashboardSelection.style.display = 'flex';
         });
         inputNav3.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2246,6 +3210,16 @@
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
+        kppNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showKppPage();
+        });
         profileNav3.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -2257,6 +3231,10 @@
         homeNav4.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('homePage');
+            // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+            manhourDashboard.classList.remove('active');
+            kppDashboard.classList.remove('active');
+            dashboardSelection.style.display = 'flex';
         });
         inputNav4.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2269,6 +3247,16 @@
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
+        kppNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showKppPage();
+        });
         profileNav4.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -2277,7 +3265,42 @@
             e.preventDefault();
             showPage('settingsPage');
         });
-        // Month navigation
+        // --- Event Listeners Navigasi KPP ---
+        // Tambahkan event listener untuk semua link navigasi KPP yang baru dibuat
+        // Contoh untuk satu set, ulangi untuk kppNav2, kppNav3, kppNav4, dan kombinasi lainnya
+        kppNavKpp.addEventListener('click', (e) => { // Untuk navigasi di dalam halaman KPP
+            e.preventDefault();
+            resetKppForm();
+            showKppPage();
+        });
+        homeNavKpp.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+            // Sembunyikan dashboard utama dan tampilkan pilihan dashboard
+            manhourDashboard.classList.remove('active');
+            kppDashboard.classList.remove('active');
+            dashboardSelection.style.display = 'flex';
+        });
+        inputNavKpp.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Cek hak akses input
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data Man Hour.');
+                return;
+            }
+            resetForm(); // Reset form Man Hour
+            showPage('inputPage');
+            document.getElementById('tanggal').valueAsDate = new Date();
+        });
+        profileNavKpp.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNavKpp.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+        });
+        // Month navigation for Manhour Dashboard
         prevMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             updateMonthDisplay();
@@ -2290,14 +3313,31 @@
             formatDateRange();
             fetchData();
         });
+        // Month navigation for KPP Dashboard
+        kppPrevMonth.addEventListener('click', () => {
+            currentKppDate.setMonth(currentKppDate.getMonth() - 1);
+            updateMonthDisplay();
+            formatKppDateRange();
+            fetchKppData();
+        });
+        kppNextMonth.addEventListener('click', () => {
+            currentKppDate.setMonth(currentKppDate.getMonth() + 1);
+            updateMonthDisplay();
+            formatKppDateRange();
+            fetchKppData();
+        });
         // Input form event listeners
         lineSelect.addEventListener('change', updatePartOptions);
         shiftSelect.addEventListener('change', updateShiftInfo);
+        // KPP form event listeners
+        kppLineSelect.addEventListener('change', updateKppPartOptions);
+        kppPartSelect.addEventListener('change', updateKppProsesOptions);
+        kppProsesSelect.addEventListener('change', updateKppItemNGOptions);
         // Settings event listeners
         darkModeToggle.addEventListener('change', toggleDarkMode);
         autoLogoutTime.addEventListener('change', updateLogoutTime);
         savePermissionsBtn.addEventListener('click', saveUserPermissions);
-        // Filter event listeners
+        // Filter event listeners for Manhour
         filterLine.addEventListener('change', () => {
             updateFilterPartOptions();
             renderData(window.fullDataList || []);
@@ -2311,6 +3351,19 @@
             filterGroup.value = '';
             filterShift.value = '';
             renderData(window.fullDataList || []);
+        });
+        // Filter event listeners for KPP
+        kppFilterLine.addEventListener('change', () => {
+            updateKppFilterPartOptions();
+            renderKppData(window.fullKppDataList || []);
+        });
+        kppFilterPart.addEventListener('change', () => renderKppData(window.fullKppDataList || []));
+        kppFilterProses.addEventListener('change', () => renderKppData(window.fullKppDataList || []));
+        kppResetFilterBtn.addEventListener('click', () => {
+            kppFilterLine.value = '';
+            kppFilterPart.innerHTML = '<option value="">Semua Part</option>';
+            kppFilterProses.value = '';
+            renderKppData(window.fullKppDataList || []);
         });
         // Input form submission
         productionForm.addEventListener('submit', async (e) => {
@@ -2368,14 +3421,94 @@
                 setInputLoading(false);
             }
         });
+        // Submit form KPP
+        kppForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Cek hak akses input (opsional, bisa dibuatkan permission khusus KPP)
+            if (userPermissions && !userPermissions.canInput) {
+                 showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                 return;
+            }
+
+            setKppInputLoading(true);
+            showKppStatus('', false);
+
+            // Get form data
+            const data = {
+                namaLineProduksi: kppLineSelect.value,
+                namaPart: kppPartSelect.value,
+                tanggal: document.getElementById('kppTanggal').value,
+                proses: kppProsesSelect.value,
+                itemNG: kppItemNGSelect.value,
+                jumlahNG: parseInt(document.getElementById('kppJumlahNG').value, 10),
+                timestamp: new Date()
+                // Tambahkan field lain jika diperlukan, misalnya user input
+            };
+
+            // Cek apakah user memiliki akses ke line produksi ini (jika diterapkan)
+            if (userPermissions && userPermissions.accessibleLines &&
+                !userPermissions.accessibleLines.includes(data.namaLineProduksi)) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP line produksi ini.');
+                setKppInputLoading(false);
+                return;
+            }
+
+            try {
+                if (kppDocumentIdInput.value) {
+                    // Update existing document (jika fitur edit diperlukan)
+                    const docRef = doc(db, "collection_kpp", kppDocumentIdInput.value);
+                    await updateDoc(docRef, data);
+                    console.log("Document KPP successfully updated!");
+                    showAlert('Sukses', 'Data KPP berhasil diperbarui!', () => {
+                        showPage('homePage'); // Atau kembali ke halaman KPP jika ada list
+                        fetchKppData(); // Refresh data KPP
+                    });
+                } else {
+                    // Add new document
+                    const docRef = await addDoc(collection(db, "collection_kpp"), data);
+                    console.log("Document KPP written with ID: ", docRef.id);
+                    showAlert('Sukses', 'Data KPP berhasil disimpan!', () => {
+                         showPage('homePage'); // Atau kembali ke halaman KPP jika ada list
+                        fetchKppData(); // Refresh data KPP
+                    });
+                }
+                resetKppForm();
+            } catch (error) {
+                console.error("Error saving KPP document: ", error);
+                showAlert('Error', 'Gagal menyimpan data KPP: ' + error.message);
+            } finally {
+                setKppInputLoading(false);
+            }
+        });
         // Delete confirmation
         confirmDeleteBtn.addEventListener('click', deleteData);
+        // Dashboard Selection Event Listeners
+        manhourDashboardBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dashboardSelection.style.display = 'none';
+            manhourDashboard.classList.add('active');
+            kppDashboard.classList.remove('active');
+            fetchData(); // Load data for manhour dashboard
+        });
+        kppDashboardBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dashboardSelection.style.display = 'none';
+            kppDashboard.classList.add('active');
+            manhourDashboard.classList.remove('active');
+            fetchKppData(); // Load data for KPP dashboard
+        });
         // Initialize
         updateMonthDisplay();
         formatDateRange();
+        formatKppDateRange();
         loadSettings();
         updateFilterPartOptions();
+        updateKppFilterPartOptions();
         generateLineAccessCheckboxes();
+        // --- Inisialisasi ---
+        // Set default date for KPP form
+        document.getElementById('kppTanggal').valueAsDate = new Date();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
