@@ -19,6 +19,8 @@
             --border-color: #dee2e6;
             --text-color: #212529;
             --text-muted: #6c757d;
+            --input-bg: #ffffff;
+            --input-text: #212529;
         }
         .dark-mode {
             --primary-color: #3a86ff;
@@ -34,6 +36,8 @@
             --table-header-bg: #2d2d2d;
             --table-row-even: #252525;
             --shift-separator: #333;
+            --input-bg: #2d2d2d;
+            --input-text: #e0e0e0;
         }
         * {
             box-sizing: border-box;
@@ -85,6 +89,7 @@
             font-weight: 700;
             color: var(--text-color);
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
         .app-subtitle {
             font-size: 0.95rem;
@@ -101,13 +106,17 @@
             padding: 12px 15px;
             font-size: 1rem;
             border: 1px solid var(--border-color);
-            background-color: var(--card-bg);
-            color: var(--text-color);
+            background-color: var(--input-bg);
+            color: var(--input-text);
         }
         .form-control:focus, .form-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
-            color: var(--text-color);
+            color: var(--input-text);
+            background-color: var(--input-bg);
+        }
+        .form-control::placeholder {
+            color: var(--text-muted);
         }
         .btn-primary {
             background-color: var(--primary-color);
@@ -155,6 +164,7 @@
         .app-header-title {
             font-size: 1.2rem;
             font-weight: 600;
+            text-transform: uppercase;
         }
         .user-section {
             display: flex;
@@ -815,7 +825,7 @@
             <div class="login-card">
                 <div class="app-logo">
                     <img src="assets/otics.png" alt="Logo" style="width: 100px; height: 100px;" />
-                    <h1 class="app-title">KANRIBAN PRODUKSI</h1>
+                    <h1 class="app-title">Manhour Input</h1>
                     <p class="app-subtitle">Silakan login untuk melanjutkan</p>
                 </div>
                 <form id="loginForm">
@@ -843,7 +853,7 @@
     <div id="homePage" class="page">
         <!-- App Header -->
         <header class="app-header">
-            <div class="app-header-title">Otics Dashboard Produksi</div>
+            <div class="app-header-title">Manhour Input</div>
             <div class="user-section">
                 <div class="user-avatar" id="homeUserAvatar">U</div>
                 <button class="logout-btn" id="homeLogoutBtn">
@@ -908,7 +918,18 @@
                             <label for="filterLine" class="form-label">Line Produksi</label>
                             <select class="form-select form-select-sm" id="filterLine">
                                 <option value="">Semua Line</option>
-                                <!-- Options will be populated by JS -->
+                                <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                <option value="COMMON RAIL 12">COMMON RAIL 12</option>
                             </select>
                         </div>
                         <div class="col-6 col-md-3">
@@ -995,7 +1016,18 @@
                             <label for="namaLineProduksi" class="form-label">Nama Line Produksi</label>
                             <select class="form-select" id="namaLineProduksi" required>
                                 <option value="" selected disabled>Pilih Line Produksi</option>
-                                <!-- Options will be populated by JS -->
+                                <option value="COMMON RAIL 01">COMMON RAIL 01</option>
+                                <option value="COMMON RAIL 02">COMMON RAIL 02</option>
+                                <option value="COMMON RAIL 03">COMMON RAIL 03</option>
+                                <option value="COMMON RAIL 04">COMMON RAIL 04</option>
+                                <option value="COMMON RAIL 05">COMMON RAIL 05</option>
+                                <option value="COMMON RAIL 06">COMMON RAIL 06</option>
+                                <option value="COMMON RAIL 07">COMMON RAIL 07</option>
+                                <option value="COMMON RAIL 08">COMMON RAIL 08</option>
+                                <option value="COMMON RAIL 09">COMMON RAIL 09</option>
+                                <option value="COMMON RAIL 10">COMMON RAIL 10</option>
+                                <option value="COMMON RAIL 11">COMMON RAIL 11</option>
+                                <option value="COMMON RAIL 12">COMMON RAIL 12</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -1516,6 +1548,22 @@
         let linesData = [];
         let partsData = {};
 
+        // Data line produksi dan part
+        const linePartData = {
+            'COMMON RAIL 01': [ '634F', 'E494', 'E694', 'H6-A', 'P3263','P3267', 'MDE8'],
+            'COMMON RAIL 02': ['902F'],
+            'COMMON RAIL 03': [ 'JDE20', '4N13','RT56', 'VM', 'VM USA'],
+            'COMMON RAIL 04': ['4N16', 'MDE5'],
+            'COMMON RAIL 05': ['4J', 'N4','N6', '902F','RT50' ],
+            'COMMON RAIL 06': ['RZ4E'],
+            'COMMON RAIL 07': ['CR22','4N15B', '4N15', 'S320', 'YD25', 'YD2K3'],
+            'COMMON RAIL 08': ['902FC', '1KD', '415F'],
+            'COMMON RAIL 09': ['902FB', 'GDB'],
+            'COMMON RAIL 10': ['902FG', 'RG01'],
+            'COMMON RAIL 11': ['19MY', 'RZ4E', '902FD'],
+            'COMMON RAIL 12': ['902FF', 'ES01B']
+        };
+
         // Refresh Loading Popup Functions
         function showRefreshLoading() {
             refreshLoadingPopup.classList.add('show');
@@ -1663,8 +1711,12 @@
             });
             // Generate table rows - hanya untuk line yang diizinkan
             let tableRowsHTML = '';
-            linesData.forEach(lineObj => {
-                const lineName = lineObj.name;
+            const lineNames = [
+                'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+            ];
+            lineNames.forEach(lineName => {
                 // Hanya tampilkan line yang diizinkan
                 if (userPermissions && userPermissions.accessibleLines && 
                     userPermissions.accessibleLines.includes(lineName)) {
@@ -1710,17 +1762,13 @@
         function updateFilterPartOptions() {
             const selectedLine = filterLine.value;
             filterPart.innerHTML = '<option value="">Semua Part</option>';
-            if (selectedLine) {
-                // Get parts for this line from Firestore data
-                const line = linesData.find(l => l.name === selectedLine);
-                if (line && partsData[line.id]) {
-                    partsData[line.id].forEach(part => {
-                        const option = document.createElement('option');
-                        option.value = part.name;
-                        option.textContent = part.name;
-                        filterPart.appendChild(option);
-                    });
-                }
+            if (selectedLine && linePartData[selectedLine]) {
+                linePartData[selectedLine].forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part;
+                    option.textContent = part;
+                    filterPart.appendChild(option);
+                });
             }
         }
 
@@ -1932,31 +1980,19 @@
 
         // Update part options based on selected line
         function updatePartOptions() {
-            const selectedLineName = lineSelect.value;
+            const selectedLine = lineSelect.value;
             partSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
-            
-            if (selectedLineName) {
-                // Find the line ID
-                const line = linesData.find(l => l.name === selectedLineName);
-                if (line) {
-                    partSelect.disabled = false;
-                    // Get parts for this line
-                    const lineParts = partsData[line.id] || [];
-                    lineParts.forEach(part => {
-                        const option = document.createElement('option');
-                        option.value = part.name;
-                        option.textContent = part.name;
-                        partSelect.appendChild(option);
-                    });
-                    
-                    // Set default OP if available
-                    const defaultOP = getDefaultOPForLine(selectedLineName);
-                    if (defaultOP > 0) {
-                        document.getElementById('sigmaOP').value = defaultOP;
-                    }
-                }
+            if (selectedLine && linePartData[selectedLine]) {
+                partSelect.disabled = false;
+                linePartData[selectedLine].forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part;
+                    option.textContent = part;
+                    partSelect.appendChild(option);
+                });
             } else {
                 partSelect.disabled = true;
+                partSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>';
             }
         }
 
@@ -2090,14 +2126,18 @@
         // Generate line access checkboxes
         function generateLineAccessCheckboxes() {
             lineAccessContainer.innerHTML = '';
-            // Use linesData from Firestore instead of hardcoded list
-            linesData.forEach(line => {
+            const lineNames = [
+                'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+            ];
+            lineNames.forEach(lineName => {
                 const lineItem = document.createElement('div');
                 lineItem.className = 'line-access-item';
                 lineItem.innerHTML = `
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="line-${line.id}" value="${line.name}">
-                        <label class="form-check-label" for="line-${line.id}">${line.name}</label>
+                        <input class="form-check-input" type="checkbox" id="line-${lineName.replace(/\s+/g, '-')}" value="${lineName}">
+                        <label class="form-check-label" for="line-${lineName.replace(/\s+/g, '-')}">${lineName}</label>
                     </div>
                 `;
                 lineAccessContainer.appendChild(lineItem);
@@ -2162,11 +2202,13 @@
                     return userPermissionsSnap.data();
                 } else {
                     // Return default permissions if not found
-                    // Use linesData from Firestore for default accessible lines
-                    const defaultLines = linesData.map(l => l.name);
                     return {
                         uid: uid,
-                        accessibleLines: defaultLines,
+                        accessibleLines: [
+                            'COMMON RAIL 01', 'COMMON RAIL 02', 'COMMON RAIL 03', 'COMMON RAIL 04',
+                            'COMMON RAIL 05', 'COMMON RAIL 06', 'COMMON RAIL 07', 'COMMON RAIL 08',
+                            'COMMON RAIL 09', 'COMMON RAIL 10', 'COMMON RAIL 11', 'COMMON RAIL 12'
+                        ],
                         canInput: true,
                         canEdit: true
                     };
@@ -2614,6 +2656,28 @@
             return line && !isNaN(line.defaultOP) ? line.defaultOP : 0;
         }
 
+        // Filter line options based on user permissions
+        function filterLineOptions() {
+            if (userPermissions && userPermissions.accessibleLines) {
+                // Filter options di halaman input
+                const inputLineOptions = lineSelect.querySelectorAll('option');
+                inputLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+                // Filter options di filter home page
+                const filterLineOptions = filterLine.querySelectorAll('option');
+                filterLineOptions.forEach(option => {
+                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                        option.disabled = true;
+                        option.style.display = 'none';
+                    }
+                });
+            }
+        }
+
         // Handle user state changes
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -2627,6 +2691,8 @@
                 updateMonthDisplay();
                 formatDateRange();
                 startInactivityTimer();
+                // Filter line options based on user permissions
+                filterLineOptions();
                 
                 // NEW: Fetch lines and parts
                 await fetchLinesAndParts();
