@@ -771,6 +771,19 @@
         .default-op-input {
             width: 100px;
         }
+        /* Settings Accordion */
+        .accordion-button {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .accordion-body {
+            background-color: var(--light-bg);
+        }
         /* Responsive adjustments */
         @media (max-width: 576px) {
             .line-table {
@@ -801,7 +814,7 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="app-logo">
-                    <img src="../assets/otics.png" alt="Logo" style="width: 100px; height: 100px;" />
+                    <img src="assets/otics.png" alt="Logo" style="width: 100px; height: 100px;" />
                     <h1 class="app-title">KANRIBAN PRODUKSI</h1>
                     <p class="app-subtitle">Silakan login untuk melanjutkan</p>
                 </div>
@@ -909,6 +922,7 @@
                             <label for="filterGroup" class="form-label">Group</label>
                             <select class="form-select form-select-sm" id="filterGroup">
                                 <option value="">Semua Group</option>
+                                <option value="PG-1">PG-1</option>
                                 <option value="PG-2.1">PG-2.1</option>
                                 <option value="PG-2.2">PG-2.2</option>
                                 <option value="PG-2.3">PG-2.3</option>
@@ -998,6 +1012,7 @@
                             <label for="group" class="form-label">Group</label>
                             <select class="form-select" id="group" required>
                                 <option value="" selected disabled>Pilih Group</option>
+                                <option value="PG-1">PG-1</option>
                                 <option value="PG-2.1">PG-2.1</option>
                                 <option value="PG-2.2">PG-2.2</option>
                                 <option value="PG-2.3">PG-2.3</option>
@@ -1126,106 +1141,151 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
-            <section class="settings-section">
-                <h2 class="section-title">Tampilan</h2>
-                <div class="settings-item">
-                    <span class="settings-label">Mode Gelap</span>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                        <label class="form-check-label" for="darkModeToggle"></label>
+            <div class="accordion" id="settingsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingDisplay">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDisplay" aria-expanded="true" aria-controls="collapseDisplay">
+                            Tampilan
+                        </button>
+                    </h2>
+                    <div id="collapseDisplay" class="accordion-collapse collapse show" aria-labelledby="headingDisplay" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div class="settings-item">
+                                <span class="settings-label">Mode Gelap</span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                                    <label class="form-check-label" for="darkModeToggle"></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
-            
-            <section class="settings-section">
-                <h2 class="section-title">Konfigurasi Line & Part</h2>
-                <div class="mb-3">
-                    <label for="newLineName" class="form-label">Tambah Line Baru</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="newLineName" placeholder="Nama Line">
-                        <button class="btn btn-outline-primary" type="button" id="addLineBtn">Tambah</button>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingLinePart">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinePart" aria-expanded="false" aria-controls="collapseLinePart">
+                            Konfigurasi Line & Part
+                        </button>
+                    </h2>
+                    <div id="collapseLinePart" class="accordion-collapse collapse" aria-labelledby="headingLinePart" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div class="mb-3">
+                                <label for="newLineName" class="form-label">Tambah Line Baru</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="newLineName" placeholder="Nama Line">
+                                    <button class="btn btn-outline-primary" type="button" id="addLineBtn">Tambah</button>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="selectLineForPart" class="form-label">Pilih Line untuk Tambah Part</label>
+                                <select class="form-select" id="selectLineForPart">
+                                    <option value="">-- Pilih Line --</option>
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3" id="addPartSection" style="display:none;">
+                                <label for="newPartName" class="form-label">Tambah Part ke <span id="selectedLineName"></span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="newPartName" placeholder="Nama Part">
+                                    <button class="btn btn-outline-primary" type="button" id="addPartBtn">Tambah</button>
+                                </div>
+                            </div>
+                            
+                            <div id="linesAndPartsList">
+                                <!-- Lines and Parts will be listed here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="mb-3">
-                    <label for="selectLineForPart" class="form-label">Pilih Line untuk Tambah Part</label>
-                    <select class="form-select" id="selectLineForPart">
-                        <option value="">-- Pilih Line --</option>
-                        <!-- Options will be populated by JS -->
-                    </select>
-                </div>
-                
-                <div class="mb-3" id="addPartSection" style="display:none;">
-                    <label for="newPartName" class="form-label">Tambah Part ke <span id="selectedLineName"></span></label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="newPartName" placeholder="Nama Part">
-                        <button class="btn btn-outline-primary" type="button" id="addPartBtn">Tambah</button>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingDefaultOp">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefaultOp" aria-expanded="false" aria-controls="collapseDefaultOp">
+                            Default Total OP per Line
+                        </button>
+                    </h2>
+                    <div id="collapseDefaultOp" class="accordion-collapse collapse" aria-labelledby="headingDefaultOp" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div id="defaultOpSettings">
+                                <!-- Default OP settings will be populated here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <div id="linesAndPartsList">
-                    <!-- Lines and Parts will be listed here -->
-                </div>
-            </section>
-
-            <section class="settings-section">
-                <h2 class="section-title">Default Total OP per Line</h2>
-                <div id="defaultOpSettings">
-                    <!-- Default OP settings will be populated here -->
-                </div>
-            </section>
-
-            <section class="settings-section">
-                <h2 class="section-title">Keamanan</h2>
-                <div class="settings-item">
-                    <span class="settings-label">Waktu Logout Otomatis</span>
-                    <select class="form-select form-select-sm" id="autoLogoutTime" style="width: auto;">
-                        <option value="15">15 menit</option>
-                        <option value="30" selected>30 menit</option>
-                        <option value="45">45 menit</option>
-                        <option value="60">1 jam</option>
-                    </select>
-                </div>
-            </section>
-            
-            <section class="access-control-section">
-                <h2 class="section-title">Hak Akses Pengguna</h2>
-                <div class="access-control-item">
-                    <span class="access-control-label">Line Produksi yang Dapat Diakses</span>
-                    <div class="line-access-container" id="lineAccessContainer">
-                        <!-- Line access checkboxes will be generated here -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSecurity">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSecurity" aria-expanded="false" aria-controls="collapseSecurity">
+                            Keamanan
+                        </button>
+                    </h2>
+                    <div id="collapseSecurity" class="accordion-collapse collapse" aria-labelledby="headingSecurity" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div class="settings-item">
+                                <span class="settings-label">Waktu Logout Otomatis</span>
+                                <select class="form-select form-select-sm" id="autoLogoutTime" style="width: auto;">
+                                    <option value="15">15 menit</option>
+                                    <option value="30" selected>30 menit</option>
+                                    <option value="45">45 menit</option>
+                                    <option value="60">1 jam</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="access-control-item">
-                    <span class="access-control-label">Hak Input Data</span>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="inputPermissionToggle">
-                        <label class="form-check-label" for="inputPermissionToggle"></label>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAccessControl">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccessControl" aria-expanded="false" aria-controls="collapseAccessControl">
+                            Hak Akses Pengguna
+                        </button>
+                    </h2>
+                    <div id="collapseAccessControl" class="accordion-collapse collapse" aria-labelledby="headingAccessControl" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div class="access-control-item">
+                                <span class="access-control-label">Line Produksi yang Dapat Diakses</span>
+                                <div class="line-access-container" id="lineAccessContainer">
+                                    <!-- Line access checkboxes will be generated here -->
+                                </div>
+                            </div>
+                            <div class="access-control-item">
+                                <span class="access-control-label">Hak Input Data</span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="inputPermissionToggle">
+                                    <label class="form-check-label" for="inputPermissionToggle"></label>
+                                </div>
+                            </div>
+                            <div class="access-control-item">
+                                <span class="access-control-label">Hak Edit/Hapus Data</span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="editPermissionToggle">
+                                    <label class="form-check-label" for="editPermissionToggle"></label>
+                                </div>
+                            </div>
+                            <div class="access-control-item">
+                                <button class="btn btn-primary" id="savePermissionsBtn">Simpan Hak Akses</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="access-control-item">
-                    <span class="access-control-label">Hak Edit/Hapus Data</span>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="editPermissionToggle">
-                        <label class="form-check-label" for="editPermissionToggle"></label>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAbout">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAbout" aria-expanded="false" aria-controls="collapseAbout">
+                            Tentang
+                        </button>
+                    </h2>
+                    <div id="collapseAbout" class="accordion-collapse collapse" aria-labelledby="headingAbout" data-bs-parent="#settingsAccordion">
+                        <div class="accordion-body">
+                            <div class="settings-item">
+                                <span class="settings-label">Versi Aplikasi</span>
+                                <span class="settings-value">v1.0</span>
+                            </div>
+                            <div class="settings-item">
+                                <span class="settings-label">Tahun</span>
+                                <span class="settings-value">2025</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="access-control-item">
-                    <button class="btn btn-primary" id="savePermissionsBtn">Simpan Hak Akses</button>
-                </div>
-            </section>
-            
-            <section class="settings-section">
-                <h2 class="section-title">Tentang</h2>
-                <div class="settings-item">
-                    <span class="settings-label">Versi Aplikasi</span>
-                    <span class="settings-value">v1.0</span>
-                </div>
-                <div class="settings-item">
-                    <span class="settings-label">Tahun</span>
-                    <span class="settings-value">2025</span>
-                </div>
-            </section>
+            </div>
         </main>
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
@@ -1601,44 +1661,47 @@
                 lineData[line][dateKey][shift].prod += data.sigmaProduksi;
                 lineData[line][dateKey][shift].lt += data.loadingTime;
             });
-            // Generate table rows
-            // Use linesData from Firestore instead of hardcoded list
+            // Generate table rows - hanya untuk line yang diizinkan
             let tableRowsHTML = '';
             linesData.forEach(lineObj => {
                 const lineName = lineObj.name;
-                // Shift 1 row
-                let shift1RowHTML = `<tr><td>${lineName} (Shift 1)</td>`;
-                for (let day = 1; day <= daysInMonth; day++) {
-                    // Create dateKey for header using local date formatting
-                    const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
-                    const data = lineData[lineName] && lineData[lineName][dateKey];
-                    if (data && (data['1'].prod > 0 || data['1'].lt > 0)) {
-                        // Display Production and Loading Time side-by-side
-                        shift1RowHTML += `<td style="text-align:right;">${data['1'].prod}</td><td style="text-align:right;">${data['1'].lt}</td>`;
-                    } else {
-                        shift1RowHTML += '<td>-</td><td>-</td>';
+                // Hanya tampilkan line yang diizinkan
+                if (userPermissions && userPermissions.accessibleLines && 
+                    userPermissions.accessibleLines.includes(lineName)) {
+                    // Shift 1 row
+                    let shift1RowHTML = `<tr><td>${lineName} (Shift 1)</td>`;
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        // Create dateKey for header using local date formatting
+                        const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
+                        const data = lineData[lineName] && lineData[lineName][dateKey];
+                        if (data && (data['1'].prod > 0 || data['1'].lt > 0)) {
+                            // Display Production and Loading Time side-by-side
+                            shift1RowHTML += `<td style="text-align:right;">${data['1'].prod}</td><td style="text-align:right;">${data['1'].lt}</td>`;
+                        } else {
+                            shift1RowHTML += '<td>-</td><td>-</td>';
+                        }
                     }
-                }
-                shift1RowHTML += '</tr>';
-                tableRowsHTML += shift1RowHTML;
-                // Shift 2 row
-                let shift2RowHTML = `<tr><td>${lineName} (Shift 2)</td>`;
-                for (let day = 1; day <= daysInMonth; day++) {
-                    // Create dateKey for header using local date formatting
-                    const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
-                    const data = lineData[lineName] && lineData[lineName][dateKey];
-                    if (data && (data['2'].prod > 0 || data['2'].lt > 0)) {
-                        // Display Production and Loading Time side-by-side
-                        shift2RowHTML += `<td style="text-align:right;">${data['2'].prod}</td><td style="text-align:right;">${data['2'].lt}</td>`;
-                    } else {
-                        shift2RowHTML += '<td>-</td><td>-</td>';
+                    shift1RowHTML += '</tr>';
+                    tableRowsHTML += shift1RowHTML;
+                    // Shift 2 row
+                    let shift2RowHTML = `<tr><td>${lineName} (Shift 2)</td>`;
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        // Create dateKey for header using local date formatting
+                        const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
+                        const data = lineData[lineName] && lineData[lineName][dateKey];
+                        if (data && (data['2'].prod > 0 || data['2'].lt > 0)) {
+                            // Display Production and Loading Time side-by-side
+                            shift2RowHTML += `<td style="text-align:right;">${data['2'].prod}</td><td style="text-align:right;">${data['2'].lt}</td>`;
+                        } else {
+                            shift2RowHTML += '<td>-</td><td>-</td>';
+                        }
                     }
+                    shift2RowHTML += '</tr>';
+                    tableRowsHTML += shift2RowHTML;
+                    // Separator row
+                    // Adjust colspan to account for double columns (days * 2) + line name column
+                    tableRowsHTML += `<tr class="shift-separator"><td colspan="${(daysInMonth * 2) + 1}"></td></tr>`;
                 }
-                shift2RowHTML += '</tr>';
-                tableRowsHTML += shift2RowHTML;
-                // Separator row
-                // Adjust colspan to account for double columns (days * 2) + line name column
-                tableRowsHTML += `<tr class="shift-separator"><td colspan="${(daysInMonth * 2) + 1}"></td></tr>`;
             });
             lineTableBody.innerHTML = tableRowsHTML;
         }
@@ -2809,7 +2872,24 @@
                 setInputLoading(false);
                 return;
             }
+            
+            // Validasi duplikasi data
             try {
+                const q = query(
+                    collection(db, "data_produksi"),
+                    where("namaLineProduksi", "==", data.namaLineProduksi),
+                    where("namaPart", "==", data.namaPart),
+                    where("tanggal", "==", data.tanggal),
+                    where("shift", "==", data.shift)
+                );
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty && !documentIdInput.value) {
+                    // Jika data sudah ada dan ini adalah input baru (bukan edit)
+                    showAlert('Error', 'Data dengan line produksi, part, tanggal, dan shift yang sama sudah ada!');
+                    setInputLoading(false);
+                    return;
+                }
+                
                 if (documentIdInput.value) {
                     // Update existing document
                     const docRef = doc(db, "data_produksi", documentIdInput.value);
