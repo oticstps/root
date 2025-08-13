@@ -752,6 +752,25 @@
         .line-table th[colspan="2"] {
             background-color: var(--table-header-bg);
         }
+        /* Line & Part Management */
+        .line-item, .part-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .line-item:last-child, .part-item:last-child {
+            border-bottom: none;
+        }
+        .part-list {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-color);
+        }
+        .default-op-input {
+            width: 100px;
+        }
         /* Responsive adjustments */
         @media (max-width: 576px) {
             .line-table {
@@ -764,135 +783,6 @@
             .summary-cards {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
-        /* KPP Specific Styles */
-        .kpp-ng-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 10px;
-            background-color: var(--card-bg);
-            margin-top: 5px;
-        }
-        .kpp-ng-item {
-            padding: 8px;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-        .kpp-ng-item:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .kpp-ng-item:last-child {
-            border-bottom: none;
-        }
-        /* Settings Management Section */
-        .management-section {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-        }
-        .management-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .management-item:last-child {
-            border-bottom: none;
-        }
-        .management-label {
-            font-weight: 500;
-            color: var(--text-color);
-        }
-        .management-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        .btn-management {
-            padding: 5px 10px;
-            font-size: 0.85rem;
-        }
-        /* Management Modal Styles */
-        .management-modal-content {
-            border-radius: 12px;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-        .management-modal-header {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 12px 12px 0 0;
-        }
-        .management-modal-body {
-            padding: 20px;
-        }
-        .management-modal-footer {
-            padding: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-        .management-form-group {
-            margin-bottom: 15px;
-        }
-        .management-form-label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        .management-form-input, .management-form-select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-        .management-form-input:focus, .management-form-select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-        .management-error {
-            color: var(--danger-color);
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-        .management-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 10px;
-            background-color: var(--card-bg);
-            margin-top: 10px;
-        }
-        .management-list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .management-list-item:last-child {
-            border-bottom: none;
-        }
-        .management-item-info {
-            flex: 1;
-        }
-        .management-item-actions {
-            display: flex;
-            gap: 5px;
-        }
-        .management-item-name {
-            font-weight: 500;
-        }
-        .management-item-details {
-            font-size: 0.85rem;
-            color: var(--text-muted);
         }
     </style>
 </head>
@@ -911,7 +801,7 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="app-logo">
-                    <img src="assets/otics.png" alt="Logo" style="width: 100px; height: 100px;" />
+                    <img src="../assets/otics.png" alt="Logo" style="width: 100px; height: 100px;" />
                     <h1 class="app-title">KANRIBAN PRODUKSI</h1>
                     <p class="app-subtitle">Silakan login untuk melanjutkan</p>
                 </div>
@@ -1005,7 +895,7 @@
                             <label for="filterLine" class="form-label">Line Produksi</label>
                             <select class="form-select form-select-sm" id="filterLine">
                                 <option value="">Semua Line</option>
-                                <!-- Options akan diisi secara dinamis dari Firestore -->
+                                <!-- Options will be populated by JS -->
                             </select>
                         </div>
                         <div class="col-6 col-md-3">
@@ -1019,7 +909,6 @@
                             <label for="filterGroup" class="form-label">Group</label>
                             <select class="form-select form-select-sm" id="filterGroup">
                                 <option value="">Semua Group</option>
-                                <option value="PG-1">PG-1</option>
                                 <option value="PG-2.1">PG-2.1</option>
                                 <option value="PG-2.2">PG-2.2</option>
                                 <option value="PG-2.3">PG-2.3</option>
@@ -1059,10 +948,6 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
-            <a href="#" class="nav-item" id="kppNav">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>KPP</span>
-            </a>
             <a href="#" class="nav-item" id="profileNav">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
@@ -1096,14 +981,13 @@
                             <label for="namaLineProduksi" class="form-label">Nama Line Produksi</label>
                             <select class="form-select" id="namaLineProduksi" required>
                                 <option value="" selected disabled>Pilih Line Produksi</option>
-                                <!-- Options akan diisi secara dinamis dari Firestore -->
+                                <!-- Options will be populated by JS -->
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="namaPart" class="form-label">Nama Part</label>
                             <select class="form-select" id="namaPart" required disabled>
                                 <option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>
-                                <!-- Options akan diisi secara dinamis berdasarkan line yang dipilih -->
                             </select>
                         </div>
                         <div class="mb-3">
@@ -1114,7 +998,6 @@
                             <label for="group" class="form-label">Group</label>
                             <select class="form-select" id="group" required>
                                 <option value="" selected disabled>Pilih Group</option>
-                                <option value="PG-1">PG-1</option>
                                 <option value="PG-2.1">PG-2.1</option>
                                 <option value="PG-2.2">PG-2.2</option>
                                 <option value="PG-2.3">PG-2.3</option>
@@ -1160,116 +1043,11 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
-            <a href="#" class="nav-item" id="kppNav2">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>KPP</span>
-            </a>
             <a href="#" class="nav-item" id="profileNav2">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
             </a>
             <a href="#" class="nav-item" id="settingsNav2">
-                <i class="bi bi-gear"></i>
-                <span>Settings</span>
-            </a>
-        </nav>
-    </div>
-    <!-- KPP Input Page -->
-    <div id="kppInputPage" class="page">
-        <!-- App Header -->
-        <header class="app-header">
-            <div class="app-header-title">Input Data KPP (NG)</div>
-            <div class="user-section">
-                <div class="user-avatar" id="kppUserAvatar">U</div>
-                <button class="logout-btn" id="kppLogoutBtn">
-                    <i class="bi bi-box-arrow-right"></i>
-                </button>
-            </div>
-        </header>
-        <!-- Main Content -->
-        <main class="main-content">
-            <section class="input-section">
-                <h2 class="section-title">Input Data NG Part</h2>
-                <div class="form-container">
-                    <form id="kppForm">
-                        <input type="hidden" id="kppDocumentId">
-                        <div class="mb-3">
-                            <label for="kppLineProduksi" class="form-label">Line Produksi</label>
-                            <select class="form-select" id="kppLineProduksi" required>
-                                <option value="" selected disabled>Pilih Line Produksi</option>
-                                <!-- Options akan diisi secara dinamis dari Firestore -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppPart" class="form-label">Nama Part</label>
-                            <select class="form-select" id="kppPart" required disabled>
-                                <option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>
-                                <!-- Options akan diisi secara dinamis -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppProses" class="form-label">Proses</label>
-                            <select class="form-select" id="kppProses" required disabled>
-                                <option value="" selected disabled>Pilih Part Terlebih Dahulu</option>
-                                <!-- Options akan diisi secara dinamis -->
-                            </select>
-                            <!-- Dropdown NG Items akan muncul di sini -->
-                            <div id="kppNgDropdown" class="kpp-ng-list d-none">
-                                <!-- NG items akan diisi secara dinamis -->
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppItemNG" class="form-label">Item NG</label>
-                            <input type="text" class="form-control" id="kppItemNG" readonly required placeholder="Pilih proses terlebih dahulu">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppTanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" id="kppTanggal" required>
-                        </div>
-                         <div class="mb-3">
-                            <label for="kppShift" class="form-label">Shift</label>
-                            <select class="form-select" id="kppShift" required>
-                                <option value="" selected disabled>Pilih Shift</option>
-                                <option value="1">Shift 1</option>
-                                <option value="2">Shift 2</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppJumlah" class="form-label">Jumlah NG</label>
-                            <input type="number" class="form-control" id="kppJumlah" min="1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kppKeterangan" class="form-label">Keterangan</label>
-                            <textarea class="form-control" id="kppKeterangan" rows="2"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100" id="kppSubmitBtn">
-                            <span id="kppSubmitText">Simpan Data KPP</span>
-                            <span id="kppSubmitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                        </button>
-                    </form>
-                    <div id="kppStatusMessage" class="status-message mt-3 d-none"></div>
-                </div>
-            </section>
-        </main>
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <a href="#" class="nav-item" id="homeNavKpp">
-                <i class="bi bi-house"></i>
-                <span>Home</span>
-            </a>
-            <a href="#" class="nav-item" id="inputNavKpp">
-                <i class="bi bi-plus-circle"></i>
-                <span>Input</span>
-            </a>
-             <a href="#" class="nav-item active" id="kppNavActive">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>KPP</span>
-            </a>
-            <a href="#" class="nav-item" id="profileNavKpp">
-                <i class="bi bi-person"></i>
-                <span>Profil</span>
-            </a>
-            <a href="#" class="nav-item" id="settingsNavKpp">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
@@ -1324,10 +1102,6 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
-            <a href="#" class="nav-item" id="kppNav3">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>KPP</span>
-            </a>
             <a href="#" class="nav-item active" id="profileNav3">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
@@ -1362,6 +1136,45 @@
                     </div>
                 </div>
             </section>
+            
+            <section class="settings-section">
+                <h2 class="section-title">Konfigurasi Line & Part</h2>
+                <div class="mb-3">
+                    <label for="newLineName" class="form-label">Tambah Line Baru</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="newLineName" placeholder="Nama Line">
+                        <button class="btn btn-outline-primary" type="button" id="addLineBtn">Tambah</button>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="selectLineForPart" class="form-label">Pilih Line untuk Tambah Part</label>
+                    <select class="form-select" id="selectLineForPart">
+                        <option value="">-- Pilih Line --</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                
+                <div class="mb-3" id="addPartSection" style="display:none;">
+                    <label for="newPartName" class="form-label">Tambah Part ke <span id="selectedLineName"></span></label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="newPartName" placeholder="Nama Part">
+                        <button class="btn btn-outline-primary" type="button" id="addPartBtn">Tambah</button>
+                    </div>
+                </div>
+                
+                <div id="linesAndPartsList">
+                    <!-- Lines and Parts will be listed here -->
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2 class="section-title">Default Total OP per Line</h2>
+                <div id="defaultOpSettings">
+                    <!-- Default OP settings will be populated here -->
+                </div>
+            </section>
+
             <section class="settings-section">
                 <h2 class="section-title">Keamanan</h2>
                 <div class="settings-item">
@@ -1374,6 +1187,7 @@
                     </select>
                 </div>
             </section>
+            
             <section class="access-control-section">
                 <h2 class="section-title">Hak Akses Pengguna</h2>
                 <div class="access-control-item">
@@ -1400,41 +1214,7 @@
                     <button class="btn btn-primary" id="savePermissionsBtn">Simpan Hak Akses</button>
                 </div>
             </section>
-            <section class="management-section">
-                <h2 class="section-title">Manajemen Data Master</h2>
-                <div class="management-item">
-                    <span class="management-label">Line Produksi</span>
-                    <div class="management-buttons">
-                        <button class="btn btn-primary btn-management" id="manageLineBtn">
-                            <i class="bi bi-pencil-square"></i> Kelola
-                        </button>
-                    </div>
-                </div>
-                <div class="management-item">
-                    <span class="management-label">Part</span>
-                    <div class="management-buttons">
-                        <button class="btn btn-primary btn-management" id="managePartBtn">
-                            <i class="bi bi-pencil-square"></i> Kelola
-                        </button>
-                    </div>
-                </div>
-                <div class="management-item">
-                    <span class="management-label">Proses</span>
-                    <div class="management-buttons">
-                        <button class="btn btn-primary btn-management" id="manageProsesBtn">
-                            <i class="bi bi-pencil-square"></i> Kelola
-                        </button>
-                    </div>
-                </div>
-                <div class="management-item">
-                    <span class="management-label">Item NG</span>
-                    <div class="management-buttons">
-                        <button class="btn btn-primary btn-management" id="manageNgItemBtn">
-                            <i class="bi bi-pencil-square"></i> Kelola
-                        </button>
-                    </div>
-                </div>
-            </section>
+            
             <section class="settings-section">
                 <h2 class="section-title">Tentang</h2>
                 <div class="settings-item">
@@ -1457,10 +1237,6 @@
                 <i class="bi bi-plus-circle"></i>
                 <span>Input</span>
             </a>
-            <a href="#" class="nav-item" id="kppNav4">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>KPP</span>
-            </a>
             <a href="#" class="nav-item" id="profileNav4">
                 <i class="bi bi-person"></i>
                 <span>Profil</span>
@@ -1470,163 +1246,6 @@
                 <span>Settings</span>
             </a>
         </nav>
-    </div>
-    <!-- Management Modals -->
-    <!-- Line Management Modal -->
-    <div class="modal fade" id="lineManagementModal" tabindex="-1" aria-labelledby="lineManagementModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content management-modal-content">
-                <div class="modal-header management-modal-header">
-                    <h5 class="modal-title" id="lineManagementModalLabel">Kelola Line Produksi</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body management-modal-body">
-                    <form id="lineManagementForm">
-                        <div class="management-form-group">
-                            <label for="lineNameInput" class="management-form-label">Nama Line Produksi</label>
-                            <input type="text" class="management-form-input" id="lineNameInput" required>
-                            <div id="lineNameError" class="management-error d-none"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="saveLineBtn">Simpan Line</button>
-                    </form>
-                    <div class="management-list" id="lineList">
-                        <!-- Line list will be populated here -->
-                    </div>
-                </div>
-                <div class="modal-footer management-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Part Management Modal -->
-    <div class="modal fade" id="partManagementModal" tabindex="-1" aria-labelledby="partManagementModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content management-modal-content">
-                <div class="modal-header management-modal-header">
-                    <h5 class="modal-title" id="partManagementModalLabel">Kelola Part</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body management-modal-body">
-                    <form id="partManagementForm">
-                        <div class="management-form-group">
-                            <label for="partLineSelect" class="management-form-label">Line Produksi</label>
-                            <select class="management-form-select" id="partLineSelect" required>
-                                <option value="">Pilih Line Produksi</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="partLineError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="partNameInput" class="management-form-label">Nama Part</label>
-                            <input type="text" class="management-form-input" id="partNameInput" required>
-                            <div id="partNameError" class="management-error d-none"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="savePartBtn">Simpan Part</button>
-                    </form>
-                    <div class="management-list" id="partList">
-                        <!-- Part list will be populated here -->
-                    </div>
-                </div>
-                <div class="modal-footer management-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Proses Management Modal -->
-    <div class="modal fade" id="prosesManagementModal" tabindex="-1" aria-labelledby="prosesManagementModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content management-modal-content">
-                <div class="modal-header management-modal-header">
-                    <h5 class="modal-title" id="prosesManagementModalLabel">Kelola Proses</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body management-modal-body">
-                    <form id="prosesManagementForm">
-                        <div class="management-form-group">
-                            <label for="prosesLineSelect" class="management-form-label">Line Produksi</label>
-                            <select class="management-form-select" id="prosesLineSelect" required>
-                                <option value="">Pilih Line Produksi</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="prosesLineError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="prosesPartSelect" class="management-form-label">Part</label>
-                            <select class="management-form-select" id="prosesPartSelect" required>
-                                <option value="">Pilih Part</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="prosesPartError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="prosesNameInput" class="management-form-label">Nama Proses</label>
-                            <input type="text" class="management-form-input" id="prosesNameInput" required>
-                            <div id="prosesNameError" class="management-error d-none"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="saveProsesBtn">Simpan Proses</button>
-                    </form>
-                    <div class="management-list" id="prosesList">
-                        <!-- Proses list will be populated here -->
-                    </div>
-                </div>
-                <div class="modal-footer management-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- NG Item Management Modal -->
-    <div class="modal fade" id="ngItemManagementModal" tabindex="-1" aria-labelledby="ngItemManagementModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content management-modal-content">
-                <div class="modal-header management-modal-header">
-                    <h5 class="modal-title" id="ngItemManagementModalLabel">Kelola Item NG</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body management-modal-body">
-                    <form id="ngItemManagementForm">
-                        <div class="management-form-group">
-                            <label for="ngItemLineSelect" class="management-form-label">Line Produksi</label>
-                            <select class="management-form-select" id="ngItemLineSelect" required>
-                                <option value="">Pilih Line Produksi</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="ngItemLineError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="ngItemPartSelect" class="management-form-label">Part</label>
-                            <select class="management-form-select" id="ngItemPartSelect" required>
-                                <option value="">Pilih Part</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="ngItemPartError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="ngItemProsesSelect" class="management-form-label">Proses</label>
-                            <select class="management-form-select" id="ngItemProsesSelect" required>
-                                <option value="">Pilih Proses</option>
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <div id="ngItemProsesError" class="management-error d-none"></div>
-                        </div>
-                        <div class="management-form-group">
-                            <label for="ngItemNameInput" class="management-form-label">Nama Item NG</label>
-                            <input type="text" class="management-form-input" id="ngItemNameInput" required>
-                            <div id="ngItemNameError" class="management-error d-none"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="saveNgItemBtn">Simpan Item NG</button>
-                    </form>
-                    <div class="management-list" id="ngItemList">
-                        <!-- NG Item list will be populated here -->
-                    </div>
-                </div>
-                <div class="modal-footer management-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -1675,28 +1294,45 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            getDoc, 
+            doc, 
+            updateDoc, 
+            deleteDoc, 
+            query, 
+            where, 
+            orderBy, 
+            setDoc,
+            onSnapshot // Added for real-time updates
+        } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        
         // Your web app's Firebase configuration
-            const firebaseConfig = {
-            apiKey: "AIzaSyCqy_JbfO4zBfrRjbyapxZLN6cNxJYfTPo",
-            authDomain: "main-3fdb7.firebaseapp.com",
-            projectId: "main-3fdb7",
-            storageBucket: "main-3fdb7.firebasestorage.app",
-            messagingSenderId: "941850224922",
-            appId: "1:941850224922:web:52612af8c75eb53b0ae4a3",
-            measurementId: "G-KFEG3V64DW"
-            };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEAmmyJxMriLaNBA4n8xEXtu1g91uv860",
+            authDomain: "coreengine-142ea.firebaseapp.com",
+            databaseURL: "https://coreengine-142ea-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "coreengine-142ea",
+            storageBucket: "coreengine-142ea.firebasestorage.app",
+            messagingSenderId: "890812454910",
+            appId: "1:890812454910:web:d0906c637e26017df052af",
+            measurementId: "G-3C9ZF4EXVM"
+        };
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         // Initialize Firebase services
         const db = getFirestore(app);
         const auth = getAuth(app);
+
         // DOM Elements
         const loginPage = document.getElementById('loginPage');
         const homePage = document.getElementById('homePage');
         const inputPage = document.getElementById('inputPage');
-        const kppInputPage = document.getElementById('kppInputPage');
         const profilePage = document.getElementById('profilePage');
         const settingsPage = document.getElementById('settingsPage');
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
@@ -1741,20 +1377,6 @@
         const partSelect = document.getElementById('namaPart');
         const documentIdInput = document.getElementById('documentId');
         const formTitle = document.getElementById('formTitle');
-        // KPP Page Elements
-        const kppUserAvatar = document.getElementById('kppUserAvatar');
-        const kppLogoutBtn = document.getElementById('kppLogoutBtn');
-        const kppForm = document.getElementById('kppForm');
-        const kppSubmitBtn = document.getElementById('kppSubmitBtn');
-        const kppSubmitText = document.getElementById('kppSubmitText');
-        const kppSubmitSpinner = document.getElementById('kppSubmitSpinner');
-        const kppStatusMessage = document.getElementById('kppStatusMessage');
-        const kppLineSelect = document.getElementById('kppLineProduksi');
-        const kppPartSelect = document.getElementById('kppPart');
-        const kppProsesSelect = document.getElementById('kppProses');
-        const kppItemNgSelect = document.getElementById('kppItemNG');
-        const kppNgDropdown = document.getElementById('kppNgDropdown');
-        const kppDocumentIdInput = document.getElementById('kppDocumentId');
         // Profile Page Elements
         const profileUserAvatar = document.getElementById('profileUserAvatar');
         const profileAvatar = document.getElementById('profileAvatar');
@@ -1774,78 +1396,23 @@
         const inputPermissionToggle = document.getElementById('inputPermissionToggle');
         const editPermissionToggle = document.getElementById('editPermissionToggle');
         const savePermissionsBtn = document.getElementById('savePermissionsBtn');
-        // Management Buttons
-        const manageLineBtn = document.getElementById('manageLineBtn');
-        const managePartBtn = document.getElementById('managePartBtn');
-        const manageProsesBtn = document.getElementById('manageProsesBtn');
-        const manageNgItemBtn = document.getElementById('manageNgItemBtn');
-        // Management Modals
-        const lineManagementModal = new bootstrap.Modal(document.getElementById('lineManagementModal'));
-        const partManagementModal = new bootstrap.Modal(document.getElementById('partManagementModal'));
-        const prosesManagementModal = new bootstrap.Modal(document.getElementById('prosesManagementModal'));
-        const ngItemManagementModal = new bootstrap.Modal(document.getElementById('ngItemManagementModal'));
-        // Management Form Elements
-        const lineManagementForm = document.getElementById('lineManagementForm');
-        const lineNameInput = document.getElementById('lineNameInput');
-        const lineNameError = document.getElementById('lineNameError');
-        const saveLineBtn = document.getElementById('saveLineBtn');
-        const lineList = document.getElementById('lineList');
-        
-        const partManagementForm = document.getElementById('partManagementForm');
-        const partLineSelect = document.getElementById('partLineSelect');
-        const partNameInput = document.getElementById('partNameInput');
-        const partLineError = document.getElementById('partLineError');
-        const partNameError = document.getElementById('partNameError');
-        const savePartBtn = document.getElementById('savePartBtn');
-        const partList = document.getElementById('partList');
-        
-        const prosesManagementForm = document.getElementById('prosesManagementForm');
-        const prosesLineSelect = document.getElementById('prosesLineSelect');
-        const prosesPartSelect = document.getElementById('prosesPartSelect');
-        const prosesNameInput = document.getElementById('prosesNameInput');
-        const prosesLineError = document.getElementById('prosesLineError');
-        const prosesPartError = document.getElementById('prosesPartError');
-        const prosesNameError = document.getElementById('prosesNameError');
-        const saveProsesBtn = document.getElementById('saveProsesBtn');
-        const prosesList = document.getElementById('prosesList');
-        
-        const ngItemManagementForm = document.getElementById('ngItemManagementForm');
-        const ngItemLineSelect = document.getElementById('ngItemLineSelect');
-        const ngItemPartSelect = document.getElementById('ngItemPartSelect');
-        const ngItemProsesSelect = document.getElementById('ngItemProsesSelect');
-        const ngItemNameInput = document.getElementById('ngItemNameInput');
-        const ngItemLineError = document.getElementById('ngItemLineError');
-        const ngItemPartError = document.getElementById('ngItemPartError');
-        const ngItemProsesError = document.getElementById('ngItemProsesError');
-        const ngItemNameError = document.getElementById('ngItemNameError');
-        const saveNgItemBtn = document.getElementById('saveNgItemBtn');
-        const ngItemList = document.getElementById('ngItemList');
         // Navigation Elements
         const homeNav = document.getElementById('homeNav');
         const inputNav = document.getElementById('inputNav');
-        const kppNav = document.getElementById('kppNav');
         const profileNav = document.getElementById('profileNav');
         const settingsNav = document.getElementById('settingsNav');
         const homeNav2 = document.getElementById('homeNav2');
         const inputNav2 = document.getElementById('inputNav2');
-        const kppNav2 = document.getElementById('kppNav2');
         const profileNav2 = document.getElementById('profileNav2');
         const settingsNav2 = document.getElementById('settingsNav2');
         const homeNav3 = document.getElementById('homeNav3');
         const inputNav3 = document.getElementById('inputNav3');
-        const kppNav3 = document.getElementById('kppNav3');
         const profileNav3 = document.getElementById('profileNav3');
         const settingsNav3 = document.getElementById('settingsNav3');
         const homeNav4 = document.getElementById('homeNav4');
         const inputNav4 = document.getElementById('inputNav4');
-        const kppNav4 = document.getElementById('kppNav4');
         const profileNav4 = document.getElementById('profileNav4');
         const settingsNav4 = document.getElementById('settingsNav4');
-        const homeNavKpp = document.getElementById('homeNavKpp');
-        const inputNavKpp = document.getElementById('inputNavKpp');
-        const kppNavActive = document.getElementById('kppNavActive');
-        const profileNavKpp = document.getElementById('profileNavKpp');
-        const settingsNavKpp = document.getElementById('settingsNavKpp');
         // Delete Modal Elements
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
         // Filter Elements
@@ -1861,6 +1428,18 @@
         const logoutNowBtn = document.getElementById('logoutNowBtn');
         // Refresh Loading Popup
         const refreshLoadingPopup = document.getElementById('refreshLoadingPopup');
+        
+        // New Settings Elements
+        const newLineName = document.getElementById('newLineName');
+        const addLineBtn = document.getElementById('addLineBtn');
+        const selectLineForPart = document.getElementById('selectLineForPart');
+        const addPartSection = document.getElementById('addPartSection');
+        const selectedLineName = document.getElementById('selectedLineName');
+        const newPartName = document.getElementById('newPartName');
+        const addPartBtn = document.getElementById('addPartBtn');
+        const linesAndPartsList = document.getElementById('linesAndPartsList');
+        const defaultOpSettings = document.getElementById('defaultOpSettings');
+
         // State variables
         let currentUser = null;
         let currentDate = new Date();
@@ -1872,11 +1451,11 @@
         let logoutTime = 30 * 60 * 1000; // Default 30 minutes
         let warningTime = 60 * 1000; // 1 minute warning
         let timeLeft = logoutTime;
-        // Data master dari Firestore
-        let lineData = []; // Array of line objects {id, name}
-        let partData = []; // Array of part objects {id, lineId, lineName, name}
-        let prosesData = []; // Array of proses objects {id, partId, partName, lineName, name}
-        let ngItemData = []; // Array of ngItem objects {id, prosesId, prosesName, partName, lineName, name}
+        
+        // Line and Part data (will be fetched from Firestore)
+        let linesData = [];
+        let partsData = {};
+
         // Refresh Loading Popup Functions
         function showRefreshLoading() {
             refreshLoadingPopup.classList.add('show');
@@ -1891,6 +1470,7 @@
             // Tambahkan sedikit delay agar terlihat jika loading sangat cepat
             setTimeout(hideRefreshLoading, 300);
         });
+
         // Custom Alert Functions
         function showAlert(title, message, onConfirm, showCancel = true) {
             alertTitle.textContent = title;
@@ -1916,16 +1496,19 @@
         function closeAlert() {
             customAlert.classList.remove('show');
         }
+
         // Format date for display
         function formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(dateString).toLocaleDateString('id-ID', options);
         }
+
         // Format month for display
         function formatMonth(date) {
             const options = { year: 'numeric', month: 'long' };
             return date.toLocaleDateString('id-ID', options);
         }
+
         // Format date range for dashboard (1st to last day of current month)
         function formatDateRange() {
             const year = currentDate.getFullYear();
@@ -1935,10 +1518,12 @@
             const options = { day: 'numeric', month: 'long' };
             dashboardDateRange.textContent = `${firstDay.getDate()} - ${lastDay.getDate()} ${firstDay.toLocaleDateString('id-ID', options)} ${year}`;
         }
+
         // Update month display
         function updateMonthDisplay() {
             currentMonth.textContent = formatMonth(currentDate);
         }
+
         // Calculate dashboard statistics
         function calculateDashboardStats(dataList) {
             // Total production
@@ -1948,6 +1533,7 @@
             const totalLoadTime = dataList.reduce((sum, data) => sum + data.loadingTime, 0);
             totalLoadingTime.textContent = totalLoadTime.toLocaleString();
         }
+
         // Helper function to format date as YYYY-MM-DD based on local time
         function formatDateToLocalYYYYMMDD(date) {
             const year = date.getFullYear();
@@ -1955,6 +1541,7 @@
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
+
         // Generate line monitoring table
         function generateLineMonitoringTable(dataList) {
             const year = currentDate.getFullYear();
@@ -1998,32 +1585,33 @@
             tableHeader.appendChild(subHeaderRow);
             // Group data by line, date, and shift
             // Store both sigmaProduksi (prod) and loadingTime (lt)
-            const lineDataMap = {};
+            const lineData = {};
             dataList.forEach(data => {
                 const line = data.namaLineProduksi;
                 // Create dateKey using local date formatting to avoid timezone issues
                 const dateKey = formatDateToLocalYYYYMMDD(new Date(data.tanggal));
                 const shift = data.shift;
-                if (!lineDataMap[line]) {
-                    lineDataMap[line] = {};
+                if (!lineData[line]) {
+                    lineData[line] = {};
                 }
-                if (!lineDataMap[line][dateKey]) {
-                    lineDataMap[line][dateKey] = { '1': { prod: 0, lt: 0 }, '2': { prod: 0, lt: 0 } };
+                if (!lineData[line][dateKey]) {
+                    lineData[line][dateKey] = { '1': { prod: 0, lt: 0 }, '2': { prod: 0, lt: 0 } };
                 }
                 // Aggregate production and loading time
-                lineDataMap[line][dateKey][shift].prod += data.sigmaProduksi;
-                lineDataMap[line][dateKey][shift].lt += data.loadingTime;
+                lineData[line][dateKey][shift].prod += data.sigmaProduksi;
+                lineData[line][dateKey][shift].lt += data.loadingTime;
             });
             // Generate table rows
-            const lineNames = lineData.map(line => line.name);
+            // Use linesData from Firestore instead of hardcoded list
             let tableRowsHTML = '';
-            lineNames.forEach(lineName => {
+            linesData.forEach(lineObj => {
+                const lineName = lineObj.name;
                 // Shift 1 row
                 let shift1RowHTML = `<tr><td>${lineName} (Shift 1)</td>`;
                 for (let day = 1; day <= daysInMonth; day++) {
                     // Create dateKey for header using local date formatting
                     const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
-                    const data = lineDataMap[lineName] && lineDataMap[lineName][dateKey];
+                    const data = lineData[lineName] && lineData[lineName][dateKey];
                     if (data && (data['1'].prod > 0 || data['1'].lt > 0)) {
                         // Display Production and Loading Time side-by-side
                         shift1RowHTML += `<td style="text-align:right;">${data['1'].prod}</td><td style="text-align:right;">${data['1'].lt}</td>`;
@@ -2038,7 +1626,7 @@
                 for (let day = 1; day <= daysInMonth; day++) {
                     // Create dateKey for header using local date formatting
                     const dateKey = formatDateToLocalYYYYMMDD(new Date(year, month, day));
-                    const data = lineDataMap[lineName] && lineDataMap[lineName][dateKey];
+                    const data = lineData[lineName] && lineData[lineName][dateKey];
                     if (data && (data['2'].prod > 0 || data['2'].lt > 0)) {
                         // Display Production and Loading Time side-by-side
                         shift2RowHTML += `<td style="text-align:right;">${data['2'].prod}</td><td style="text-align:right;">${data['2'].lt}</td>`;
@@ -2054,171 +1642,25 @@
             });
             lineTableBody.innerHTML = tableRowsHTML;
         }
+
         // Fungsi untuk mengisi opsi part berdasarkan line yang dipilih di filter
         function updateFilterPartOptions() {
             const selectedLine = filterLine.value;
             filterPart.innerHTML = '<option value="">Semua Part</option>';
             if (selectedLine) {
-                const parts = partData.filter(part => part.lineName === selectedLine);
-                parts.forEach(part => {
-                    const option = document.createElement('option');
-                    option.value = part.name;
-                    option.textContent = part.name;
-                    filterPart.appendChild(option);
-                });
-            }
-        }
-        // Fetch master data from Firestore
-        async function fetchMasterData() {
-            try {
-                // Fetch lines
-                const lineSnapshot = await getDocs(collection(db, "lines"));
-                lineData = [];
-                lineSnapshot.forEach((doc) => {
-                    lineData.push({ id: doc.id, ...doc.data() });
-                });
-                // Fetch parts
-                const partSnapshot = await getDocs(collection(db, "parts"));
-                partData = [];
-                partSnapshot.forEach((doc) => {
-                    partData.push({ id: doc.id, ...doc.data() });
-                });
-                // Fetch proses
-                const prosesSnapshot = await getDocs(collection(db, "proses"));
-                prosesData = [];
-                prosesSnapshot.forEach((doc) => {
-                    prosesData.push({ id: doc.id, ...doc.data() });
-                });
-                // Fetch ngItems
-                const ngItemSnapshot = await getDocs(collection(db, "ngItems"));
-                ngItemData = [];
-                ngItemSnapshot.forEach((doc) => {
-                    ngItemData.push({ id: doc.id, ...doc.data() });
-                });
-                // Update dropdowns with fetched data
-                updateLineDropdowns();
-            } catch (error) {
-                console.error("Error fetching master data: ", error);
-                showAlert('Error', 'Gagal memuat data master: ' + error.message);
-            }
-        }
-        // Update line dropdowns with fetched data
-        function updateLineDropdowns() {
-            // Update line dropdowns in all forms
-            const lineSelects = [lineSelect, kppLineSelect, filterLine, partLineSelect, prosesLineSelect, ngItemLineSelect];
-            lineSelects.forEach(select => {
-                // Clear existing options except the first one
-                while (select.options.length > 1) {
-                    select.remove(1);
-                }
-                // Add new options
-                lineData.forEach(line => {
-                    const option = document.createElement('option');
-                    option.value = line.name;
-                    option.textContent = line.name;
-                    select.appendChild(option);
-                });
-            });
-        }
-        // Update part options based on selected line
-        function updatePartOptions() {
-            const selectedLine = lineSelect.value;
-            partSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
-            partSelect.disabled = true;
-            if (selectedLine) {
-                const parts = partData.filter(part => part.lineName === selectedLine);
-                if (parts.length > 0) {
-                    partSelect.disabled = false;
-                    parts.forEach(part => {
+                // Get parts for this line from Firestore data
+                const line = linesData.find(l => l.name === selectedLine);
+                if (line && partsData[line.id]) {
+                    partsData[line.id].forEach(part => {
                         const option = document.createElement('option');
                         option.value = part.name;
                         option.textContent = part.name;
-                        partSelect.appendChild(option);
+                        filterPart.appendChild(option);
                     });
                 }
             }
         }
-        // Update part options for KPP based on selected line
-        function updateKppPartOptions() {
-            const selectedLine = kppLineSelect.value;
-            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
-            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Part Terlebih Dahulu</option>';
-            kppNgDropdown.innerHTML = '';
-            kppItemNgSelect.value = '';
-            kppProsesSelect.disabled = true;
-            kppNgDropdown.classList.add('d-none');
-            kppPartSelect.disabled = true;
-            if (selectedLine) {
-                const parts = partData.filter(part => part.lineName === selectedLine);
-                if (parts.length > 0) {
-                    kppPartSelect.disabled = false;
-                    parts.forEach(part => {
-                        const option = document.createElement('option');
-                        option.value = part.name;
-                        option.textContent = part.name;
-                        kppPartSelect.appendChild(option);
-                    });
-                }
-            }
-        }
-        // Update proses options for KPP based on selected line and part
-        function updateKppProsesOptions() {
-            const selectedLine = kppLineSelect.value;
-            const selectedPart = kppPartSelect.value;
-            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Proses</option>';
-            kppNgDropdown.innerHTML = '';
-            kppItemNgSelect.value = '';
-            kppNgDropdown.classList.add('d-none');
-            kppProsesSelect.disabled = true;
-            if (selectedLine && selectedPart) {
-                const prosesList = prosesData.filter(proses => proses.lineName === selectedLine && proses.partName === selectedPart);
-                if (prosesList.length > 0) {
-                    kppProsesSelect.disabled = false;
-                    prosesList.forEach(proses => {
-                        const option = document.createElement('option');
-                        option.value = proses.name;
-                        option.textContent = proses.name;
-                        kppProsesSelect.appendChild(option);
-                    });
-                }
-            }
-        }
-        // Show NG items dropdown when proses is selected
-        function showKppNgItems() {
-            const selectedLine = kppLineSelect.value;
-            const selectedPart = kppPartSelect.value;
-            const selectedProses = kppProsesSelect.value;
-            
-            kppNgDropdown.innerHTML = '';
-            kppItemNgSelect.value = '';
-            
-            if (selectedLine && selectedPart && selectedProses) {
-                const ngItems = ngItemData.filter(ngItem => 
-                    ngItem.lineName === selectedLine && 
-                    ngItem.partName === selectedPart && 
-                    ngItem.prosesName === selectedProses
-                );
-                
-                if (ngItems.length > 0) {
-                    ngItems.forEach(item => {
-                        const ngItemElement = document.createElement('div');
-                        ngItemElement.className = 'kpp-ng-item';
-                        ngItemElement.textContent = item.name;
-                        ngItemElement.addEventListener('click', () => {
-                            kppItemNgSelect.value = item.name;
-                            kppNgDropdown.classList.add('d-none');
-                        });
-                        kppNgDropdown.appendChild(ngItemElement);
-                    });
-                    
-                    kppNgDropdown.classList.remove('d-none');
-                } else {
-                    kppNgDropdown.classList.add('d-none');
-                }
-            } else {
-                kppNgDropdown.classList.add('d-none');
-            }
-        }
+
         // Fetch data from Firestore
         async function fetchData() {
             try {
@@ -2232,7 +1674,7 @@
                 const endDateString = formatDateToLocalYYYYMMDD(endDate);
                 // Query data for the current month
                 const q = query(
-                    collection(db, "produksiData"),
+                    collection(db, "data_produksi"),
                     where("tanggal", ">=", startDateString),
                     where("tanggal", "<=", endDateString),
                     orderBy("tanggal", "desc")
@@ -2254,6 +1696,7 @@
                 showAlert('Error', 'Gagal memuat data: ' + error.message);
             }
         }
+
         // Render data to UI dengan filter
         function renderData(fullDataList) {
             // Terapkan filter
@@ -2349,6 +1792,7 @@
                 });
             }
         }
+
         // Edit data
         async function editData(docId) {
             // Cek hak akses edit
@@ -2357,7 +1801,7 @@
                 return;
             }
             try {
-                const docRef = doc(db, "produksiData", docId);
+                const docRef = doc(db, "data_produksi", docId);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
@@ -2396,6 +1840,7 @@
                 showAlert('Error', 'Gagal mengambil data: ' + error.message);
             }
         }
+
         // Show delete confirmation
         function showDeleteConfirmation(docId) {
             // Cek hak akses hapus
@@ -2406,11 +1851,12 @@
             currentEditDocId = docId;
             deleteModal.show();
         }
+
         // Delete data
         async function deleteData() {
             if (!currentEditDocId) return;
             try {
-                await deleteDoc(doc(db, "produksiData", currentEditDocId));
+                await deleteDoc(doc(db, "data_produksi", currentEditDocId));
                 console.log("Document successfully deleted!");
                 deleteModal.hide();
                 fetchData(); // Refresh data
@@ -2420,6 +1866,37 @@
                 showAlert('Error', 'Gagal menghapus data: ' + error.message);
             }
         }
+
+        // Update part options based on selected line
+        function updatePartOptions() {
+            const selectedLineName = lineSelect.value;
+            partSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
+            
+            if (selectedLineName) {
+                // Find the line ID
+                const line = linesData.find(l => l.name === selectedLineName);
+                if (line) {
+                    partSelect.disabled = false;
+                    // Get parts for this line
+                    const lineParts = partsData[line.id] || [];
+                    lineParts.forEach(part => {
+                        const option = document.createElement('option');
+                        option.value = part.name;
+                        option.textContent = part.name;
+                        partSelect.appendChild(option);
+                    });
+                    
+                    // Set default OP if available
+                    const defaultOP = getDefaultOPForLine(selectedLineName);
+                    if (defaultOP > 0) {
+                        document.getElementById('sigmaOP').value = defaultOP;
+                    }
+                }
+            } else {
+                partSelect.disabled = true;
+            }
+        }
+
         // Update shift information
         function updateShiftInfo() {
             const shift = shiftSelect.value;
@@ -2433,6 +1910,7 @@
                 shiftInfo.classList.add('d-none');
             }
         }
+
         // Set loading state for login button
         function setLoginLoading(isLoading) {
             if (isLoading) {
@@ -2445,11 +1923,13 @@
                 loginBtn.disabled = false;
             }
         }
+
         // Show login status message
         function showLoginStatus(message, isError = false) {
             loginStatus.textContent = message;
             loginStatus.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'd-none'}`;
         }
+
         // Set loading state for submit button
         function setInputLoading(isLoading) {
             if (isLoading) {
@@ -2462,11 +1942,13 @@
                 submitBtn.disabled = false;
             }
         }
+
         // Show input status message
         function showInputStatus(message, isError = false) {
             inputStatusMessage.textContent = message;
             inputStatusMessage.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'alert alert-success'} ${message ? '' : 'd-none'}`;
         }
+
         // Reset form
         function resetForm() {
             productionForm.reset();
@@ -2478,43 +1960,13 @@
             inputPageTitle.textContent = 'Input Data';
             submitText.textContent = 'Simpan Data';
         }
-        // Set loading state for KPP submit button
-        function setKppInputLoading(isLoading) {
-            if (isLoading) {
-                kppSubmitText.textContent = kppDocumentIdInput.value ? 'Memperbarui...' : 'Menyimpan...';
-                kppSubmitSpinner.classList.remove('d-none');
-                kppSubmitBtn.disabled = true;
-            } else {
-                kppSubmitText.textContent = 'Simpan Data KPP';
-                kppSubmitSpinner.classList.add('d-none');
-                kppSubmitBtn.disabled = false;
-            }
-        }
-        // Show KPP input status message
-        function showKppStatus(message, isError = false) {
-            kppStatusMessage.textContent = message;
-            kppStatusMessage.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'alert alert-success'} ${message ? '' : 'd-none'}`;
-        }
-        // Reset KPP form
-        function resetKppForm() {
-            kppForm.reset();
-            kppDocumentIdInput.value = '';
-            kppPartSelect.disabled = true;
-            kppProsesSelect.disabled = true;
-            kppNgDropdown.classList.add('d-none');
-            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>';
-            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Part Terlebih Dahulu</option>';
-            kppItemNgSelect.value = '';
-             // Set today's date as default
-            document.getElementById('kppTanggal').valueAsDate = new Date();
-        }
+
         // Show/hide pages
         function showPage(pageId) {
             // Hide all pages
             loginPage.classList.remove('active');
             homePage.classList.remove('active');
             inputPage.classList.remove('active');
-            kppInputPage.classList.remove('active');
             profilePage.classList.remove('active');
             settingsPage.classList.remove('active');
             // Show requested page
@@ -2531,12 +1983,6 @@
                 inputNav2.classList.add('active');
                 inputNav3.classList.add('active');
                 inputNav4.classList.add('active');
-            } else if (pageId === 'kppInputPage') {
-                kppNav.classList.add('active');
-                kppNav2.classList.add('active');
-                kppNav3.classList.add('active');
-                kppNav4.classList.add('active');
-                kppNavActive.classList.add('active');
             } else if (pageId === 'profilePage') {
                 profileNav.classList.add('active');
                 profileNav2.classList.add('active');
@@ -2549,6 +1995,7 @@
                 settingsNav4.classList.add('active');
             }
         }
+
         // Update user profile display
         function updateUserProfile(user) {
             if (user) {
@@ -2557,7 +2004,6 @@
                 // Update avatars
                 homeUserAvatar.textContent = avatarText;
                 inputUserAvatar.textContent = avatarText;
-                kppUserAvatar.textContent = avatarText;
                 profileUserAvatar.textContent = avatarText;
                 settingsUserAvatar.textContent = avatarText;
                 profileAvatar.textContent = avatarText;
@@ -2577,10 +2023,12 @@
                 }
             }
         }
+
         // Generate line access checkboxes
         function generateLineAccessCheckboxes() {
             lineAccessContainer.innerHTML = '';
-            lineData.forEach(line => {
+            // Use linesData from Firestore instead of hardcoded list
+            linesData.forEach(line => {
                 const lineItem = document.createElement('div');
                 lineItem.className = 'line-access-item';
                 lineItem.innerHTML = `
@@ -2592,6 +2040,7 @@
                 lineAccessContainer.appendChild(lineItem);
             });
         }
+
         // Update user permissions display
         function updateUserPermissionsDisplay() {
             if (userPermissions) {
@@ -2606,6 +2055,7 @@
                 editPermissionToggle.checked = userPermissions.canEdit;
             }
         }
+
         // Save user permissions
         async function saveUserPermissions() {
             if (!currentUser) return;
@@ -2639,6 +2089,7 @@
                 showAlert('Error', 'Gagal menyimpan hak akses: ' + error.message);
             }
         }
+
         // Get user permissions from Firestore
         async function getUserPermissions(uid) {
             try {
@@ -2648,9 +2099,11 @@
                     return userPermissionsSnap.data();
                 } else {
                     // Return default permissions if not found
+                    // Use linesData from Firestore for default accessible lines
+                    const defaultLines = linesData.map(l => l.name);
                     return {
                         uid: uid,
-                        accessibleLines: lineData.map(line => line.name),
+                        accessibleLines: defaultLines,
                         canInput: true,
                         canEdit: true
                     };
@@ -2660,6 +2113,7 @@
                 return null;
             }
         }
+
         // Auto Logout Functions
         function startInactivityTimer() {
             resetInactivityTimer();
@@ -2668,6 +2122,7 @@
                 document.addEventListener(event, resetInactivityTimer, true);
             });
         }
+
         function resetInactivityTimer() {
             clearTimeout(inactivityTimer);
             clearTimeout(warningTimer);
@@ -2676,6 +2131,7 @@
                 showAutoLogoutWarning();
             }, logoutTime - warningTime);
         }
+
         function showAutoLogoutWarning() {
             autoLogoutWarning.classList.remove('hidden');
             updateAutoLogoutTimer();
@@ -2688,15 +2144,18 @@
                 }
             }, 1000);
         }
+
         function updateAutoLogoutTimer() {
             const minutes = Math.floor(timeLeft / 60000);
             const seconds = Math.floor((timeLeft % 60000) / 1000);
             autoLogoutTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+
         function hideAutoLogoutWarning() {
             autoLogoutWarning.classList.add('hidden');
             clearInterval(warningTimer);
         }
+
         function updateLogoutTime() {
             const selectedTime = parseInt(autoLogoutTime.value);
             logoutTime = selectedTime * 60 * 1000;
@@ -2704,12 +2163,14 @@
             localStorage.setItem('autoLogoutTime', selectedTime);
             resetInactivityTimer();
         }
+
         // Dark Mode Functions
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             // Save preference to localStorage
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
+
         function loadSettings() {
             // Load dark mode preference
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -2724,240 +2185,331 @@
                 logoutTime = parseInt(savedLogoutTime) * 60 * 1000;
             }
         }
-        // Management Functions
-        // Populate line select options
-        function populateLineSelect(selectElement) {
-            selectElement.innerHTML = '<option value="">Pilih Line Produksi</option>';
-            lineData.forEach(line => {
+
+        // New functions for Line & Part management
+
+        // Fetch lines and parts from Firestore
+        async function fetchLinesAndParts() {
+            try {
+                // Fetch lines
+                const linesSnapshot = await getDocs(collection(db, "lines"));
+                linesData = [];
+                linesSnapshot.forEach((doc) => {
+                    linesData.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Fetch parts
+                partsData = {};
+                const partsSnapshot = await getDocs(collection(db, "parts"));
+                partsSnapshot.forEach((doc) => {
+                    const partData = doc.data();
+                    if (!partsData[partData.lineId]) {
+                        partsData[partData.lineId] = [];
+                    }
+                    partsData[partData.lineId].push({ id: doc.id, ...partData });
+                });
+
+                // Update UI
+                populateLineSelectForPart();
+                renderLinesAndParts();
+                updateLineAccessCheckboxes(); // Update access control list
+                populateDefaultOpSettings(); // Update default OP settings
+                updateInputFormLineOptions(); // Update input form options
+                updateFilterLineOptions(); // Update filter options
+                
+            } catch (error) {
+                console.error("Error fetching lines and parts: ", error);
+                showAlert('Error', 'Gagal memuat data line dan part: ' + error.message);
+            }
+        }
+
+        // Populate line select for adding parts
+        function populateLineSelectForPart() {
+            selectLineForPart.innerHTML = '<option value="">-- Pilih Line --</option>';
+            linesData.forEach(line => {
                 const option = document.createElement('option');
-                option.value = line.name;
+                option.value = line.id;
                 option.textContent = line.name;
-                selectElement.appendChild(option);
+                selectLineForPart.appendChild(option);
             });
         }
-        
-        // Populate part select options based on selected line
-        function populatePartSelect(selectElement, lineName) {
-            selectElement.innerHTML = '<option value="">Pilih Part</option>';
-            if (lineName) {
-                const parts = partData.filter(part => part.lineName === lineName);
-                parts.forEach(part => {
-                    const option = document.createElement('option');
-                    option.value = part.name;
-                    option.textContent = part.name;
-                    selectElement.appendChild(option);
-                });
-            }
-        }
-        
-        // Populate proses select options based on selected line and part
-        function populateProsesSelect(selectElement, lineName, partName) {
-            selectElement.innerHTML = '<option value="">Pilih Proses</option>';
-            if (lineName && partName) {
-                const prosesList = prosesData.filter(proses => proses.lineName === lineName && proses.partName === partName);
-                prosesList.forEach(proses => {
-                    const option = document.createElement('option');
-                    option.value = proses.name;
-                    option.textContent = proses.name;
-                    selectElement.appendChild(option);
-                });
-            }
-        }
-        
-        // Render line list
-        function renderLineList() {
-            lineList.innerHTML = '';
-            lineData.forEach(line => {
-                const lineItem = document.createElement('div');
-                lineItem.className = 'management-list-item';
-                lineItem.innerHTML = `
-                    <div class="management-item-info">
-                        <div class="management-item-name">${line.name}</div>
-                    </div>
-                    <div class="management-item-actions">
-                        <button class="btn btn-danger btn-sm delete-line-btn" data-line-id="${line.id}" data-line-name="${line.name}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                `;
-                lineList.appendChild(lineItem);
-            });
+
+        // Render lines and parts list
+        function renderLinesAndParts() {
+            linesAndPartsList.innerHTML = '';
             
+            linesData.forEach(line => {
+                const lineItem = document.createElement('div');
+                lineItem.className = 'line-item';
+                lineItem.innerHTML = `
+                    <span>${line.name}</span>
+                    <button class="btn btn-sm btn-danger delete-line-btn" data-id="${line.id}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                `;
+                linesAndPartsList.appendChild(lineItem);
+
+                // Render parts for this line
+                const partListContainer = document.createElement('div');
+                partListContainer.className = 'part-list';
+                
+                if (partsData[line.id] && partsData[line.id].length > 0) {
+                    partsData[line.id].forEach(part => {
+                        const partItem = document.createElement('div');
+                        partItem.className = 'part-item';
+                        partItem.innerHTML = `
+                            <span>${part.name}</span>
+                            <button class="btn btn-sm btn-outline-danger delete-part-btn" data-id="${part.id}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        `;
+                        partListContainer.appendChild(partItem);
+                    });
+                } else {
+                    const noPartItem = document.createElement('div');
+                    noPartItem.className = 'part-item text-muted';
+                    noPartItem.textContent = 'Tidak ada part';
+                    partListContainer.appendChild(noPartItem);
+                }
+                
+                linesAndPartsList.appendChild(partListContainer);
+            });
+
             // Add event listeners for delete buttons
             document.querySelectorAll('.delete-line-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const lineId = e.currentTarget.getAttribute('data-line-id');
-                    const lineName = e.currentTarget.getAttribute('data-line-name');
-                    showAlert('Konfirmasi Hapus', `Apakah Anda yakin ingin menghapus line ${lineName}? Semua data terkait akan ikut terhapus.`, async () => {
-                        try {
-                            await deleteDoc(doc(db, "lines", lineId));
-                            console.log("Line successfully deleted!");
-                            // Refresh master data
-                            await fetchMasterData();
-                            renderLineList();
-                            showAlert('Sukses', 'Line berhasil dihapus!');
-                        } catch (error) {
-                            console.error("Error deleting line: ", error);
-                            showAlert('Error', 'Gagal menghapus line: ' + error.message);
-                        }
-                    });
+                    const lineId = e.currentTarget.getAttribute('data-id');
+                    deleteLine(lineId);
                 });
             });
-        }
-        
-        // Render part list
-        function renderPartList() {
-            partList.innerHTML = '';
-            partData.forEach(part => {
-                const partItem = document.createElement('div');
-                partItem.className = 'management-list-item';
-                partItem.innerHTML = `
-                    <div class="management-item-info">
-                        <div class="management-item-name">${part.name}</div>
-                        <div class="management-item-details">Line: ${part.lineName}</div>
-                    </div>
-                    <div class="management-item-actions">
-                        <button class="btn btn-danger btn-sm delete-part-btn" data-part-id="${part.id}" data-part-name="${part.name}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                `;
-                partList.appendChild(partItem);
-            });
-            
-            // Add event listeners for delete buttons
+
             document.querySelectorAll('.delete-part-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const partId = e.currentTarget.getAttribute('data-part-id');
-                    const partName = e.currentTarget.getAttribute('data-part-name');
-                    showAlert('Konfirmasi Hapus', `Apakah Anda yakin ingin menghapus part ${partName}? Semua data terkait akan ikut terhapus.`, async () => {
-                        try {
-                            await deleteDoc(doc(db, "parts", partId));
-                            console.log("Part successfully deleted!");
-                            // Refresh master data
-                            await fetchMasterData();
-                            renderPartList();
-                            showAlert('Sukses', 'Part berhasil dihapus!');
-                        } catch (error) {
-                            console.error("Error deleting part: ", error);
-                            showAlert('Error', 'Gagal menghapus part: ' + error.message);
-                        }
-                    });
+                    const partId = e.currentTarget.getAttribute('data-id');
+                    deletePart(partId);
                 });
             });
         }
-        
-        // Render proses list
-        function renderProsesList() {
-            prosesList.innerHTML = '';
-            prosesData.forEach(proses => {
-                const prosesItem = document.createElement('div');
-                prosesItem.className = 'management-list-item';
-                prosesItem.innerHTML = `
-                    <div class="management-item-info">
-                        <div class="management-item-name">${proses.name}</div>
-                        <div class="management-item-details">Line: ${proses.lineName}, Part: ${proses.partName}</div>
-                    </div>
-                    <div class="management-item-actions">
-                        <button class="btn btn-danger btn-sm delete-proses-btn" data-proses-id="${proses.id}" data-proses-name="${proses.name}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                `;
-                prosesList.appendChild(prosesItem);
-            });
-            
-            // Add event listeners for delete buttons
-            document.querySelectorAll('.delete-proses-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const prosesId = e.currentTarget.getAttribute('data-proses-id');
-                    const prosesName = e.currentTarget.getAttribute('data-proses-name');
-                    showAlert('Konfirmasi Hapus', `Apakah Anda yakin ingin menghapus proses ${prosesName}? Semua data terkait akan ikut terhapus.`, async () => {
-                        try {
-                            await deleteDoc(doc(db, "proses", prosesId));
-                            console.log("Proses successfully deleted!");
-                            // Refresh master data
-                            await fetchMasterData();
-                            renderProsesList();
-                            showAlert('Sukses', 'Proses berhasil dihapus!');
-                        } catch (error) {
-                            console.error("Error deleting proses: ", error);
-                            showAlert('Error', 'Gagal menghapus proses: ' + error.message);
-                        }
-                    });
-                });
-            });
-        }
-        
-        // Render NG item list
-        function renderNgItemList() {
-            ngItemList.innerHTML = '';
-            ngItemData.forEach(ngItem => {
-                const ngItemElement = document.createElement('div');
-                ngItemElement.className = 'management-list-item';
-                ngItemElement.innerHTML = `
-                    <div class="management-item-info">
-                        <div class="management-item-name">${ngItem.name}</div>
-                        <div class="management-item-details">Line: ${ngItem.lineName}, Part: ${ngItem.partName}, Proses: ${ngItem.prosesName}</div>
-                    </div>
-                    <div class="management-item-actions">
-                        <button class="btn btn-danger btn-sm delete-ng-item-btn" data-ng-item-id="${ngItem.id}" data-ng-item-name="${ngItem.name}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                `;
-                ngItemList.appendChild(ngItemElement);
-            });
-            
-            // Add event listeners for delete buttons
-            document.querySelectorAll('.delete-ng-item-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const ngItemId = e.currentTarget.getAttribute('data-ng-item-id');
-                    const ngItemName = e.currentTarget.getAttribute('data-ng-item-name');
-                    showAlert('Konfirmasi Hapus', `Apakah Anda yakin ingin menghapus item NG ${ngItemName}?`, async () => {
-                        try {
-                            await deleteDoc(doc(db, "ngItems", ngItemId));
-                            console.log("NG Item successfully deleted!");
-                            // Refresh master data
-                            await fetchMasterData();
-                            renderNgItemList();
-                            showAlert('Sukses', 'Item NG berhasil dihapus!');
-                        } catch (error) {
-                            console.error("Error deleting NG item: ", error);
-                            showAlert('Error', 'Gagal menghapus item NG: ' + error.message);
-                        }
-                    });
-                });
-            });
-        }
-        // Handle user state changes
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                updateUserProfile(user);
-                // Fetch master data first
-                await fetchMasterData();
-                // Get user permissions
-                userPermissions = await getUserPermissions(user.uid);
-                updateUserPermissionsDisplay();
-                showPage('homePage');
-                fetchData();
-                updateMonthDisplay();
-                formatDateRange();
-                startInactivityTimer();
-                // Filter line options based on user permissions
-                filterLineOptions();
-            } else {
-                currentUser = null;
-                userPermissions = null;
-                hideAutoLogoutWarning();
-                showPage('loginPage');
+
+        // Add new line
+        async function addNewLine() {
+            const name = newLineName.value.trim();
+            if (!name) {
+                showAlert('Error', 'Nama line tidak boleh kosong');
+                return;
             }
-        });
-        // Filter line options based on user permissions
-        function filterLineOptions() {
+
+            try {
+                // Check if line already exists
+                const q = query(collection(db, "lines"), where("name", "==", name));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Line dengan nama ini sudah ada');
+                    return;
+                }
+
+                // Add new line
+                const docRef = await addDoc(collection(db, "lines"), { name });
+                console.log("Line added with ID: ", docRef.id);
+                
+                // Also add to user permissions if user is logged in
+                if (currentUser && userPermissions) {
+                    userPermissions.accessibleLines.push(name);
+                    await saveUserPermissions();
+                }
+                
+                newLineName.value = '';
+                await fetchLinesAndParts(); // Refresh data
+                showAlert('Sukses', 'Line baru berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error adding line: ", error);
+                showAlert('Error', 'Gagal menambahkan line: ' + error.message);
+            }
+        }
+
+        // Delete line
+        async function deleteLine(lineId) {
+            showAlert('Konfirmasi', 'Apakah Anda yakin ingin menghapus line ini? Semua part terkait juga akan dihapus.', async () => {
+                try {
+                    // Delete all parts associated with this line
+                    if (partsData[lineId]) {
+                        for (const part of partsData[lineId]) {
+                            await deleteDoc(doc(db, "parts", part.id));
+                        }
+                    }
+                    
+                    // Delete the line
+                    await deleteDoc(doc(db, "lines", lineId));
+                    
+                    // Also remove from user permissions if user is logged in
+                    if (currentUser && userPermissions) {
+                        const lineName = linesData.find(l => l.id === lineId)?.name;
+                        if (lineName) {
+                            userPermissions.accessibleLines = userPermissions.accessibleLines.filter(ln => ln !== lineName);
+                            await saveUserPermissions();
+                        }
+                    }
+                    
+                    await fetchLinesAndParts(); // Refresh data
+                    showAlert('Sukses', 'Line dan semua part terkait berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting line: ", error);
+                    showAlert('Error', 'Gagal menghapus line: ' + error.message);
+                }
+            });
+        }
+
+        // Add new part
+        async function addNewPart() {
+            const lineId = selectLineForPart.value;
+            const name = newPartName.value.trim();
+            
+            if (!lineId) {
+                showAlert('Error', 'Silakan pilih line terlebih dahulu');
+                return;
+            }
+            
+            if (!name) {
+                showAlert('Error', 'Nama part tidak boleh kosong');
+                return;
+            }
+
+            try {
+                // Check if part already exists for this line
+                const q = query(
+                    collection(db, "parts"), 
+                    where("lineId", "==", lineId),
+                    where("name", "==", name)
+                );
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Part dengan nama ini sudah ada untuk line ini');
+                    return;
+                }
+
+                // Get line name
+                const lineDoc = await getDoc(doc(db, "lines", lineId));
+                if (!lineDoc.exists()) {
+                    showAlert('Error', 'Line tidak ditemukan');
+                    return;
+                }
+                const lineName = lineDoc.data().name;
+
+                // Add new part
+                await addDoc(collection(db, "parts"), { lineId, lineName, name });
+                console.log("Part added");
+                
+                newPartName.value = '';
+                await fetchLinesAndParts(); // Refresh data
+                showAlert('Sukses', 'Part baru berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error adding part: ", error);
+                showAlert('Error', 'Gagal menambahkan part: ' + error.message);
+            }
+        }
+
+        // Delete part
+        async function deletePart(partId) {
+            showAlert('Konfirmasi', 'Apakah Anda yakin ingin menghapus part ini?', async () => {
+                try {
+                    await deleteDoc(doc(db, "parts", partId));
+                    await fetchLinesAndParts(); // Refresh data
+                    showAlert('Sukses', 'Part berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting part: ", error);
+                    showAlert('Error', 'Gagal menghapus part: ' + error.message);
+                }
+            });
+        }
+
+        // Update line access checkboxes
+        function updateLineAccessCheckboxes() {
+            lineAccessContainer.innerHTML = '';
+            linesData.forEach(line => {
+                const lineItem = document.createElement('div');
+                lineItem.className = 'line-access-item';
+                lineItem.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="line-${line.id}" value="${line.name}">
+                        <label class="form-check-label" for="line-${line.id}">${line.name}</label>
+                    </div>
+                `;
+                lineAccessContainer.appendChild(lineItem);
+            });
+            
+            // Update user permissions display if available
+            if (userPermissions) {
+                updateUserPermissionsDisplay();
+            }
+        }
+
+        // Populate default OP settings
+        function populateDefaultOpSettings() {
+            defaultOpSettings.innerHTML = '';
+            linesData.forEach(line => {
+                const settingItem = document.createElement('div');
+                settingItem.className = 'input-group mb-2';
+                settingItem.innerHTML = `
+                    <span class="input-group-text">${line.name}</span>
+                    <input type="number" class="form-control default-op-input" 
+                           id="defaultOp-${line.id}" 
+                           placeholder="Default OP" 
+                           value="${line.defaultOP || ''}">
+                    <button class="btn btn-outline-primary save-default-op-btn" 
+                            type="button" 
+                            data-line-id="${line.id}">
+                        Simpan
+                    </button>
+                `;
+                defaultOpSettings.appendChild(settingItem);
+            });
+
+            // Add event listeners for save buttons
+            document.querySelectorAll('.save-default-op-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const lineId = e.currentTarget.getAttribute('data-line-id');
+                    const input = document.getElementById(`defaultOp-${lineId}`);
+                    const defaultOP = parseFloat(input.value);
+                    
+                    if (isNaN(defaultOP)) {
+                        showAlert('Error', 'Nilai Default OP harus berupa angka');
+                        return;
+                    }
+                    
+                    saveDefaultOP(lineId, defaultOP);
+                });
+            });
+        }
+
+        // Save default OP for a line
+        async function saveDefaultOP(lineId, defaultOP) {
+            try {
+                await updateDoc(doc(db, "lines", lineId), { defaultOP });
+                await fetchLinesAndParts(); // Refresh data
+                showAlert('Sukses', 'Default OP berhasil disimpan');
+            } catch (error) {
+                console.error("Error saving default OP: ", error);
+                showAlert('Error', 'Gagal menyimpan default OP: ' + error.message);
+            }
+        }
+
+        // Update input form line options
+        function updateInputFormLineOptions() {
+            const lineSelect = document.getElementById('namaLineProduksi');
+            
+            // Clear existing options (except the first placeholder)
+            lineSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi</option>';
+            
+            // Add lines
+            linesData.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line.name;
+                option.textContent = line.name;
+                lineSelect.appendChild(option);
+            });
+            
+            // Filter options based on user permissions
             if (userPermissions && userPermissions.accessibleLines) {
-                // Filter options di halaman input produksi
                 const inputLineOptions = lineSelect.querySelectorAll('option');
                 inputLineOptions.forEach(option => {
                     if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
@@ -2965,15 +2517,24 @@
                         option.style.display = 'none';
                     }
                 });
-                // Filter options di halaman input KPP
-                const kppLineOptions = kppLineSelect.querySelectorAll('option');
-                kppLineOptions.forEach(option => {
-                    if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
-                        option.disabled = true;
-                        option.style.display = 'none';
-                    }
-                });
-                // Filter options di filter home page
+            }
+        }
+
+        // Update filter line options
+        function updateFilterLineOptions() {
+            // Clear existing options (except the first placeholder)
+            filterLine.innerHTML = '<option value="">Semua Line</option>';
+            
+            // Add lines
+            linesData.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line.name;
+                option.textContent = line.name;
+                filterLine.appendChild(option);
+            });
+            
+            // Filter options based on user permissions
+            if (userPermissions && userPermissions.accessibleLines) {
                 const filterLineOptions = filterLine.querySelectorAll('option');
                 filterLineOptions.forEach(option => {
                     if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
@@ -2983,6 +2544,51 @@
                 });
             }
         }
+
+        // Get default OP for a line
+        function getDefaultOPForLine(lineName) {
+            const line = linesData.find(l => l.name === lineName);
+            return line && !isNaN(line.defaultOP) ? line.defaultOP : 0;
+        }
+
+        // Handle user state changes
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                updateUserProfile(user);
+                // Get user permissions
+                userPermissions = await getUserPermissions(user.uid);
+                updateUserPermissionsDisplay();
+                showPage('homePage');
+                fetchData();
+                updateMonthDisplay();
+                formatDateRange();
+                startInactivityTimer();
+                
+                // NEW: Fetch lines and parts
+                await fetchLinesAndParts();
+            } else {
+                currentUser = null;
+                userPermissions = null;
+                hideAutoLogoutWarning();
+                showPage('loginPage');
+            }
+        });
+
+        // Event Listeners for new elements
+        selectLineForPart.addEventListener('change', () => {
+            if (selectLineForPart.value) {
+                addPartSection.style.display = 'block';
+                const selectedLine = linesData.find(l => l.id === selectLineForPart.value);
+                selectedLineName.textContent = selectedLine ? selectedLine.name : '';
+            } else {
+                addPartSection.style.display = 'none';
+            }
+        });
+
+        addLineBtn.addEventListener('click', addNewLine);
+        addPartBtn.addEventListener('click', addNewPart);
+
         // Email/password login
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -2999,6 +2605,7 @@
                 setLoginLoading(false);
             }
         });
+
         // Logout functions
         async function performLogout() {
             try {
@@ -3018,9 +2625,6 @@
         inputLogoutBtn.addEventListener('click', () => {
             showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
-        kppLogoutBtn.addEventListener('click', () => {
-            showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
-        });
         profileLogoutBtn.addEventListener('click', () => {
             showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
@@ -3030,6 +2634,7 @@
         settingsLogoutBtn.addEventListener('click', () => {
             showAlert('Konfirmasi Logout', 'Apakah Anda yakin ingin logout?', performLogout);
         });
+
         // Auto Logout Event Listeners
         stayLoggedInBtn.addEventListener('click', () => {
             hideAutoLogoutWarning();
@@ -3039,6 +2644,7 @@
             hideAutoLogoutWarning();
             performLogout();
         });
+
         // Navigation
         homeNav.addEventListener('click', (e) => {
             e.preventDefault();
@@ -3055,18 +2661,6 @@
             showPage('inputPage');
             // Set today's date as default
             document.getElementById('tanggal').valueAsDate = new Date();
-        });
-        kppNav.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
-                return;
-            }
-            resetKppForm();
-            showPage('kppInputPage');
-            // Set today's date as default
-            document.getElementById('kppTanggal').valueAsDate = new Date();
         });
         profileNav.addEventListener('click', (e) => {
             e.preventDefault();
@@ -3092,17 +2686,6 @@
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
-        kppNav2.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
-                return;
-            }
-            resetKppForm();
-            showPage('kppInputPage');
-            document.getElementById('kppTanggal').valueAsDate = new Date();
-        });
         profileNav2.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -3125,17 +2708,6 @@
             resetForm();
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
-        });
-        kppNav3.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
-                return;
-            }
-            resetKppForm();
-            showPage('kppInputPage');
-            document.getElementById('kppTanggal').valueAsDate = new Date();
         });
         profileNav3.addEventListener('click', (e) => {
             e.preventDefault();
@@ -3160,17 +2732,6 @@
             showPage('inputPage');
             document.getElementById('tanggal').valueAsDate = new Date();
         });
-        kppNav4.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
-                return;
-            }
-            resetKppForm();
-            showPage('kppInputPage');
-            document.getElementById('kppTanggal').valueAsDate = new Date();
-        });
         profileNav4.addEventListener('click', (e) => {
             e.preventDefault();
             showPage('profilePage');
@@ -3179,29 +2740,7 @@
             e.preventDefault();
             showPage('settingsPage');
         });
-        homeNavKpp.addEventListener('click', (e) => {
-            e.preventDefault();
-            showPage('homePage');
-        });
-        inputNavKpp.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data.');
-                return;
-            }
-            resetForm();
-            showPage('inputPage');
-            document.getElementById('tanggal').valueAsDate = new Date();
-        });
-        profileNavKpp.addEventListener('click', (e) => {
-            e.preventDefault();
-            showPage('profilePage');
-        });
-        settingsNavKpp.addEventListener('click', (e) => {
-            e.preventDefault();
-            showPage('settingsPage');
-        });
+
         // Month navigation
         prevMonth.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
@@ -3215,323 +2754,16 @@
             formatDateRange();
             fetchData();
         });
+
         // Input form event listeners
         lineSelect.addEventListener('change', updatePartOptions);
         shiftSelect.addEventListener('change', updateShiftInfo);
-        // KPP form event listeners
-        kppLineSelect.addEventListener('change', () => {
-            updateKppPartOptions();
-            // Reset downstream selects
-            kppProsesSelect.innerHTML = '<option value="" selected disabled>Pilih Part Terlebih Dahulu</option>';
-            kppNgDropdown.innerHTML = '';
-            kppItemNgSelect.value = '';
-            kppProsesSelect.disabled = true;
-            kppNgDropdown.classList.add('d-none');
-        });
-        kppPartSelect.addEventListener('change', () => {
-            updateKppProsesOptions();
-            // Reset downstream select
-            kppNgDropdown.innerHTML = '';
-            kppItemNgSelect.value = '';
-            kppNgDropdown.classList.add('d-none');
-        });
-        kppProsesSelect.addEventListener('change', showKppNgItems);
-        // Click outside NG dropdown to close it
-        document.addEventListener('click', (e) => {
-            if (!kppProsesSelect.contains(e.target) && !kppNgDropdown.contains(e.target)) {
-                kppNgDropdown.classList.add('d-none');
-            }
-        });
+
         // Settings event listeners
         darkModeToggle.addEventListener('change', toggleDarkMode);
         autoLogoutTime.addEventListener('change', updateLogoutTime);
         savePermissionsBtn.addEventListener('click', saveUserPermissions);
-        // Management button event listeners
-        manageLineBtn.addEventListener('click', () => {
-            renderLineList();
-            lineManagementModal.show();
-        });
-        managePartBtn.addEventListener('click', () => {
-            populateLineSelect(partLineSelect);
-            renderPartList();
-            partManagementModal.show();
-        });
-        manageProsesBtn.addEventListener('click', () => {
-            populateLineSelect(prosesLineSelect);
-            prosesPartSelect.innerHTML = '<option value="">Pilih Part</option>';
-            renderProsesList();
-            prosesManagementModal.show();
-        });
-        manageNgItemBtn.addEventListener('click', () => {
-            populateLineSelect(ngItemLineSelect);
-            ngItemPartSelect.innerHTML = '<option value="">Pilih Part</option>';
-            ngItemProsesSelect.innerHTML = '<option value="">Pilih Proses</option>';
-            renderNgItemList();
-            ngItemManagementModal.show();
-        });
-        // Management form event listeners
-        lineManagementForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const lineName = lineNameInput.value.trim();
-            
-            if (!lineName) {
-                lineNameError.textContent = 'Nama line tidak boleh kosong';
-                lineNameError.classList.remove('d-none');
-                return;
-            }
-            
-            // Check if line already exists
-            const lineExists = lineData.some(line => line.name === lineName);
-            if (lineExists) {
-                lineNameError.textContent = 'Line dengan nama ini sudah ada';
-                lineNameError.classList.remove('d-none');
-                return;
-            }
-            
-            lineNameError.classList.add('d-none');
-            
-            try {
-                // Save to Firestore
-                await addDoc(collection(db, "lines"), { name: lineName });
-                console.log("Line successfully added!");
-                showAlert('Sukses', `Line ${lineName} berhasil ditambahkan!`);
-                lineNameInput.value = '';
-                // Refresh master data
-                await fetchMasterData();
-                renderLineList();
-            } catch (error) {
-                console.error("Error saving line: ", error);
-                showAlert('Error', 'Gagal menyimpan line: ' + error.message);
-            }
-        });
-        
-        partManagementForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const lineName = partLineSelect.value;
-            const partName = partNameInput.value.trim();
-            
-            if (!lineName) {
-                partLineError.textContent = 'Pilih line produksi';
-                partLineError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!partName) {
-                partNameError.textContent = 'Nama part tidak boleh kosong';
-                partNameError.classList.remove('d-none');
-                return;
-            }
-            
-            partLineError.classList.add('d-none');
-            partNameError.classList.add('d-none');
-            
-            // Check if part already exists for this line
-            const partExists = partData.some(part => part.lineName === lineName && part.name === partName);
-            if (partExists) {
-                partNameError.textContent = 'Part dengan nama ini sudah ada untuk line ini';
-                partNameError.classList.remove('d-none');
-                return;
-            }
-            
-            try {
-                // Find lineId
-                const line = lineData.find(l => l.name === lineName);
-                if (!line) {
-                    partLineError.textContent = 'Line tidak ditemukan';
-                    partLineError.classList.remove('d-none');
-                    return;
-                }
-                
-                // Save to Firestore
-                await addDoc(collection(db, "parts"), { 
-                    lineId: line.id, 
-                    lineName: line.name,
-                    name: partName 
-                });
-                console.log("Part successfully added!");
-                showAlert('Sukses', `Part ${partName} berhasil ditambahkan untuk line ${lineName}!`);
-                partLineSelect.value = '';
-                partNameInput.value = '';
-                // Refresh master data
-                await fetchMasterData();
-                renderPartList();
-            } catch (error) {
-                console.error("Error saving part: ", error);
-                showAlert('Error', 'Gagal menyimpan part: ' + error.message);
-            }
-        });
-        
-        prosesManagementForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const lineName = prosesLineSelect.value;
-            const partName = prosesPartSelect.value;
-            const prosesName = prosesNameInput.value.trim();
-            
-            if (!lineName) {
-                prosesLineError.textContent = 'Pilih line produksi';
-                prosesLineError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!partName) {
-                prosesPartError.textContent = 'Pilih part';
-                prosesPartError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!prosesName) {
-                prosesNameError.textContent = 'Nama proses tidak boleh kosong';
-                prosesNameError.classList.remove('d-none');
-                return;
-            }
-            
-            prosesLineError.classList.add('d-none');
-            prosesPartError.classList.add('d-none');
-            prosesNameError.classList.add('d-none');
-            
-            // Check if proses already exists for this line and part
-            const prosesExists = prosesData.some(proses => 
-                proses.lineName === lineName && 
-                proses.partName === partName && 
-                proses.name === prosesName
-            );
-            if (prosesExists) {
-                prosesNameError.textContent = 'Proses dengan nama ini sudah ada untuk part ini';
-                prosesNameError.classList.remove('d-none');
-                return;
-            }
-            
-            try {
-                // Find partId
-                const part = partData.find(p => p.lineName === lineName && p.name === partName);
-                if (!part) {
-                    prosesPartError.textContent = 'Part tidak ditemukan';
-                    prosesPartError.classList.remove('d-none');
-                    return;
-                }
-                
-                // Save to Firestore
-                await addDoc(collection(db, "proses"), { 
-                    partId: part.id, 
-                    partName: part.name,
-                    lineName: lineName,
-                    name: prosesName 
-                });
-                console.log("Proses successfully added!");
-                showAlert('Sukses', `Proses ${prosesName} berhasil ditambahkan untuk part ${partName} di line ${lineName}!`);
-                prosesLineSelect.value = '';
-                prosesPartSelect.innerHTML = '<option value="">Pilih Part</option>';
-                prosesNameInput.value = '';
-                // Refresh master data
-                await fetchMasterData();
-                renderProsesList();
-            } catch (error) {
-                console.error("Error saving proses: ", error);
-                showAlert('Error', 'Gagal menyimpan proses: ' + error.message);
-            }
-        });
-        
-        ngItemManagementForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const lineName = ngItemLineSelect.value;
-            const partName = ngItemPartSelect.value;
-            const prosesName = ngItemProsesSelect.value;
-            const ngItemName = ngItemNameInput.value.trim();
-            
-            if (!lineName) {
-                ngItemLineError.textContent = 'Pilih line produksi';
-                ngItemLineError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!partName) {
-                ngItemPartError.textContent = 'Pilih part';
-                ngItemPartError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!prosesName) {
-                ngItemProsesError.textContent = 'Pilih proses';
-                ngItemProsesError.classList.remove('d-none');
-                return;
-            }
-            
-            if (!ngItemName) {
-                ngItemNameError.textContent = 'Nama item NG tidak boleh kosong';
-                ngItemNameError.classList.remove('d-none');
-                return;
-            }
-            
-            ngItemLineError.classList.add('d-none');
-            ngItemPartError.classList.add('d-none');
-            ngItemProsesError.classList.add('d-none');
-            ngItemNameError.classList.add('d-none');
-            
-            // Check if NG item already exists for this line, part, and proses
-            const ngItemExists = ngItemData.some(ngItem => 
-                ngItem.lineName === lineName && 
-                ngItem.partName === partName && 
-                ngItem.prosesName === prosesName && 
-                ngItem.name === ngItemName
-            );
-            if (ngItemExists) {
-                ngItemNameError.textContent = 'Item NG dengan nama ini sudah ada untuk proses ini';
-                ngItemNameError.classList.remove('d-none');
-                return;
-            }
-            
-            try {
-                // Find prosesId
-                const proses = prosesData.find(p => 
-                    p.lineName === lineName && 
-                    p.partName === partName && 
-                    p.name === prosesName
-                );
-                if (!proses) {
-                    ngItemProsesError.textContent = 'Proses tidak ditemukan';
-                    ngItemProsesError.classList.remove('d-none');
-                    return;
-                }
-                
-                // Save to Firestore
-                await addDoc(collection(db, "ngItems"), { 
-                    prosesId: proses.id, 
-                    prosesName: proses.name,
-                    partName: partName,
-                    lineName: lineName,
-                    name: ngItemName 
-                });
-                console.log("NG Item successfully added!");
-                showAlert('Sukses', `Item NG ${ngItemName} berhasil ditambahkan untuk proses ${prosesName}, part ${partName} di line ${lineName}!`);
-                ngItemLineSelect.value = '';
-                ngItemPartSelect.innerHTML = '<option value="">Pilih Part</option>';
-                ngItemProsesSelect.innerHTML = '<option value="">Pilih Proses</option>';
-                ngItemNameInput.value = '';
-                // Refresh master data
-                await fetchMasterData();
-                renderNgItemList();
-            } catch (error) {
-                console.error("Error saving NG item: ", error);
-                showAlert('Error', 'Gagal menyimpan item NG: ' + error.message);
-            }
-        });
-        
-        // Dynamic select population for management forms
-        prosesLineSelect.addEventListener('change', () => {
-            const lineName = prosesLineSelect.value;
-            populatePartSelect(prosesPartSelect, lineName);
-        });
-        
-        ngItemLineSelect.addEventListener('change', () => {
-            const lineName = ngItemLineSelect.value;
-            populatePartSelect(ngItemPartSelect, lineName);
-        });
-        
-        ngItemPartSelect.addEventListener('change', () => {
-            const lineName = ngItemLineSelect.value;
-            const partName = ngItemPartSelect.value;
-            populateProsesSelect(ngItemProsesSelect, lineName, partName);
-        });
+
         // Filter event listeners
         filterLine.addEventListener('change', () => {
             updateFilterPartOptions();
@@ -3547,6 +2779,7 @@
             filterShift.value = '';
             renderData(window.fullDataList || []);
         });
+
         // Input form submission
         productionForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -3579,7 +2812,7 @@
             try {
                 if (documentIdInput.value) {
                     // Update existing document
-                    const docRef = doc(db, "produksiData", documentIdInput.value);
+                    const docRef = doc(db, "data_produksi", documentIdInput.value);
                     await updateDoc(docRef, data);
                     console.log("Document successfully updated!");
                     showAlert('Sukses', 'Data berhasil diperbarui!', () => {
@@ -3588,7 +2821,7 @@
                     });
                 } else {
                     // Add new document
-                    const docRef = await addDoc(collection(db, "produksiData"), data);
+                    const docRef = await addDoc(collection(db, "data_produksi"), data);
                     console.log("Document written with ID: ", docRef.id);
                     showAlert('Sukses', 'Data berhasil disimpan!', () => {
                         showPage('homePage');
@@ -3603,79 +2836,16 @@
                 setInputLoading(false);
             }
         });
-        // KPP Form Submission
-        kppForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            // Cek hak akses input
-            if (userPermissions && !userPermissions.canInput) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
-                return;
-            }
-            setKppInputLoading(true);
-            showKppStatus('', false);
 
-            // Get form data
-            const kppData = {
-                namaLineProduksi: kppLineSelect.value,
-                namaPart: kppPartSelect.value,
-                proses: kppProsesSelect.value,
-                itemNG: kppItemNgSelect.value,
-                tanggal: document.getElementById('kppTanggal').value,
-                shift: document.getElementById('kppShift').value,
-                jumlahNG: parseInt(document.getElementById('kppJumlah').value, 10) || 0,
-                keterangan: document.getElementById('kppKeterangan').value,
-                timestamp: new Date()
-            };
-
-            // Validasi data dasar
-            if (!kppData.namaLineProduksi || !kppData.namaPart || !kppData.proses || !kppData.itemNG || !kppData.tanggal || !kppData.shift || isNaN(kppData.jumlahNG)) {
-                 showKppStatus('Harap lengkapi semua field yang wajib diisi.', true);
-                 setKppInputLoading(false);
-                 return;
-            }
-
-            // Cek apakah user memiliki akses ke line produksi ini
-            if (userPermissions.accessibleLines &&
-                !userPermissions.accessibleLines.includes(kppData.namaLineProduksi)) {
-                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP line produksi ini.');
-                setKppInputLoading(false);
-                return;
-            }
-
-            try {
-                if (kppDocumentIdInput.value) {
-                    // Update existing document (jika fitur edit KPP diimplementasikan)
-                    // const docRef = doc(db, "kppData", kppDocumentIdInput.value);
-                    // await updateDoc(docRef, kppData);
-                    // console.log("KPP Document successfully updated!");
-                    // showAlert('Sukses', 'Data KPP berhasil diperbarui!', () => {
-                    //     showPage('homePage'); // Atau halaman list KPP jika ada
-                    //     // fetchDataKpp(); // Refresh data KPP jika ada
-                    // });
-                } else {
-                    // Add new document
-                    const docRef = await addDoc(collection(db, "kppData"), kppData);
-                    console.log("KPP Document written with ID: ", docRef.id);
-                    showAlert('Sukses', 'Data KPP berhasil disimpan!', () => {
-                         // Opsional: Arahkan ke halaman tertentu setelah sukses
-                         // showPage('homePage');
-                    });
-                }
-                resetKppForm();
-            } catch (error) {
-                console.error("Error saving KPP document: ", error);
-                showAlert('Error', 'Gagal menyimpan data KPP: ' + error.message);
-            } finally {
-                setKppInputLoading(false);
-            }
-        });
         // Delete confirmation
         confirmDeleteBtn.addEventListener('click', deleteData);
+
         // Initialize
         updateMonthDisplay();
         formatDateRange();
         loadSettings();
         updateFilterPartOptions();
+        generateLineAccessCheckboxes();
     </script>
     <!-- Bootstrap JS (needed for modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
