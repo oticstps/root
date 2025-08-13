@@ -2618,22 +2618,24 @@
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                updateUserProfile(user);
-                // Get user permissions
+                // Fetch user permissions
                 userPermissions = await getUserPermissions(user.uid);
-                updateUserPermissionsDisplay();
+
+                // Update UI
+                updateUserProfile(user);
                 showPage('homePage');
-                fetchData();
                 updateMonthDisplay();
                 formatDateRange();
-                startInactivityTimer();
-                
-                // NEW: Fetch lines and parts
-                await fetchLinesAndParts();
+                fetchLinesAndParts();
+                updateInputFormLineOptions();
+                updateFilterLineOptions();
+                fetchData(); // Fetch data and render the table
+                generateLineAccessCheckboxes();
+                updateUserPermissionsDisplay();
+                populateDefaultOpSettings();
+                resetInactivityTimer();
             } else {
                 currentUser = null;
-                userPermissions = null;
-                hideAutoLogoutWarning();
                 showPage('loginPage');
             }
         });
