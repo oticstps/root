@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPP App - Enhanced</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #0dcaf0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --table-header-bg: #e9ecef;
+            --text-color: #495057;
+            --bg-color: #f0f2f5;
+        }
+        body {
+            background-color: var(--bg-color);
+            padding-top: 56px;
+            padding-bottom: 56px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .app-header-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+        .user-section {
+            display: flex;
+            align-items: center;
+        }
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .logout-btn:hover {
+            color: var(--danger-color);
+        }
+        .main-content {
+            margin-top: 56px;
+            margin-bottom: 56px;
+            padding: 15px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .section-title {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.05);
+            border: 1px solid var(--border-color);
+        }
+        .status-message {
+            font-size: 14px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background-color: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 4px rgba(0,0,0,.1);
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        .data-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.05);
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-color);
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .btn-icon:hover {
+            background-color: rgba(0,0,0,0.05);
+            color: var(--primary-color);
+        }
+        .line-monitoring-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+        .line-monitoring-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        .month-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .month-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 18px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        .month-btn:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+        .month-display {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--secondary-color);
+        }
+        .no-data i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ced4da;
+        }
+        .no-data p {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .no-data small {
+            font-size: 14px;
+        }
+        .filter-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.05);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        .form-select-sm {
+            font-size: 14px;
+        }
+        .btn-outline-secondary {
+            font-size: 14px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            white-space: nowrap;
+            font-size: 12px;
+            padding: 8px 6px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .table th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+        .alert {
+            font-size: 14px;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+        .d-none {
+            display: none !important;
+        }
+        .btn-group-sm > .btn, .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.2rem;
+        }
+        .input-group-sm .btn {
+            padding: 0.25rem 0.5rem;
+        }
+        .process-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+        }
+        .process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .process-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0;
+        }
+        .ng-item {
+            margin-bottom: 10px;
+        }
+        .ng-item:last-child {
+            margin-bottom: 0;
+        }
+        .ng-item-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .count-input {
+            max-width: 120px;
+        }
+        .resume-section {
+            background-color: #e7f1ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+        .resume-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .resume-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed #ced4da;
+        }
+        .resume-item:last-child {
+            border-bottom: none;
+        }
+        .resume-label {
+            font-weight: 500;
+        }
+        .resume-value {
+            font-weight: 600;
+        }
+        .settings-section {
+            margin-bottom: 30px;
+        }
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .settings-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin: 0;
+        }
+        .btn-add {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+        }
+        .btn-add:hover {
+            background-color: #157347;
+            border-color: #157347;
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-item-content {
+            flex: 1;
+        }
+        .settings-item-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        .settings-item-subtitle {
+            font-size: 13px;
+            color: var(--secondary-color);
+        }
+        .settings-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-settings {
+            padding: 5px 10px;
+            font-size: 13px;
+        }
+        .line-processes-container {
+            margin-top: 15px;
+            padding-left: 20px;
+            border-left: 2px solid #dee2e6;
+        }
+        .process-parts-container {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 1px dashed #ced4da;
+        }
+        .part-processes-container {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 1px dashed #ced4da;
+        }
+        .process-ng-container {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 1px dashed #ced4da;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+        .empty-state i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #ced4da;
+        }
+        .btn-next {
+            background-color: var(--warning-color);
+            border-color: var(--warning-color);
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        .btn-next:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+        .modal-content {
+            border-radius: 12px;
+        }
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+        }
+        .user-menu {
+            position: absolute;
+            top: 60px;
+            right: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 250px;
+            z-index: 1001;
+            display: none;
+            border: 1px solid var(--border-color);
+        }
+        .user-menu.show {
+            display: block;
+        }
+        .user-menu-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .user-menu-body {
+            padding: 10px 0;
+        }
+        .user-menu-item {
+            padding: 10px 20px;
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .user-menu-item:hover {
+            background-color: var(--light-color);
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        .user-menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .user-menu-footer {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+        }
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mt-5">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4">Login</h3>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100" id="loginBtn">
+                                    <span id="loginText">Login</span>
+                                    <span id="loginSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Home Page (KPP Dashboard) -->
+    <div id="homePage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title">Dashboard KPP</div>
+            <div class="user-section">
+                <div class="user-avatar" id="homeUserAvatar">U</div>
+                <button class="logout-btn" id="homeLogoutBtn"><i class="bi bi-box-arrow-right"></i></button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Month Navigation -->
+            <div class="month-navigation">
+                <button class="month-btn" id="kppPrevMonth"><i class="bi bi-chevron-left"></i></button>
+                <div class="month-display" id="kppCurrentMonth">Januari 2023</div>
+                <button class="month-btn" id="kppNextMonth"><i class="bi bi-chevron-right"></i></button>
+            </div>
+            <!-- Filter Form for KPP Dashboard -->
+            <div class="filter-section mb-3 mt-3">
+                <div class="row g-2">
+                    <div class="col-6 col-md-3">
+                        <label for="kppFilterLine" class="form-label">Line Produksi</label>
+                        <select class="form-select form-select-sm" id="kppFilterLine">
+                            <option value="">Semua Line</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="kppFilterPart" class="form-label">Part</label>
+                        <select class="form-select form-select-sm" id="kppFilterPart">
+                            <option value="">Semua Part</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label for="kppFilterGroup" class="form-label">Group</label>
+                        <select class="form-select form-select-sm" id="kppFilterGroup">
+                            <option value="">Semua Group</option>
+                            <option value="PG-1.1">PG-1.1</option>
+                            <option value="PG-1.2">PG-1.2</option>
+                            <option value="PG-2.1">PG-2.1</option>
+                            <option value="PG-2.2">PG-2.2</option>
+                            <option value="PG-2.3">PG-2.3</option>
+                            <option value="PG-3.1">PG-3.1</option>
+                            <option value="PG-3.2">PG-3.2</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label for="kppFilterShift" class="form-label">Shift</label>
+                        <select class="form-select form-select-sm" id="kppFilterShift">
+                            <option value="">Semua Shift</option>
+                            <option value="1">Shift 1</option>
+                            <option value="2">Shift 2</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2 d-flex align-items-end">
+                        <button class="btn btn-outline-secondary w-100" id="kppResetFilterBtn"><i class="bi bi-x-circle"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+            <!-- KPP Monitoring Section -->
+            <section class="line-monitoring-section">
+                <h2 class="line-monitoring-title">Monitoring KPP</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm">
+                        <thead id="kppTableHeader">
+                            <!-- Header akan di-generate oleh JavaScript -->
+                        </thead>
+                        <tbody id="kppTableBody">
+                            <!-- Data akan di-generate oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Recent KPP Data List -->
+            <section class="recent-data-section mt-4">
+                <h2 class="section-title">Data KPP Terbaru</h2>
+                <div id="data_kppContainer">
+                    <div class="no-data" id="kppNoDataMessage">
+                        <i class="bi bi-clipboard-data"></i>
+                        <p>Tidak ada data KPP</p>
+                        <small>Silakan input data terlebih dahulu</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" id="homeNav"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+            <a href="#" class="nav-item" id="inputNav"><i class="bi bi-plus-circle"></i><span>Input</span></a>
+            <a href="#" class="nav-item" id="profileNav"><i class="bi bi-person"></i><span>Profil</span></a>
+            <a href="#" class="nav-item" id="settingsNav"><i class="bi bi-gear"></i><span>Settings</span></a>
+        </nav>
+    </div>
+    <!-- KPP Input Page -->
+    <div id="kppInputPage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title" id="kppInputPageTitle">Input Data KPP</div>
+            <div class="user-section">
+                <div class="user-avatar" id="kppInputUserAvatar">U</div>
+                <button class="logout-btn" id="kppInputLogoutBtn"><i class="bi bi-box-arrow-right"></i></button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="input-section">
+                <h2 class="section-title" id="kppFormTitle">Input Data KPP</h2>
+                <div class="form-container">
+                    <form id="kppForm">
+                        <input type="hidden" id="kppDocumentId">
+                        <div class="mb-3">
+                            <label for="kppTanggal" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" id="kppTanggal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppNamaLineProduksi" class="form-label">Nama Line Produksi</label>
+                            <select class="form-select" id="kppNamaLineProduksi" required>
+                                <option value="" selected disabled>Pilih Line Produksi</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kppNamaPart" class="form-label">Nama Part</label>
+                            <select class="form-select" id="kppNamaPart" required disabled>
+                                <option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="kppGroup" class="form-label">Group</label>
+                                <select class="form-select" id="kppGroup" required>
+                                    <option value="" selected disabled>Pilih Group</option>
+                                    <option value="PG-1.1">PG-1.1</option>
+                                    <option value="PG-1.2">PG-1.2</option>
+                                    <option value="PG-2.1">PG-2.1</option>
+                                    <option value="PG-2.2">PG-2.2</option>
+                                    <option value="PG-2.3">PG-2.3</option>
+                                    <option value="PG-3.1">PG-3.1</option>
+                                    <option value="PG-3.2">PG-3.2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="kppShift" class="form-label">Shift</label>
+                                <select class="form-select" id="kppShift" required>
+                                    <option value="" selected disabled>Pilih Shift</option>
+                                    <option value="1">Shift 1</option>
+                                    <option value="2">Shift 2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="kppShiftInfo" class="alert alert-info d-none">
+                            <i class="bi bi-info-circle"></i> <span id="kppShiftInfoText"></span>
+                        </div>
+                        <!-- Proses dan Item NG akan di-generate di sini -->
+                        <div id="processesContainer">
+                            <!-- Proses akan ditambahkan secara dinamis -->
+                        </div>
+                        <!-- Button Selanjutnya -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="button" class="btn btn-next" id="kppNextBtn">
+                                <i class="bi bi-arrow-right-circle"></i> Selanjutnya
+                            </button>
+                        </div>
+                        <!-- Resume Section (akan muncul setelah klik Selanjutnya) -->
+                        <div id="kppResumeSection" class="resume-section d-none">
+                            <h3 class="resume-title">Resume Input</h3>
+                            <div id="kppResumeContent">
+                                <!-- Resume akan di-generate oleh JavaScript -->
+                            </div>
+                            <div class="d-grid gap-2 mt-3">
+                                <button type="submit" class="btn btn-primary" id="kppSubmitBtn">
+                                    <span id="kppSubmitText">Simpan Data</span>
+                                    <span id="kppSubmitSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="kppBackBtn">
+                                    <i class="bi bi-arrow-left"></i> Kembali
+                                </button>
+                            </div>
+                        </div>
+                        <div id="kppInputStatusMessage" class="status-message mt-3 d-none"></div>
+                    </form>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item" id="homeNav2"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+            <a href="#" class="nav-item active" id="inputNav2"><i class="bi bi-plus-circle"></i><span>Input</span></a>
+            <a href="#" class="nav-item" id="profileNav2"><i class="bi bi-person"></i><span>Profil</span></a>
+            <a href="#" class="nav-item" id="settingsNav2"><i class="bi bi-gear"></i><span>Settings</span></a>
+        </nav>
+    </div>
+    <!-- Profile Page -->
+    <div id="profilePage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title">Profil Pengguna</div>
+            <div class="user-section">
+                <div class="user-avatar" id="profileUserAvatar">U</div>
+                <button class="logout-btn" id="profileLogoutBtn"><i class="bi bi-box-arrow-right"></i></button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Informasi Pengguna</h5>
+                    <p class="card-text">Email: <span id="userEmail"></span></p>
+                    <p class="card-text">Hak Akses:</p>
+                    <ul id="userPermissionsList"></ul>
+                </div>
+            </div>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item" id="homeNav3"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+            <a href="#" class="nav-item" id="inputNav3"><i class="bi bi-plus-circle"></i><span>Input</span></a>
+            <a href="#" class="nav-item active" id="profileNav3"><i class="bi bi-person"></i><span>Profil</span></a>
+            <a href="#" class="nav-item" id="settingsNav3"><i class="bi bi-gear"></i><span>Settings</span></a>
+        </nav>
+    </div>
+    <!-- Settings Page -->
+    <div id="settingsPage" class="page">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="app-header-title">Pengaturan</div>
+            <div class="user-section">
+                <div class="user-avatar" id="settingsUserAvatar">U</div>
+                <button class="logout-btn" id="settingsLogoutBtn"><i class="bi bi-box-arrow-right"></i></button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- User Line Access Section -->
+            <div class="settings-section" id="userAccessSection">
+                <div class="settings-header">
+                    <h2 class="settings-title">Akses Line Produksi Pengguna</h2>
+                    <button class="btn btn-primary btn-sm" id="saveUserAccessBtn">Simpan Akses</button>
+                </div>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Pilih line produksi yang boleh diakses oleh pengguna ini untuk input dan melihat data.
+                </div>
+                <div id="userAccessContainer">
+                    <!-- Line checkboxes will be generated here -->
+                    <div class="empty-state">
+                        <i class="bi bi-info-circle"></i>
+                        <p>Data line produksi belum dimuat atau pengguna belum login.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Line Produksi Section -->
+            <div class="settings-section">
+                <div class="settings-header">
+                    <h2 class="settings-title">Line Produksi</h2>
+                    <button class="btn btn-add" id="addLineBtn">
+                        <i class="bi bi-plus-circle"></i> Tambah Line
+                    </button>
+                </div>
+                <div class="settings-section-content">
+                    <div id="linesContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Belum ada line produksi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Parts Section -->
+            <div class="settings-section">
+                <div class="settings-header">
+                    <h2 class="settings-title">Parts</h2>
+                    <button class="btn btn-add" id="addPartBtn" disabled>
+                        <i class="bi bi-plus-circle"></i> Tambah Part
+                    </button>
+                </div>
+                <div class="settings-section-content">
+                    <div id="partsContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Pilih line produksi terlebih dahulu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Proses Section -->
+            <div class="settings-section">
+                <div class="settings-header">
+                    <h2 class="settings-title">Proses</h2>
+                    <button class="btn btn-add" id="addProcessBtn" disabled>
+                        <i class="bi bi-plus-circle"></i> Tambah Proses
+                    </button>
+                </div>
+                <div class="settings-section-content">
+                    <div id="processesSettingsContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Pilih part terlebih dahulu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item NG Section -->
+            <div class="settings-section">
+                <div class="settings-header">
+                    <h2 class="settings-title">Item NG</h2>
+                    <button class="btn btn-add" id="addNgItemBtn" disabled>
+                        <i class="bi bi-plus-circle"></i> Tambah Item NG
+                    </button>
+                </div>
+                <div class="settings-section-content">
+                    <div id="ngItemsSettingsContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Pilih proses terlebih dahulu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item" id="homeNav4"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+            <a href="#" class="nav-item" id="inputNav4"><i class="bi bi-plus-circle"></i><span>Input</span></a>
+            <a href="#" class="nav-item" id="profileNav4"><i class="bi bi-person"></i><span>Profil</span></a>
+            <a href="#" class="nav-item active" id="settingsNav4"><i class="bi bi-gear"></i><span>Settings</span></a>
+        </nav>
+    </div>
+    <!-- Modals -->
+    <!-- Add Line Modal -->
+    <div class="modal fade" id="addLineModal" tabindex="-1" aria-labelledby="addLineModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLineModalLabel">Tambah Line Produksi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addLineForm">
+                        <div class="mb-3">
+                            <label for="newLineName" class="form-label">Nama Line Produksi</label>
+                            <input type="text" class="form-control" id="newLineName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="saveLineBtn">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Part Modal -->
+    <div class="modal fade" id="addPartModal" tabindex="-1" aria-labelledby="addPartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPartModalLabel">Tambah Part</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPartForm">
+                        <div class="mb-3">
+                            <label for="newPartName" class="form-label">Nama Part</label>
+                            <input type="text" class="form-control" id="newPartName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="partLineSelect" class="form-label">Line Produksi</label>
+                            <select class="form-select" id="partLineSelect" required>
+                                <option value="">Pilih Line Produksi</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="savePartBtn">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Process Modal -->
+    <div class="modal fade" id="addProcessModal" tabindex="-1" aria-labelledby="addProcessModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProcessModalLabel">Tambah Proses</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProcessForm">
+                        <div class="mb-3">
+                            <label for="newProcessName" class="form-label">Nama Proses (contoh: #10, #20)</label>
+                            <input type="text" class="form-control" id="newProcessName" placeholder="#10" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="processPartSelect" class="form-label">Part</label>
+                            <select class="form-select" id="processPartSelect" required>
+                                <option value="">Pilih Part</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="saveProcessBtn">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add NG Item Modal -->
+    <div class="modal fade" id="addNgItemModal" tabindex="-1" aria-labelledby="addNgItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNgItemModalLabel">Tambah Item NG</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addNgItemForm">
+                        <div class="mb-3">
+                            <label for="newNgItemName" class="form-label">Deskripsi Item NG</label>
+                            <input type="text" class="form-control" id="newNgItemName" placeholder="Gores part 4N13 area ulir" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ngProcessSelect" class="form-label">Proses</label>
+                            <select class="form-select" id="ngProcessSelect" required>
+                                <option value="">Pilih Proses</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="saveNgItemBtn">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Peringatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="alertModalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="alertModalOkBtn">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc, query, where, orderBy, setDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAEAmmyJxMriLaNBA4n8xEXtu1g91uv860",
+          authDomain: "coreengine-142ea.firebaseapp.com",
+          databaseURL: "https://coreengine-142ea-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "coreengine-142ea",
+          storageBucket: "coreengine-142ea.firebasestorage.app",
+          messagingSenderId: "890812454910",
+          appId: "1:890812454910:web:d0906c637e26017df052af",
+          measurementId: "G-3C9ZF4EXVM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const homePage = document.getElementById('homePage');
+        const kppInputPage = document.getElementById('kppInputPage');
+        const profilePage = document.getElementById('profilePage');
+        const settingsPage = document.getElementById('settingsPage');
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginText = document.getElementById('loginText');
+        const loginSpinner = document.getElementById('loginSpinner');
+        const homeUserAvatar = document.getElementById('homeUserAvatar');
+        const homeLogoutBtn = document.getElementById('homeLogoutBtn');
+        const kppInputUserAvatar = document.getElementById('kppInputUserAvatar');
+        const kppInputLogoutBtn = document.getElementById('kppInputLogoutBtn');
+        const profileUserAvatar = document.getElementById('profileUserAvatar');
+        const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+        const settingsUserAvatar = document.getElementById('settingsUserAvatar');
+        const settingsLogoutBtn = document.getElementById('settingsLogoutBtn');
+        const kppForm = document.getElementById('kppForm');
+        const kppSubmitBtn = document.getElementById('kppSubmitBtn');
+        const kppSubmitText = document.getElementById('kppSubmitText');
+        const kppSubmitSpinner = document.getElementById('kppSubmitSpinner');
+        const kppInputStatusMessage = document.getElementById('kppInputStatusMessage');
+        const kppShiftSelect = document.getElementById('kppShift');
+        const kppShiftInfo = document.getElementById('kppShiftInfo');
+        const kppLineSelect = document.getElementById('kppNamaLineProduksi');
+        const kppPartSelect = document.getElementById('kppNamaPart');
+        const processesContainer = document.getElementById('processesContainer');
+        const kppDocumentIdInput = document.getElementById('kppDocumentId');
+        const kppFormTitle = document.getElementById('kppFormTitle');
+        const kppInputPageTitle = document.getElementById('kppInputPageTitle');
+        const kppResumeSection = document.getElementById('kppResumeSection');
+        const kppResumeContent = document.getElementById('kppResumeContent');
+        const kppNextBtn = document.getElementById('kppNextBtn');
+        const kppBackBtn = document.getElementById('kppBackBtn');
+        const userEmail = document.getElementById('userEmail');
+        const userPermissionsList = document.getElementById('userPermissionsList');
+        const data_kppContainer = document.getElementById('data_kppContainer');
+        const kppNoDataMessage = document.getElementById('kppNoDataMessage');
+        const kppTableHeader = document.getElementById('kppTableHeader');
+        const kppTableBody = document.getElementById('kppTableBody');
+        const kppCurrentMonth = document.getElementById('kppCurrentMonth');
+        const kppPrevMonth = document.getElementById('kppPrevMonth');
+        const kppNextMonth = document.getElementById('kppNextMonth');
+        const kppFilterLine = document.getElementById('kppFilterLine');
+        const kppFilterPart = document.getElementById('kppFilterPart');
+        const kppFilterGroup = document.getElementById('kppFilterGroup');
+        const kppFilterShift = document.getElementById('kppFilterShift');
+        const kppResetFilterBtn = document.getElementById('kppResetFilterBtn');
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+        const alertModalBody = document.getElementById('alertModalBody');
+        const alertModalOkBtn = document.getElementById('alertModalOkBtn');
+
+        // Settings Elements
+        const addLineBtn = document.getElementById('addLineBtn');
+        const addPartBtn = document.getElementById('addPartBtn');
+        const addProcessBtn = document.getElementById('addProcessBtn');
+        const addNgItemBtn = document.getElementById('addNgItemBtn');
+        const linesContainer = document.getElementById('linesContainer');
+        const partsContainer = document.getElementById('partsContainer');
+        const processesSettingsContainer = document.getElementById('processesSettingsContainer');
+        const ngItemsSettingsContainer = document.getElementById('ngItemsSettingsContainer');
+
+        // User Access Elements
+        const userAccessSection = document.getElementById('userAccessSection');
+        const userAccessContainer = document.getElementById('userAccessContainer');
+        const saveUserAccessBtn = document.getElementById('saveUserAccessBtn');
+
+        // Modals
+        const addLineModal = new bootstrap.Modal(document.getElementById('addLineModal'));
+        const addPartModal = new bootstrap.Modal(document.getElementById('addPartModal'));
+        const addProcessModal = new bootstrap.Modal(document.getElementById('addProcessModal'));
+        const addNgItemModal = new bootstrap.Modal(document.getElementById('addNgItemModal'));
+
+        // Form Elements in Modals
+        const newLineName = document.getElementById('newLineName');
+        const newPartName = document.getElementById('newPartName');
+        const partLineSelect = document.getElementById('partLineSelect');
+        const newProcessName = document.getElementById('newProcessName');
+        const processPartSelect = document.getElementById('processPartSelect');
+        const newNgItemName = document.getElementById('newNgItemName');
+        const ngProcessSelect = document.getElementById('ngProcessSelect');
+        const saveLineBtn = document.getElementById('saveLineBtn');
+        const savePartBtn = document.getElementById('savePartBtn');
+        const saveProcessBtn = document.getElementById('saveProcessBtn');
+        const saveNgItemBtn = document.getElementById('saveNgItemBtn');
+
+        // Navigation Elements
+        const homeNav = document.getElementById('homeNav');
+        const inputNav = document.getElementById('inputNav');
+        const profileNav = document.getElementById('profileNav');
+        const settingsNav = document.getElementById('settingsNav');
+        const homeNav2 = document.getElementById('homeNav2');
+        const inputNav2 = document.getElementById('inputNav2');
+        const profileNav2 = document.getElementById('profileNav2');
+        const settingsNav2 = document.getElementById('settingsNav2');
+        const homeNav3 = document.getElementById('homeNav3');
+        const inputNav3 = document.getElementById('inputNav3');
+        const profileNav3 = document.getElementById('profileNav3');
+        const settingsNav3 = document.getElementById('settingsNav3');
+        const homeNav4 = document.getElementById('homeNav4');
+        const inputNav4 = document.getElementById('inputNav4');
+        const profileNav4 = document.getElementById('profileNav4');
+        const settingsNav4 = document.getElementById('settingsNav4');
+
+        // State variables
+        let currentUser = null;
+        let kppCurrentDate = new Date();
+        let kppCurrentEditDocId = null;
+        let userPermissions = null;
+        let data_kppList = [];
+        let kppSettings = {
+            lines: [],
+            parts: [],
+            processes: [],
+            ngItems: []
+        };
+
+        // Shift information
+        const shiftInfoData = {
+            "1": { start: "06:00", end: "18:00" },
+            "2": { start: "18:00", end: "06:00 (H+1)" }
+        };
+
+        // Navigation Event Listeners
+        homeNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+            fetchdata_kpp();
+        });
+        inputNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showPage('kppInputPage');
+        });
+        profileNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+            loadSettingsData();
+        });
+        homeNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+            fetchdata_kpp();
+        });
+        inputNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showPage('kppInputPage');
+        });
+        profileNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNav2.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+            loadSettingsData();
+        });
+        homeNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+            fetchdata_kpp();
+        });
+        inputNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showPage('kppInputPage');
+        });
+        profileNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNav3.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+            loadSettingsData();
+        });
+        homeNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('homePage');
+            fetchdata_kpp();
+        });
+        inputNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            resetKppForm();
+            showPage('kppInputPage');
+        });
+        profileNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('profilePage');
+        });
+        settingsNav4.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('settingsPage');
+            loadSettingsData();
+        });
+
+        // KPP Navigation
+        kppPrevMonth.addEventListener('click', () => {
+            kppCurrentDate.setMonth(kppCurrentDate.getMonth() - 1);
+            updateKppMonthDisplay();
+            fetchdata_kpp();
+        });
+        kppNextMonth.addEventListener('click', () => {
+            kppCurrentDate.setMonth(kppCurrentDate.getMonth() + 1);
+            updateKppMonthDisplay();
+            fetchdata_kpp();
+        });
+
+        // Filter Event Listeners
+        kppFilterLine.addEventListener('change', updateKppFilterPartOptions);
+        kppResetFilterBtn.addEventListener('click', resetKppFilter);
+
+        // Settings Event Listeners
+        addLineBtn.addEventListener('click', () => {
+            newLineName.value = '';
+            addLineModal.show();
+        });
+        addPartBtn.addEventListener('click', () => {
+            newPartName.value = '';
+            // Populate line select in add part modal
+            partLineSelect.innerHTML = '<option value="">Pilih Line Produksi</option>';
+            kppSettings.lines.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line.id;
+                option.textContent = line.name;
+                partLineSelect.appendChild(option);
+            });
+            addPartModal.show();
+        });
+        addProcessBtn.addEventListener('click', () => {
+            newProcessName.value = '';
+            // Populate part select in add process modal
+            processPartSelect.innerHTML = '<option value="">Pilih Part</option>';
+            kppSettings.parts.forEach(part => {
+                const option = document.createElement('option');
+                option.value = part.id;
+                option.textContent = `${part.name} (${kppSettings.lines.find(l => l.id === part.lineId)?.name || 'Unknown Line'})`;
+                processPartSelect.appendChild(option);
+            });
+            addProcessModal.show();
+        });
+        addNgItemBtn.addEventListener('click', () => {
+            newNgItemName.value = '';
+            // Populate process select in add NG item modal
+            ngProcessSelect.innerHTML = '<option value="">Pilih Proses</option>';
+            kppSettings.processes.forEach(process => {
+                const part = kppSettings.parts.find(p => p.id === process.partId);
+                const line = part ? kppSettings.lines.find(l => l.id === part.lineId) : null;
+                const option = document.createElement('option');
+                option.value = process.id;
+                option.textContent = `${process.name} (${part?.name || 'Unknown Part'} - ${line?.name || 'Unknown Line'})`;
+                ngProcessSelect.appendChild(option);
+            });
+            addNgItemModal.show();
+        });
+        saveLineBtn.addEventListener('click', saveNewLine);
+        savePartBtn.addEventListener('click', saveNewPart);
+        saveProcessBtn.addEventListener('click', saveNewProcess);
+        saveNgItemBtn.addEventListener('click', saveNewNgItem);
+
+        // User Access Event Listener
+        saveUserAccessBtn.addEventListener('click', saveUserLineAccess);
+
+        // KPP Form Event Listeners
+        kppNextBtn.addEventListener('click', showKppResume);
+        kppBackBtn.addEventListener('click', hideKppResume);
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            setLoginLoading(true);
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                console.log("User signed in successfully!");
+            } catch (error) {
+                console.error("Error signing in: ", error);
+                showAlert('Error', 'Gagal login: ' + error.message);
+            } finally {
+                setLoginLoading(false);
+            }
+        });
+
+        // Logout Buttons
+        homeLogoutBtn.addEventListener('click', logout);
+        kppInputLogoutBtn.addEventListener('click', logout);
+        profileLogoutBtn.addEventListener('click', logout);
+        settingsLogoutBtn.addEventListener('click', logout);
+
+        // KPP Input Line Select
+        kppLineSelect.addEventListener('change', () => {
+            updateKppPartOptions();
+            updateKppProcessOptions();
+        });
+
+        // KPP Input Part Select
+        kppPartSelect.addEventListener('change', updateKppProcessOptions);
+
+        // KPP Input Shift Select
+        kppShiftSelect.addEventListener('change', updateKppShiftInfo);
+
+        // KPP Form Submission
+        kppForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (userPermissions && !userPermissions.canInput) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data KPP.');
+                return;
+            }
+            setKppInputLoading(true);
+            showKppInputStatus('', false);
+
+            // Get form data
+            const data = {
+                namaLineProduksi: kppLineSelect.value, // Simpan ID Line
+                namaPart: kppPartSelect.value,        // Simpan ID Part
+                tanggal: document.getElementById('kppTanggal').value,
+                group: document.getElementById('kppGroup').value,
+                shift: kppShiftSelect.value,
+                ngItems: {},
+                timestamp: Timestamp.now()
+            };
+
+            // Collect NG item values
+            const ngInputs = document.querySelectorAll('input[name="ngItems"]');
+            ngInputs.forEach(input => {
+                const processId = input.getAttribute('data-process-id');
+                const itemId = input.getAttribute('data-item-id');
+                const value = parseInt(input.value) || 0;
+                if (value > 0) {
+                    // Find process and item names for better readability
+                    const process = kppSettings.processes.find(p => p.id === processId);
+                    const item = kppSettings.ngItems.find(i => i.id === itemId);
+                    if (process && item) {
+                        const key = `${process.name} - ${item.name}`;
+                        data.ngItems[key] = value;
+                    }
+                }
+            });
+
+            // Cek apakah user memiliki akses ke line produksi ini
+            if (userPermissions.accessibleLines && !userPermissions.accessibleLines.includes(data.namaLineProduksi)) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk input data line produksi ini.');
+                setKppInputLoading(false);
+                return;
+            }
+
+            try {
+                // Cek apakah sudah ada data dengan kombinasi tanggal, line produksi, dan part yang sama
+                if (!kppDocumentIdInput.value) { // Hanya cek untuk input baru, bukan edit
+                    const q = query(
+                        collection(db, "data_kpp"),
+                        where("tanggal", "==", data.tanggal),
+                        where("namaLineProduksi", "==", data.namaLineProduksi),
+                        where("namaPart", "==", data.namaPart)
+                    );
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        showAlert('Peringatan', 'Data untuk tanggal, line produksi, dan part ini sudah ada. Silakan edit data yang sudah ada.');
+                        setKppInputLoading(false);
+                        return;
+                    }
+                }
+
+                if (kppDocumentIdInput.value) {
+                    // Update existing document
+                    const docRef = doc(db, "data_kpp", kppDocumentIdInput.value);
+                    await updateDoc(docRef, data);
+                    console.log("KPP Document successfully updated!");
+                    showAlert('Sukses', 'Data KPP berhasil diperbarui!', () => {
+                        showPage('homePage');
+                        fetchdata_kpp();
+                    });
+                } else {
+                    // Add new document
+                    const docRef = await addDoc(collection(db, "data_kpp"), data);
+                    console.log("KPP Document written with ID: ", docRef.id);
+                    showAlert('Sukses', 'Data KPP berhasil disimpan!', () => {
+                        showPage('homePage');
+                        fetchdata_kpp();
+                    });
+                }
+                resetKppForm();
+            } catch (error) {
+                console.error("Error saving KPP document: ", error);
+                showAlert('Error', 'Gagal menyimpan data KPP: ' + error.message);
+            } finally {
+                setKppInputLoading(false);
+            }
+        });
+
+        // Handle user state changes
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                updateUserProfile(user);
+                
+                // --- PERBAIKAN UTAMA ---
+                // Pastikan settings dimuat TERLEBIH DAHULU sebelum melakukan operasi lain
+                try {
+                    console.log("Memuat pengaturan setelah login...");
+                    await loadSettingsData(); // TUNGGU hingga settings selesai dimuat
+                    console.log("Pengaturan berhasil dimuat.");
+                } catch (error) {
+                    console.error("Gagal memuat pengaturan setelah login:", error);
+                    showAlert('Error', 'Gagal memuat pengaturan awal: ' + error.message);
+                    // Bisa diputuskan apakah tetap lanjut atau tidak, misalnya tetap lanjut
+                }
+                
+                // Setelah settings dimuat (meski gagal), lanjutkan inisialisasi lainnya
+                userPermissions = await getUserPermissions(user.uid);
+                updateUserPermissionsDisplay();
+                showPage('homePage');
+                fetchdata_kpp();
+                updateKppMonthDisplay();
+                // --- AKHIR PERBAIKAN UTAMA ---
+            } else {
+                currentUser = null;
+                userPermissions = null;
+                showPage('loginPage');
+            }
+        });
+
+        // Functions
+        function showPage(pageId) {
+            loginPage.classList.remove('active');
+            homePage.classList.remove('active');
+            kppInputPage.classList.remove('active');
+            profilePage.classList.remove('active');
+            settingsPage.classList.remove('active');
+            if (pageId === 'loginPage') loginPage.classList.add('active');
+            if (pageId === 'homePage') homePage.classList.add('active');
+            if (pageId === 'kppInputPage') kppInputPage.classList.add('active');
+            if (pageId === 'profilePage') profilePage.classList.add('active');
+            if (pageId === 'settingsPage') settingsPage.classList.add('active');
+        }
+
+        function setLoginLoading(isLoading) {
+            if (isLoading) {
+                loginText.textContent = 'Logging in...';
+                loginSpinner.classList.remove('d-none');
+                loginBtn.disabled = true;
+            } else {
+                loginText.textContent = 'Login';
+                loginSpinner.classList.add('d-none');
+                loginBtn.disabled = false;
+            }
+        }
+
+        async function logout() {
+            try {
+                await signOut(auth);
+                console.log("User signed out successfully!");
+                showPage('loginPage');
+            } catch (error) {
+                console.error("Error signing out: ", error);
+                showAlert('Error', 'Gagal logout: ' + error.message);
+            }
+        }
+
+        function updateUserProfile(user) {
+            const email = user.email;
+            const initials = email.charAt(0).toUpperCase();
+            homeUserAvatar.textContent = initials;
+            kppInputUserAvatar.textContent = initials;
+            profileUserAvatar.textContent = initials;
+            settingsUserAvatar.textContent = initials;
+            userEmail.textContent = email;
+        }
+
+        async function getUserPermissions(uid) {
+            try {
+                const docRef = doc(db, "userPermissions", uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    return docSnap.data();
+                } else {
+                    console.log("No such document!");
+                    return {
+                        canInput: false,
+                        canEdit: false,
+                        accessibleLines: []
+                    };
+                }
+            } catch (error) {
+                console.error("Error getting user permissions: ", error);
+                return {
+                    canInput: false,
+                    canEdit: false,
+                    accessibleLines: []
+                };
+            }
+        }
+
+        // --- PERBAIKAN UTAMA: updateUserPermissionsDisplay ---
+        function updateUserPermissionsDisplay() {
+            userPermissionsList.innerHTML = '';
+            if (userPermissions) {
+                const permissions = [];
+                if (userPermissions.canInput) permissions.push('Input Data');
+                if (userPermissions.canEdit) permissions.push('Edit/Hapus Data');
+                // Perbaikan: Petakan ID line ke nama line sebelum menampilkannya
+                if (userPermissions.accessibleLines && userPermissions.accessibleLines.length > 0) {
+                    const lineNames = userPermissions.accessibleLines.map(lineId => {
+                        // Cari line berdasarkan ID dalam kppSettings.lines
+                        const line = kppSettings.lines.find(l => l.id === lineId);
+                        // Jika ditemukan, gunakan name-nya. Jika tidak, fallback ke ID-nya sendiri
+                        return line ? line.name : `Line ID: ${lineId}`;
+                    });
+                    permissions.push(`Akses Line: ${lineNames.join(', ')}`);
+                }
+                permissions.forEach(permission => {
+                    const li = document.createElement('li');
+                    li.textContent = permission;
+                    userPermissionsList.appendChild(li);
+                });
+                // Filter line options based on user permissions
+                filterKppLineOptions();
+            }
+        }
+        // --- AKHIR PERBAIKAN UTAMA ---
+
+        function filterKppLineOptions() {
+            // Filter options di halaman input KPP
+            const kppInputLineOptions = kppLineSelect.querySelectorAll('option');
+            kppInputLineOptions.forEach(option => {
+                if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                    option.disabled = true;
+                    option.style.display = 'none';
+                } else if (option.value) { // Re-enable options that are allowed
+                     option.disabled = false;
+                     option.style.display = '';
+                }
+            });
+            // Filter options di filter KPP dashboard
+            const kppFilterLineOptions = kppFilterLine.querySelectorAll('option');
+            kppFilterLineOptions.forEach(option => {
+                if (option.value && !userPermissions.accessibleLines.includes(option.value)) {
+                    option.disabled = true;
+                    option.style.display = 'none';
+                } else if (option.value) { // Re-enable options that are allowed
+                     option.disabled = false;
+                     option.style.display = '';
+                }
+            });
+        }
+
+        function showAlert(title, message, callback) {
+            document.getElementById('alertModalLabel').textContent = title;
+            alertModalBody.textContent = message;
+            alertModalOkBtn.onclick = () => {
+                alertModal.hide();
+                if (callback) callback();
+            };
+            alertModal.show();
+        }
+
+        function setKppInputLoading(isLoading) {
+            if (isLoading) {
+                kppSubmitText.textContent = kppDocumentIdInput.value ? 'Memperbarui...' : 'Menyimpan...';
+                kppSubmitSpinner.classList.remove('d-none');
+                kppSubmitBtn.disabled = true;
+            } else {
+                kppSubmitText.textContent = kppDocumentIdInput.value ? 'Update Data' : 'Simpan Data';
+                kppSubmitSpinner.classList.add('d-none');
+                kppSubmitBtn.disabled = false;
+            }
+        }
+
+        function showKppInputStatus(message, isError = false) {
+            kppInputStatusMessage.textContent = message;
+            kppInputStatusMessage.className = `status-message mt-3 ${isError ? 'alert alert-danger' : 'alert alert-success'} ${message ? '' : 'd-none'}`;
+        }
+
+        function updateKppShiftInfo() {
+            const selectedShift = kppShiftSelect.value;
+            if (selectedShift && shiftInfoData[selectedShift]) {
+                const info = shiftInfoData[selectedShift];
+                kppShiftInfoText.textContent = `Shift ${selectedShift}: ${info.start} - ${info.end}`;
+                kppShiftInfo.classList.remove('d-none');
+            } else {
+                kppShiftInfo.classList.add('d-none');
+            }
+        }
+
+        // Update part options for KPP based on selected line
+        function updateKppPartOptions() {
+            const selectedLine = kppLineSelect.value;
+            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Part</option>';
+            if (selectedLine) {
+                kppPartSelect.disabled = false;
+                const partsForLine = kppSettings.parts.filter(part => part.lineId === selectedLine);
+                partsForLine.forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part.id;
+                    option.textContent = part.name;
+                    kppPartSelect.appendChild(option);
+                });
+            } else {
+                kppPartSelect.disabled = true;
+            }
+        }
+
+        // Update process options for KPP based on selected part
+        function updateKppProcessOptions() {
+            const selectedPart = kppPartSelect.value;
+            processesContainer.innerHTML = ''; // Clear previous processes
+            if (selectedPart) {
+                const processesForPart = kppSettings.processes.filter(process => process.partId === selectedPart);
+                if (processesForPart.length > 0) {
+                    processesForPart.forEach(process => {
+                        const processSection = document.createElement('div');
+                        processSection.className = 'process-section';
+                        processSection.innerHTML = `
+                            <div class="process-header">
+                                <h3 class="process-title">${process.name}</h3>
+                            </div>
+                            <div class="process-ng-items" id="ngItems-${process.id}">
+                                <!-- NG items will be added here -->
+                            </div>
+                        `;
+                        processesContainer.appendChild(processSection);
+                        // Add NG items for this process
+                        const ngItemsContainer = processSection.querySelector(`#ngItems-${process.id}`);
+                        const ngItemsForProcess = kppSettings.ngItems.filter(item => item.processId === process.id);
+                        if (ngItemsForProcess.length > 0) {
+                            ngItemsForProcess.forEach(item => {
+                                const ngItemDiv = document.createElement('div');
+                                ngItemDiv.className = 'ng-item';
+                                ngItemDiv.innerHTML = `
+                                    <label class="ng-item-label">${item.name}</label>
+                                    <div class="input-group input-group-sm count-input">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="changeNgValue('${process.id}-${item.id}', -1)">-</button>
+                                        <input type="number" class="form-control text-center" id="ng-${process.id}-${item.id}" name="ngItems" 
+                                               data-process-id="${process.id}" data-item-id="${item.id}" value="0" min="0">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="changeNgValue('${process.id}-${item.id}', 1)">+</button>
+                                    </div>
+                                `;
+                                ngItemsContainer.appendChild(ngItemDiv);
+                            });
+                        } else {
+                            ngItemsContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Tidak ada item NG untuk proses ini</p></div>';
+                        }
+                    });
+                } else {
+                    processesContainer.innerHTML = '<div class="alert alert-info">Tidak ada proses yang tersedia untuk part ini.</div>';
+                }
+            }
+        }
+
+        // Helper function for count up/down buttons
+        window.changeNgValue = function(inputId, delta) {
+            const input = document.getElementById(`ng-${inputId}`);
+            if (input) {
+                let value = parseInt(input.value) || 0;
+                value += delta;
+                if (value < 0) value = 0;
+                input.value = value;
+                updateKppResume(); // Update resume when value changes
+            }
+        };
+
+        // Show KPP resume section
+        function showKppResume() {
+            updateKppResume();
+            processesContainer.classList.add('d-none');
+            kppNextBtn.classList.add('d-none');
+            kppResumeSection.classList.remove('d-none');
+        }
+
+        // Hide KPP resume section
+        function hideKppResume() {
+            kppResumeSection.classList.add('d-none');
+            processesContainer.classList.remove('d-none');
+            kppNextBtn.classList.remove('d-none');
+        }
+
+        // Update KPP resume section
+        function updateKppResume() {
+            const selectedLine = kppLineSelect.options[kppLineSelect.selectedIndex]?.text || '-';
+            const selectedPart = kppPartSelect.options[kppPartSelect.selectedIndex]?.text || '-';
+            const tanggal = document.getElementById('kppTanggal').value || '-';
+            const group = document.getElementById('kppGroup').value || '-';
+            const shift = document.getElementById('kppShift').value || '-';
+            let resumeHTML = `
+                <div class="resume-item">
+                    <span class="resume-label">Tanggal:</span>
+                    <span class="resume-value">${tanggal}</span>
+                </div>
+                <div class="resume-item">
+                    <span class="resume-label">Line Produksi:</span>
+                    <span class="resume-value">${selectedLine}</span>
+                </div>
+                <div class="resume-item">
+                    <span class="resume-label">Part:</span>
+                    <span class="resume-value">${selectedPart}</span>
+                </div>
+                <div class="resume-item">
+                    <span class="resume-label">Group:</span>
+                    <span class="resume-value">${group}</span>
+                </div>
+                <div class="resume-item">
+                    <span class="resume-label">Shift:</span>
+                    <span class="resume-value">${shift}</span>
+                </div>
+                <div class="resume-item">
+                    <span class="resume-label">Item NG:</span>
+                    <span class="resume-value"></span>
+                </div>
+            `;
+            // Collect NG items with values > 0
+            const ngInputs = document.querySelectorAll('input[name="ngItems"]');
+            let ngItemsHTML = '';
+            let totalNg = 0;
+            ngInputs.forEach(input => {
+                const value = parseInt(input.value) || 0;
+                if (value > 0) {
+                    const processId = input.getAttribute('data-process-id');
+                    const itemId = input.getAttribute('data-item-id');
+                    const process = kppSettings.processes.find(p => p.id === processId);
+                    const item = kppSettings.ngItems.find(i => i.id === itemId);
+                    if (process && item) {
+                        ngItemsHTML += `<div class="resume-item">
+                            <span class="resume-label">${process.name} - ${item.name}:</span>
+                            <span class="resume-value">${value}</span>
+                        </div>`;
+                        totalNg += value;
+                    }
+                }
+            });
+            if (ngItemsHTML === '') {
+                ngItemsHTML = '<div class="resume-item"><span class="resume-label">Tidak ada item NG</span></div>';
+            }
+            resumeHTML += ngItemsHTML;
+            resumeHTML += `<div class="resume-item">
+                <span class="resume-label">Total NG:</span>
+                <span class="resume-value">${totalNg}</span>
+            </div>`;
+            kppResumeContent.innerHTML = resumeHTML;
+        }
+
+        // Add event listeners to update resume when form fields change
+        document.getElementById('kppTanggal').addEventListener('change', updateKppResume);
+        kppLineSelect.addEventListener('change', updateKppResume);
+        kppPartSelect.addEventListener('change', updateKppResume);
+        document.getElementById('kppGroup').addEventListener('change', updateKppResume);
+        kppShiftSelect.addEventListener('change', updateKppResume);
+
+        // Add event listener to update resume when NG values change
+        const observer = new MutationObserver(updateKppResume);
+        observer.observe(processesContainer, { childList: true, subtree: true });
+
+        function resetKppForm() {
+            kppForm.reset();
+            kppDocumentIdInput.value = '';
+            kppShiftInfo.classList.add('d-none');
+            kppPartSelect.disabled = true;
+            kppPartSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi Terlebih Dahulu</option>';
+            processesContainer.innerHTML = ''; // Clear generated processes
+            kppFormTitle.textContent = 'Input Data KPP';
+            kppInputPageTitle.textContent = 'Input Data KPP';
+            kppSubmitText.textContent = 'Simpan Data';
+            kppResumeSection.classList.add('d-none');
+            processesContainer.classList.remove('d-none');
+            kppNextBtn.classList.remove('d-none');
+            // Set today's date as default
+            document.getElementById('kppTanggal').valueAsDate = new Date();
+        }
+
+        async function fetchdata_kpp() {
+            try {
+                const q = query(collection(db, "data_kpp"), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
+                data_kppList = [];
+                querySnapshot.forEach((doc) => {
+                    data_kppList.push({ id: doc.id, ...doc.data() });
+                });
+                renderdata_kpp(data_kppList);
+                generateKppMonitoringTable(data_kppList);
+            } catch (error) {
+                console.error("Error fetching KPP ", error);
+                showAlert('Error', 'Gagal memuat data KPP: ' + error.message);
+            }
+        }
+
+        // Render KPP data to UI with filter
+        function renderdata_kpp(fullDataList) {
+            // Terapkan filter
+            let filteredDataList = [...fullDataList]; // Salin array untuk menghindari mutasi langsung
+            // Filter berdasarkan hak akses pengguna (jika diterapkan)
+            if (userPermissions && userPermissions.accessibleLines) {
+                filteredDataList = filteredDataList.filter(data =>
+                    userPermissions.accessibleLines.includes(data.namaLineProduksi));
+            }
+            if (kppFilterLine.value) {
+                filteredDataList = filteredDataList.filter(data => data.namaLineProduksi === kppFilterLine.value);
+            }
+            if (kppFilterPart.value) {
+                // Filter by part ID now
+                filteredDataList = filteredDataList.filter(data => data.namaPart === kppFilterPart.value);
+            }
+            if (kppFilterGroup.value) {
+                filteredDataList = filteredDataList.filter(data => data.group === kppFilterGroup.value);
+            }
+            if (kppFilterShift.value) {
+                filteredDataList = filteredDataList.filter(data => data.shift === kppFilterShift.value);
+            }
+            data_kppContainer.innerHTML = '';
+            if (filteredDataList.length === 0) {
+                kppNoDataMessage.style.display = 'block';
+            } else {
+                kppNoDataMessage.style.display = 'none';
+                filteredDataList.forEach(data => {
+                    const dataCard = document.createElement('div');
+                    dataCard.className = 'data-card';
+                    // Find line and part names for display
+                    const line = kppSettings.lines.find(l => l.id === data.namaLineProduksi);
+                    const part = kppSettings.parts.find(p => p.id === data.namaPart);
+                    dataCard.innerHTML = `
+                        <div class="card-header">
+                            <div class="card-title">${line?.name || data.namaLineProduksi} - ${part?.name || data.namaPart}</div>
+                            <div class="card-actions">
+                                ${(userPermissions && userPermissions.canEdit) ? 
+                                    `<button class="btn-icon btn-edit" data-id="${data.id}"><i class="bi bi-pencil"></i></button>
+                                     <button class="btn-icon btn-delete" data-id="${data.id}"><i class="bi bi-trash"></i></button>` : ''}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Tanggal:</strong> ${data.tanggal}</p>
+                            <p class="card-text"><strong>Group:</strong> ${data.group}</p>
+                            <p class="card-text"><strong>Shift:</strong> ${data.shift}</p>
+                            <p class="card-text"><strong>NG Items:</strong></p>
+                            <ul>
+                                ${data.ngItems ? Object.entries(data.ngItems).map(([key, value]) => `<li>${key}: ${value}</li>`).join('') : '<li>Tidak ada NG</li>'}
+                            </ul>
+                        </div>
+                    `;
+                    data_kppContainer.appendChild(dataCard);
+                });
+                // Tambahkan event listener untuk tombol edit dan hapus jika pengguna memiliki hak akses
+                if (userPermissions && userPermissions.canEdit) {
+                    document.querySelectorAll('.btn-edit').forEach(button => {
+                        if (!button.disabled) {
+                            button.addEventListener('click', (e) => {
+                                const docId = e.currentTarget.getAttribute('data-id');
+                                editdata_kpp(docId);
+                            });
+                        }
+                    });
+                    document.querySelectorAll('.btn-delete').forEach(button => {
+                        if (!button.disabled) {
+                            button.addEventListener('click', (e) => {
+                                const docId = e.currentTarget.getAttribute('data-id');
+                                showDeleteConfirmation(docId);
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        // Fungsi untuk mengisi opsi part berdasarkan line yang dipilih di filter KPP
+        function updateKppFilterPartOptions() {
+            const selectedLine = kppFilterLine.value;
+            kppFilterPart.innerHTML = '<option value="">Semua Part</option>';
+            if (selectedLine) {
+                const partsForLine = kppSettings.parts.filter(part => part.lineId === selectedLine);
+                partsForLine.forEach(part => {
+                    const option = document.createElement('option');
+                    option.value = part.id;
+                    option.textContent = part.name;
+                    kppFilterPart.appendChild(option);
+                });
+            }
+        }
+
+        function resetKppFilter() {
+            kppFilterLine.value = '';
+            kppFilterPart.innerHTML = '<option value="">Semua Part</option>';
+            kppFilterGroup.value = '';
+            kppFilterShift.value = '';
+            renderdata_kpp(data_kppList);
+        }
+
+        // Show delete confirmation
+        function showDeleteConfirmation(docId) {
+            if (!userPermissions || !userPermissions.canEdit) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk menghapus data.');
+                return;
+            }
+            kppCurrentEditDocId = docId;
+            deleteModal.show();
+        }
+
+        // Confirm delete
+        document.getElementById('confirmDeleteBtn').addEventListener('click', deletedata_kpp);
+
+        // Delete data
+        async function deletedata_kpp() {
+            if (!kppCurrentEditDocId) return;
+            try {
+                await deleteDoc(doc(db, "data_kpp", kppCurrentEditDocId));
+                console.log("KPP Document successfully deleted!");
+                deleteModal.hide();
+                fetchdata_kpp();
+                showAlert('Sukses', 'Data berhasil dihapus!');
+            } catch (error) {
+                console.error("Error deleting document: ", error);
+                showAlert('Error', 'Gagal menghapus  ' + error.message);
+            }
+        }
+
+        // Edit KPP data
+        async function editdata_kpp(docId) {
+            if (!userPermissions || !userPermissions.canEdit) {
+                showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk mengedit data KPP.');
+                return;
+            }
+            try {
+                const docRef = doc(db, "data_kpp", docId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Cek apakah user memiliki akses ke line produksi ini
+                    if (userPermissions.accessibleLines && !userPermissions.accessibleLines.includes(data.namaLineProduksi)) {
+                        showAlert('Akses Ditolak', 'Anda tidak memiliki hak akses untuk mengedit data line produksi ini.');
+                        return;
+                    }
+                    // Set form values
+                    kppDocumentIdInput.value = docId;
+                    document.getElementById('kppTanggal').value = data.tanggal;
+                    document.getElementById('kppNamaLineProduksi').value = data.namaLineProduksi;
+                    updateKppPartOptions(); // Update part options first
+                    // Small delay to ensure options are populated
+                    setTimeout(() => {
+                        document.getElementById('kppNamaPart').value = data.namaPart;
+                        document.getElementById('kppGroup').value = data.group;
+                        document.getElementById('kppShift').value = data.shift;
+                        // Update process options
+                        updateKppProcessOptions();
+                        // Populate NG item values
+                        if (data.ngItems) {
+                            for (const [key, value] of Object.entries(data.ngItems)) {
+                                // Find process and item by name
+                                const [processName, itemName] = key.split(' - ');
+                                const process = kppSettings.processes.find(p => p.name === processName);
+                                const item = kppSettings.ngItems.find(i => 
+                                    i.name === itemName && 
+                                    kppSettings.processes.find(p => p.id === i.processId)?.name === processName
+                                );
+                                if (process && item) {
+                                    const input = document.querySelector(`input[name="ngItems"][data-process-id="${process.id}"][data-item-id="${item.id}"]`);
+                                    if (input) {
+                                        input.value = value;
+                                    }
+                                }
+                            }
+                        }
+                        // Update shift info
+                        updateKppShiftInfo();
+                        updateKppResume();
+                    }, 100);
+                    // Change form title and button text
+                    kppFormTitle.textContent = 'Edit Data KPP';
+                    kppSubmitText.textContent = 'Update Data';
+                    showPage('kppInputPage');
+                } else {
+                    console.log("No such document!");
+                    showAlert('Error', 'Data tidak ditemukan.');
+                }
+            } catch (error) {
+                console.error("Error getting document: ", error);
+                showAlert('Error', 'Gagal mengambil  ' + error.message);
+            }
+        }
+
+        function updateKppMonthDisplay() {
+            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            kppCurrentMonth.textContent = `${months[kppCurrentDate.getMonth()]} ${kppCurrentDate.getFullYear()}`;
+        }
+
+        // Generate KPP monitoring table
+        function generateKppMonitoringTable(dataList) {
+            const year = kppCurrentDate.getFullYear();
+            const month = kppCurrentDate.getMonth(); // 0-based index (January = 0)
+            
+            // Calculate the first and last day of the month correctly
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0); // 0th day of next month = last day of current month
+            const daysInMonth = lastDay.getDate();
+
+            // Clear existing header content first
+            kppTableHeader.innerHTML = '';
+            
+            // Create the main header row (tanggal)
+            const headerRow = document.createElement('tr');
+            const emptyHeaderCell = document.createElement('th');
+            emptyHeaderCell.textContent = 'Line/Part';
+            headerRow.appendChild(emptyHeaderCell);
+            
+            // Loop through each day of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                // --- PERBAIKAN UTAMA: Buat dateString secara manual untuk header ---
+                // Gunakan padding untuk memastikan format MM dan DD
+                const paddedMonth = String(month + 1).padStart(2, '0'); // Bulan + 1 (karena Januari = 0) dan tambah nol di depan jika perlu
+                const paddedDay = String(day).padStart(2, '0');         // Tambah nol di depan jika perlu
+                const dateStringForHeader = `${year}-${paddedMonth}-${paddedDay}`; // Format YYYY-MM-DD
+
+                // Buat sel header menggunakan tanggal yang sudah benar
+                const dayHeaderCell = document.createElement('th');
+                dayHeaderCell.textContent = `${day}`;
+                dayHeaderCell.dataset.date = dateStringForHeader; // Simpan dateString di dataset untuk referensi/debugging
+                dayHeaderCell.style.minWidth = '40px';
+                headerRow.appendChild(dayHeaderCell);
+            }
+            kppTableHeader.appendChild(headerRow);
+
+            // Clear existing body content
+            kppTableBody.innerHTML = '';
+
+            // Get unique lines and parts from the data for this month
+            const linesAndParts = {};
+            dataList.forEach(data => {
+                const dataDate = new Date(data.tanggal);
+                // Filter data hanya untuk bulan dan tahun yang sedang ditampilkan
+                if (dataDate.getFullYear() === year && dataDate.getMonth() === month) {
+                    // Use line and part IDs
+                    if (!linesAndParts[data.namaLineProduksi]) {
+                        linesAndParts[data.namaLineProduksi] = new Set();
+                    }
+                    linesAndParts[data.namaLineProduksi].add(data.namaPart);
+                }
+            });
+
+            // Populate table rows
+            for (const [lineId, parts] of Object.entries(linesAndParts)) {
+                // Filter lines based on user access
+                if (userPermissions && userPermissions.accessibleLines && !userPermissions.accessibleLines.includes(lineId)) {
+                     continue; // Skip lines the user doesn't have access to
+                }
+                const line = kppSettings.lines.find(l => l.id === lineId);
+                const lineName = line ? line.name : lineId;
+                parts.forEach(partId => {
+                    const part = kppSettings.parts.find(p => p.id === partId);
+                    const partName = part ? part.name : partId;
+                    const row = document.createElement('tr');
+                    const linePartCell = document.createElement('td');
+                    linePartCell.textContent = `${lineName} - ${partName}`;
+                    row.appendChild(linePartCell);
+                    
+                    // Create cells for each day
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        // --- PERBAIKAN UTAMA: Buat dateString secara manual untuk perbandingan data ---
+                        const paddedMonth = String(month + 1).padStart(2, '0');
+                        const paddedDay = String(day).padStart(2, '0');
+                        const dateStringForData = `${year}-${paddedMonth}-${paddedDay}`; // Format YYYY-MM-DD
+                        
+                        // Find data for this line, part, and date
+                        const dayData = dataList.find(d =>
+                            d.namaLineProduksi === lineId &&
+                            d.namaPart === partId &&
+                            d.tanggal === dateStringForData // <-- PERBAIKAN: Gunakan dateStringForData yang benar
+                        );
+                        
+                        const dayCell = document.createElement('td');
+                        if (dayData) {
+                            // Calculate total NG for this day
+                            const totalNg = dayData.ngItems ? Object.values(dayData.ngItems).reduce((sum, val) => sum + val, 0) : 0;
+                            dayCell.textContent = totalNg > 0 ? totalNg : '-';
+                            dayCell.style.fontWeight = totalNg > 0 ? 'bold' : 'normal';
+                        } else {
+                            dayCell.textContent = '-';
+                        }
+                        row.appendChild(dayCell);
+                    }
+                    kppTableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Settings Functions
+        async function loadSettingsData() {
+            try {
+                // --- PERBAIKAN UTAMA: Muat data dari Firestore, bukan localStorage ---
+                console.log("Memuat data pengaturan (lines dan parts) dari Firestore...");
+                // Load lines
+                const linesSnapshot = await getDocs(collection(db, "lines"));
+                kppSettings.lines = [];
+                linesSnapshot.forEach(doc => {
+                    kppSettings.lines.push({ id: doc.id, ...doc.data() });
+                    console.log(`Memuat line: ID=${doc.id}, Nama=${doc.data().name}`);
+                });
+
+                // Load parts
+                const partsSnapshot = await getDocs(collection(db, "parts"));
+                kppSettings.parts = [];
+                partsSnapshot.forEach(doc => {
+                    kppSettings.parts.push({ id: doc.id, ...doc.data() });
+                    console.log(`Memuat part: ID=${doc.id}, Nama=${doc.data().name}, LineID=${doc.data().lineId}`);
+                });
+
+                // Load processes
+                const processesSnapshot = await getDocs(collection(db, "processes"));
+                kppSettings.processes = [];
+                processesSnapshot.forEach(doc => {
+                    kppSettings.processes.push({ id: doc.id, ...doc.data() });
+                    console.log(`Memuat process: ID=${doc.id}, Nama=${doc.data().name}, PartID=${doc.data().partId}`);
+                });
+
+                // Load NG items
+                const ngItemsSnapshot = await getDocs(collection(db, "ngItems"));
+                kppSettings.ngItems = [];
+                ngItemsSnapshot.forEach(doc => {
+                    kppSettings.ngItems.push({ id: doc.id, ...doc.data() });
+                    console.log(`Memuat NG item: ID=${doc.id}, Nama=${doc.data().name}, ProcessID=${doc.data().processId}`);
+                });
+                console.log("Data pengaturan berhasil dimuat:", kppSettings);
+                // --- AKHIR PERBAIKAN UTAMA ---
+
+                renderSettings();
+                updateLineSelects(); // Update selects in modals
+                updateKppLineOptions(); // Update line options in input and filter
+                // Load user access settings if user is logged in
+                if (currentUser) {
+                     renderUserAccessSettings();
+                }
+            } catch (error) {
+                console.error("Error loading settings: ", error);
+                showAlert('Error', 'Gagal memuat pengaturan: ' + error.message);
+            }
+        }
+
+        function saveSettings() {
+            // --- PERBAIKAN UTAMA: Tidak digunakan lagi karena data disimpan di Firestore ---
+            // Data settings sekarang disimpan langsung ke Firestore saat dibuat/ubah/hapus
+            console.log("saveSettings: Data disimpan di Firestore, bukan localStorage.");
+            // --- AKHIR PERBAIKAN UTAMA ---
+        }
+
+        function renderSettings() {
+            // Render lines
+            linesContainer.innerHTML = '';
+            if (kppSettings.lines.length === 0) {
+                linesContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Belum ada line produksi</p></div>';
+            } else {
+                kppSettings.lines.forEach(line => {
+                    const lineElement = document.createElement('div');
+                    lineElement.className = 'settings-item';
+                    lineElement.innerHTML = `
+                        <div class="settings-item-content">
+                            <div class="settings-item-title">${line.name}</div>
+                            <div class="settings-item-subtitle">${kppSettings.parts.filter(p => p.lineId === line.id).length} parts</div>
+                        </div>
+                        <div class="settings-item-actions">
+                            <button class="btn btn-outline-danger btn-sm" onclick="deleteLine('${line.id}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    linesContainer.appendChild(lineElement);
+                });
+            }
+            // Render parts (show all parts)
+            partsContainer.innerHTML = '';
+            if (kppSettings.parts.length === 0) {
+                partsContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Belum ada part</p></div>';
+            } else {
+                const partsByLine = {};
+                kppSettings.parts.forEach(part => {
+                    if (!partsByLine[part.lineId]) {
+                        partsByLine[part.lineId] = [];
+                    }
+                    partsByLine[part.lineId].push(part);
+                });
+                for (const [lineId, parts] of Object.entries(partsByLine)) {
+                    const line = kppSettings.lines.find(l => l.id === lineId);
+                    if (line) {
+                        const lineHeader = document.createElement('div');
+                        lineHeader.className = 'settings-item';
+                        lineHeader.innerHTML = `
+                            <div class="settings-item-content">
+                                <div class="settings-item-title">${line.name}</div>
+                            </div>
+                        `;
+                        partsContainer.appendChild(lineHeader);
+                        const linePartsContainer = document.createElement('div');
+                        linePartsContainer.className = 'line-processes-container';
+                        parts.forEach(part => {
+                            const partElement = document.createElement('div');
+                            partElement.className = 'settings-item';
+                            partElement.innerHTML = `
+                                <div class="settings-item-content">
+                                    <div class="settings-item-title">${part.name}</div>
+                                    <div class="settings-item-subtitle">${kppSettings.processes.filter(p => p.partId === part.id).length} proses</div>
+                                </div>
+                                <div class="settings-item-actions">
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deletePart('${part.id}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                            linePartsContainer.appendChild(partElement);
+                        });
+                        partsContainer.appendChild(linePartsContainer);
+                    }
+                }
+            }
+            // Render processes (show all processes)
+            processesSettingsContainer.innerHTML = '';
+            if (kppSettings.processes.length === 0) {
+                processesSettingsContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Belum ada proses</p></div>';
+            } else {
+                const processesByPart = {};
+                kppSettings.processes.forEach(process => {
+                    if (!processesByPart[process.partId]) {
+                        processesByPart[process.partId] = [];
+                    }
+                    processesByPart[process.partId].push(process);
+                });
+                for (const [partId, processes] of Object.entries(processesByPart)) {
+                    const part = kppSettings.parts.find(p => p.id === partId);
+                    if (part) {
+                        const line = kppSettings.lines.find(l => l.id === part.lineId);
+                        const partHeader = document.createElement('div');
+                        partHeader.className = 'settings-item';
+                        partHeader.innerHTML = `
+                            <div class="settings-item-content">
+                                <div class="settings-item-title">${part.name} (${line?.name || 'Unknown Line'})</div>
+                            </div>
+                        `;
+                        processesSettingsContainer.appendChild(partHeader);
+                        const partProcessesContainer = document.createElement('div');
+                        partProcessesContainer.className = 'process-parts-container';
+                        processes.forEach(process => {
+                            const processElement = document.createElement('div');
+                            processElement.className = 'settings-item';
+                            processElement.innerHTML = `
+                                <div class="settings-item-content">
+                                    <div class="settings-item-title">${process.name}</div>
+                                    <div class="settings-item-subtitle">${kppSettings.ngItems.filter(i => i.processId === process.id).length} item NG</div>
+                                </div>
+                                <div class="settings-item-actions">
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deleteProcess('${process.id}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                            partProcessesContainer.appendChild(processElement);
+                        });
+                        processesSettingsContainer.appendChild(partProcessesContainer);
+                    }
+                }
+            }
+            // Render NG items (show all NG items)
+            ngItemsSettingsContainer.innerHTML = '';
+            if (kppSettings.ngItems.length === 0) {
+                ngItemsSettingsContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Belum ada item NG</p></div>';
+            } else {
+                const ngItemsByProcess = {};
+                kppSettings.ngItems.forEach(item => {
+                    if (!ngItemsByProcess[item.processId]) {
+                        ngItemsByProcess[item.processId] = [];
+                    }
+                    ngItemsByProcess[item.processId].push(item);
+                });
+                for (const [processId, ngItems] of Object.entries(ngItemsByProcess)) {
+                    const process = kppSettings.processes.find(p => p.id === processId);
+                    if (process) {
+                        const part = kppSettings.parts.find(p => p.id === process.partId);
+                        const line = part ? kppSettings.lines.find(l => l.id === part.lineId) : null;
+                        const processHeader = document.createElement('div');
+                        processHeader.className = 'settings-item';
+                        processHeader.innerHTML = `
+                            <div class="settings-item-content">
+                                <div class="settings-item-title">${process.name} (${part?.name || 'Unknown Part'} - ${line?.name || 'Unknown Line'})</div>
+                            </div>
+                        `;
+                        ngItemsSettingsContainer.appendChild(processHeader);
+                        const processNgContainer = document.createElement('div');
+                        processNgContainer.className = 'process-ng-container';
+                        ngItems.forEach(item => {
+                            const itemElement = document.createElement('div');
+                            itemElement.className = 'settings-item';
+                            itemElement.innerHTML = `
+                                <div class="settings-item-content">
+                                    <div class="settings-item-title">${item.name}</div>
+                                </div>
+                                <div class="settings-item-actions">
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deleteNgItem('${item.id}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                            processNgContainer.appendChild(itemElement);
+                        });
+                        ngItemsSettingsContainer.appendChild(processNgContainer);
+                    }
+                }
+            }
+            // Update button states
+            addPartBtn.disabled = kppSettings.lines.length === 0;
+            addProcessBtn.disabled = kppSettings.parts.length === 0;
+            addNgItemBtn.disabled = kppSettings.processes.length === 0;
+        }
+
+        function updateLineSelects() {
+            // Update line select in add part modal
+            partLineSelect.innerHTML = '<option value="">Pilih Line Produksi</option>';
+            kppSettings.lines.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line.id;
+                option.textContent = line.name;
+                partLineSelect.appendChild(option);
+            });
+            // Update part select in add process modal
+            processPartSelect.innerHTML = '<option value="">Pilih Part</option>';
+            kppSettings.parts.forEach(part => {
+                const line = kppSettings.lines.find(l => l.id === part.lineId);
+                const option = document.createElement('option');
+                option.value = part.id;
+                option.textContent = `${part.name} (${line?.name || 'Unknown Line'})`;
+                processPartSelect.appendChild(option);
+            });
+            // Update process select in add NG item modal
+            ngProcessSelect.innerHTML = '<option value="">Pilih Proses</option>';
+            kppSettings.processes.forEach(process => {
+                const part = kppSettings.parts.find(p => p.id === process.partId);
+                const line = part ? kppSettings.lines.find(l => l.id === part.lineId) : null;
+                const option = document.createElement('option');
+                option.value = process.id;
+                option.textContent = `${process.name} (${part?.name || 'Unknown Part'} - ${line?.name || 'Unknown Line'})`;
+                ngProcessSelect.appendChild(option);
+            });
+        }
+
+        function updateKppLineOptions() {
+            // Update line options in KPP input form
+            kppLineSelect.innerHTML = '<option value="" selected disabled>Pilih Line Produksi</option>';
+            kppSettings.lines.forEach(line => {
+                // Only add options for lines user has access to (if permissions loaded)
+                if (!userPermissions || !userPermissions.accessibleLines || userPermissions.accessibleLines.includes(line.id)) {
+                     const option = document.createElement('option');
+                     option.value = line.id;
+                     option.textContent = line.name;
+                     kppLineSelect.appendChild(option);
+                }
+            });
+            // Update line options in KPP filter
+            kppFilterLine.innerHTML = '<option value="">Semua Line</option>';
+            kppSettings.lines.forEach(line => {
+                // Only add options for lines user has access to (if permissions loaded)
+                if (!userPermissions || !userPermissions.accessibleLines || userPermissions.accessibleLines.includes(line.id)) {
+                     const option = document.createElement('option');
+                     option.value = line.id;
+                     option.textContent = line.name;
+                     kppFilterLine.appendChild(option);
+                }
+            });
+        }
+
+        async function saveNewLine() {
+            const name = newLineName.value.trim();
+            if (!name) {
+                showAlert('Error', 'Nama line produksi tidak boleh kosong');
+                return;
+            }
+            // Check if line already exists (by name) in Firestore
+            try {
+                const q = query(collection(db, "lines"), where("name", "==", name));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Line produksi dengan nama ini sudah ada');
+                    return;
+                }
+                const docRef = await addDoc(collection(db, "lines"), { name: name });
+                kppSettings.lines.push({ id: docRef.id, name: name });
+                renderSettings();
+                updateLineSelects();
+                updateKppLineOptions();
+                // Update user access settings UI to include the new line
+                renderUserAccessSettings();
+                addLineModal.hide();
+                showAlert('Sukses', 'Line produksi berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error saving new line: ", error);
+                showAlert('Error', 'Gagal menyimpan line produksi: ' + error.message);
+            }
+        }
+
+        async function saveNewPart() {
+            const name = newPartName.value.trim();
+            const lineId = partLineSelect.value;
+            if (!name) {
+                showAlert('Error', 'Nama part tidak boleh kosong');
+                return;
+            }
+            if (!lineId) {
+                showAlert('Error', 'Silakan pilih line produksi');
+                return;
+            }
+            // Check if part already exists for this line (by name and lineId) in Firestore
+            try {
+                const q = query(collection(db, "parts"), where("name", "==", name), where("lineId", "==", lineId));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Part dengan nama ini sudah ada untuk line produksi ini');
+                    return;
+                }
+                const docRef = await addDoc(collection(db, "parts"), { name: name, lineId: lineId });
+                kppSettings.parts.push({ id: docRef.id, name: name, lineId: lineId });
+                renderSettings();
+                updateLineSelects();
+                addPartModal.hide();
+                showAlert('Sukses', 'Part berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error saving new part: ", error);
+                showAlert('Error', 'Gagal menyimpan part: ' + error.message);
+            }
+        }
+
+        async function saveNewProcess() {
+            const name = newProcessName.value.trim();
+            const partId = processPartSelect.value;
+            if (!name) {
+                showAlert('Error', 'Nama proses tidak boleh kosong');
+                return;
+            }
+            if (!partId) {
+                showAlert('Error', 'Silakan pilih part');
+                return;
+            }
+            // Validate process name format (#10, #20, etc.)
+            if (!/^#\d+$/.test(name)) {
+                showAlert('Error', 'Nama proses harus dalam format #10, #20, dll.');
+                return;
+            }
+            // Check if process already exists for this part (by name and partId) in Firestore
+            try {
+                const q = query(collection(db, "processes"), where("name", "==", name), where("partId", "==", partId));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Proses dengan nama ini sudah ada untuk part ini');
+                    return;
+                }
+                const docRef = await addDoc(collection(db, "processes"), { name: name, partId: partId });
+                kppSettings.processes.push({ id: docRef.id, name: name, partId: partId });
+                renderSettings();
+                updateLineSelects();
+                addProcessModal.hide();
+                showAlert('Sukses', 'Proses berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error saving new process: ", error);
+                showAlert('Error', 'Gagal menyimpan proses: ' + error.message);
+            }
+        }
+
+        async function saveNewNgItem() {
+            const name = newNgItemName.value.trim();
+            const processId = ngProcessSelect.value;
+            if (!name) {
+                showAlert('Error', 'Deskripsi item NG tidak boleh kosong');
+                return;
+            }
+            if (!processId) {
+                showAlert('Error', 'Silakan pilih proses');
+                return;
+            }
+            // Check if NG item already exists for this process (by name and processId) in Firestore
+            try {
+                const q = query(collection(db, "ngItems"), where("name", "==", name), where("processId", "==", processId));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    showAlert('Error', 'Item NG dengan deskripsi ini sudah ada untuk proses ini');
+                    return;
+                }
+                const docRef = await addDoc(collection(db, "ngItems"), { name: name, processId: processId });
+                kppSettings.ngItems.push({ id: docRef.id, name: name, processId: processId });
+                renderSettings();
+                updateLineSelects();
+                addNgItemModal.hide();
+                showAlert('Sukses', 'Item NG berhasil ditambahkan');
+            } catch (error) {
+                console.error("Error saving new NG item: ", error);
+                showAlert('Error', 'Gagal menyimpan item NG: ' + error.message);
+            }
+        }
+
+        // Delete functions (called from inline onclick)
+        window.deleteLine = async function(lineId) {
+            if (confirm('Apakah Anda yakin ingin menghapus line produksi ini? Semua part, proses, dan item NG yang terkait juga akan dihapus.')) {
+                try {
+                    // Remove line from Firestore
+                    await deleteDoc(doc(db, "lines", lineId));
+                    // Remove line from local settings
+                    kppSettings.lines = kppSettings.lines.filter(line => line.id !== lineId);
+                    // Remove associated parts from Firestore and local settings
+                    const partsToRemove = kppSettings.parts.filter(part => part.lineId === lineId);
+                    for (const part of partsToRemove) {
+                        await deleteDoc(doc(db, "parts", part.id));
+                    }
+                    kppSettings.parts = kppSettings.parts.filter(part => part.lineId !== lineId);
+                    // Remove associated processes from Firestore and local settings
+                    const processIdsToRemove = partsToRemove.map(part => part.id);
+                    const processesToRemove = kppSettings.processes.filter(process => processIdsToRemove.includes(process.partId));
+                    for (const process of processesToRemove) {
+                        await deleteDoc(doc(db, "processes", process.id));
+                    }
+                    kppSettings.processes = kppSettings.processes.filter(process => !processIdsToRemove.includes(process.partId));
+                    // Remove associated NG items from Firestore and local settings
+                    const ngItemIdsToRemove = processesToRemove.map(process => process.id);
+                    for (const item of kppSettings.ngItems) {
+                        if (ngItemIdsToRemove.includes(item.processId)) {
+                            await deleteDoc(doc(db, "ngItems", item.id));
+                        }
+                    }
+                    kppSettings.ngItems = kppSettings.ngItems.filter(item => !ngItemIdsToRemove.includes(item.processId));
+                    renderSettings();
+                    updateLineSelects();
+                    updateKppLineOptions();
+                    // Update user access settings UI after deletion
+                    renderUserAccessSettings();
+                    showAlert('Sukses', 'Line produksi dan data terkait berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting line: ", error);
+                    showAlert('Error', 'Gagal menghapus line produksi: ' + error.message);
+                }
+            }
+        };
+
+        window.deletePart = async function(partId) {
+            if (confirm('Apakah Anda yakin ingin menghapus part ini? Semua proses dan item NG yang terkait juga akan dihapus.')) {
+                try {
+                    // Remove part from Firestore
+                    await deleteDoc(doc(db, "parts", partId));
+                    // Remove part from local settings
+                    kppSettings.parts = kppSettings.parts.filter(part => part.id !== partId);
+                    // Remove associated processes from Firestore and local settings
+                    const processesToRemove = kppSettings.processes.filter(process => process.partId === partId);
+                    for (const process of processesToRemove) {
+                        await deleteDoc(doc(db, "processes", process.id));
+                    }
+                    kppSettings.processes = kppSettings.processes.filter(process => process.partId !== partId);
+                    // Remove associated NG items from Firestore and local settings
+                    const ngItemIdsToRemove = processesToRemove.map(process => process.id);
+                    for (const item of kppSettings.ngItems) {
+                        if (ngItemIdsToRemove.includes(item.processId)) {
+                            await deleteDoc(doc(db, "ngItems", item.id));
+                        }
+                    }
+                    kppSettings.ngItems = kppSettings.ngItems.filter(item => !ngItemIdsToRemove.includes(item.processId));
+                    renderSettings();
+                    updateLineSelects();
+                    showAlert('Sukses', 'Part dan data terkait berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting part: ", error);
+                    showAlert('Error', 'Gagal menghapus part: ' + error.message);
+                }
+            }
+        };
+
+        window.deleteProcess = async function(processId) {
+            if (confirm('Apakah Anda yakin ingin menghapus proses ini? Semua item NG yang terkait juga akan dihapus.')) {
+                try {
+                    // Remove process from Firestore
+                    await deleteDoc(doc(db, "processes", processId));
+                    // Remove process from local settings
+                    kppSettings.processes = kppSettings.processes.filter(process => process.id !== processId);
+                    // Remove associated NG items from Firestore and local settings
+                    for (const item of kppSettings.ngItems) {
+                        if (item.processId === processId) {
+                            await deleteDoc(doc(db, "ngItems", item.id));
+                        }
+                    }
+                    kppSettings.ngItems = kppSettings.ngItems.filter(item => item.processId !== processId);
+                    renderSettings();
+                    updateLineSelects();
+                    showAlert('Sukses', 'Proses dan data terkait berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting process: ", error);
+                    showAlert('Error', 'Gagal menghapus proses: ' + error.message);
+                }
+            }
+        };
+
+        window.deleteNgItem = async function(itemId) {
+            if (confirm('Apakah Anda yakin ingin menghapus item NG ini?')) {
+                try {
+                    // Remove NG item from Firestore
+                    await deleteDoc(doc(db, "ngItems", itemId));
+                    // Remove NG item from local settings
+                    kppSettings.ngItems = kppSettings.ngItems.filter(item => item.id !== itemId);
+                    renderSettings();
+                    updateLineSelects();
+                    showAlert('Sukses', 'Item NG berhasil dihapus');
+                } catch (error) {
+                    console.error("Error deleting NG item: ", error);
+                    showAlert('Error', 'Gagal menghapus item NG: ' + error.message);
+                }
+            }
+        };
+
+        // Function to render user access settings UI
+        async function renderUserAccessSettings() {
+            if (!currentUser || !userAccessContainer) return; // Ensure user and container exist
+            userAccessContainer.innerHTML = ''; // Clear previous content
+            if (kppSettings.lines.length === 0) {
+                userAccessContainer.innerHTML = '<div class="empty-state"><i class="bi bi-info-circle"></i><p>Belum ada line produksi untuk diatur aksesnya.</p></div>';
+                return;
+            }
+            // Get current user's permissions to pre-check checkboxes
+            const userPerms = await getUserPermissions(currentUser.uid);
+            const accessibleLines = userPerms.accessibleLines || [];
+            kppSettings.lines.forEach(line => {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'form-check mb-2';
+                lineDiv.innerHTML = `
+                    <input class="form-check-input user-access-checkbox" type="checkbox" value="${line.id}" id="access-${line.id}" ${accessibleLines.includes(line.id) ? 'checked' : ''}>
+                    <label class="form-check-label" for="access-${line.id}">
+                        ${line.name}
+                    </label>
+                `;
+                userAccessContainer.appendChild(lineDiv);
+            });
+        }
+
+        // Function to save user line access to Firestore
+        async function saveUserLineAccess() {
+            if (!currentUser) {
+                showAlert('Error', 'Pengguna tidak ditemukan.');
+                return;
+            }
+            const checkboxes = document.querySelectorAll('.user-access-checkbox');
+            const selectedLineIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+            try {
+                 // Get existing permissions document
+                 const userPermDocRef = doc(db, "userPermissions", currentUser.uid);
+                 const userPermDocSnap = await getDoc(userPermDocRef);
+                 let updatedPermissions = {};
+                 if (userPermDocSnap.exists()) {
+                     updatedPermissions = userPermDocSnap.data();
+                 }
+                 // Update the accessibleLines field
+                 updatedPermissions.accessibleLines = selectedLineIds;
+                 // Save the updated permissions back to Firestore
+                 await setDoc(userPermDocRef, updatedPermissions, { merge: true });
+                 // Update the local userPermissions object
+                 userPermissions = updatedPermissions;
+                 updateUserPermissionsDisplay();
+                 filterKppLineOptions(); // Update dropdowns in input and filter
+                 updateKppLineOptions(); // Update dropdowns in input and filter
+                 fetchdata_kpp(); // Refresh dashboard data
+                 showAlert('Sukses', 'Akses line produksi berhasil disimpan.');
+            } catch (error) {
+                console.error("Error saving user line access: ", error);
+                showAlert('Error', 'Gagal menyimpan akses line produksi: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
